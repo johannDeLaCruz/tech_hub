@@ -99,7 +99,7 @@ module.exports = {
         900: "#0a5d19",
         950: "#003509",
       },
-      grey: "#2B2B2B",
+      gray: "#2B2B2B",
       white: {
         50: "#fafafa",
         100: "#efefef",
@@ -114,6 +114,16 @@ module.exports = {
         950: "#292929",
       },
       black: "#161616",
+    },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1.5rem",
+        sm: "1.5rem",
+        lg: "4rem",
+        xl: "5rem",
+        "2xl": "6rem",
+      },
     },
   },
   plugins: [],
