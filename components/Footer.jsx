@@ -2,10 +2,10 @@ import Nav from "@components/Nav";
 
 const Footer = () => {
   return (
-    <div>
+    <footer>
       Footer
       <Nav />
-    </div>
+    </footer>
   );
 };
 

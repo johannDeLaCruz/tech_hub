@@ -1,5 +1,5 @@
-import "@styles/globals.css";  
-import Nav from "@components/Nav";
+import "@styles/globals.css";
+import Header from "@components/Header";
 import Footer from "@components/Footer";
 
 export const metadata = {
@@ -11,13 +11,9 @@ const RootLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
-        <header>
-          <Nav />
-        </header>
+        <Header />
         <main>{children}</main>
-        <footer>
-          <Footer />
-        </footer>
+        <Footer />
       </body>
     </html>
   );
