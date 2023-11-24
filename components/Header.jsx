@@ -6,11 +6,11 @@ import HamburguerMenu from "@components/HamburguerMenu";
 
 const Header = () => {
   return (
-    <header className="bg-gray">
+    <header className="bg-gray-950">
       <div className="container flex justify-between items-center">
         <Logo />
         <Nav />
-        <div className="flex gap-3 py-6">
+        <div className="flex gap-2 py-5">
           <GoogleLoginButton />
           <ModeButton />
           <HamburguerMenu />
