@@ -1,5 +1,12 @@
 import OrderMenu from "@components/OrderMenu";
 import TagsSelection from "@components/TagsSelection";
+import SearchBar from "@components/SearchBar";
+
+// const CardsList = [
+//   {
+
+//   }
+// ]
 
 const Home = () => {
   return (
@@ -20,18 +27,7 @@ const Home = () => {
         </button>
         <OrderMenu />
       </div>
-      <div className="flex justify-center pb-6">
-        <label htmlFor="search" className="sr-only">
-          Search technologies...
-        </label>
-        <input
-          type="text"
-          name="search"
-          id="search"
-          placeholder="  Search technologies..."
-          className="mx-auto w-full sm:max-w-2xl rounded-3xl bg-gray-950 text-body2 custom-hover"
-        />
-      </div>
+      <SearchBar />
       <hr />
       <TagsSelection />
       <div className="mx-auto w-full sm:max-w-sm bg-gray-950 text-button text-center p-2 rounded-3xl">
