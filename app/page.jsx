@@ -1,3 +1,5 @@
+import OrderMenu from "@components/OrderMenu";
+
 const Home = () => {
   return (
     <main className="container">
@@ -9,24 +11,11 @@ const Home = () => {
         THE LARGEST VR/AR/XR TOOLS DIRECTORY, UPDATED DAILY
       </h2>
       <hr />
-      <div className="mx-auto flex justify-between w-full sm:max-w-xl py-1">
-        <button className="text-h4 focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-500 focus:ring-inset hover:opacity-70">
+      <div className="mx-auto flex justify-between w-full sm:max-w-xl">
+        <button className="text-h4 custom-hover hover:opacity-70">
           Filter results
         </button>
-        <label htmlFor="orderBy" className="sr-only">
-          Order By
-        </label>
-        <select
-          name="orderBy"
-          id="orderBy"
-          className="text-black p-2 border border-gray-300 rounded-md leading-tight focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-500 bg-transparent"
-        >
-          <option value="Order By"></option>
-          <option value="Newest"></option>
-          <option value="Rating"></option>
-          <option value="A-Z"></option>
-          <option value="Z-A"></option>
-        </select>
+        <OrderMenu />
       </div>
       <div className="flex justify-center pb-6">
         <label htmlFor="search" className="sr-only">
@@ -37,7 +26,7 @@ const Home = () => {
           name="search"
           id="search"
           placeholder="  Search technologies..."
-          className="w-full sm:max-w-xl rounded-3xl p-3 bg-gray-950 text-body2 leading-tight focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-500"
+          className="w-full sm:max-w-xl rounded-3xl bg-gray-950 text-body2 custom-hover"
         />
       </div>
       <hr />
