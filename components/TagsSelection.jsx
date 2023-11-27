@@ -12,7 +12,8 @@ const TagsSelection = () => {
   ];
 
   return (
-    <div className="flex flex-wrap gap-2">
+    //justify-center
+    <div className="mx-auto w-full sm:max-w-2xl flex flex-wrap gap-2 pb-6">
       {tags.map((tag, index) => {
         return (
           <button
