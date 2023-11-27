@@ -4,6 +4,7 @@
         "style",
         "heading",
         "search",
-        "tags"
+        "tags",
+        "card"
     ]
 }
