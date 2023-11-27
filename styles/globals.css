@@ -4,14 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer components {
   .btn-round {
     @apply hover:transition-colors dark:hover:bg-white/20 hover:bg-black/20 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-primary-500 focus:ring-primary-500;
   }
   hr {
-    @apply h-px dark:border-gray-950 border-gray-300 py-4;
+    @apply h-px dark:border-gray-950 border-gray-300 py-2;
+  }
+  .tag {
+    @apply border border-primary-500 font-body text-tag text-primary-500 hover:bg-primary-500 hover:text-white hover:transition-colors focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-500 focus:ring-inset duration-300;
   }
 }
 

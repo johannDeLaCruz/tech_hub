@@ -3,6 +3,7 @@
         "ui",
         "style",
         "heading",
-        "search"
+        "search",
+        "tags"
     ]
 }

@@ -1,4 +1,5 @@
 import OrderMenu from "@components/OrderMenu";
+import TagsSelection from "@components/TagsSelection";
 
 const Home = () => {
   return (
@@ -30,6 +31,8 @@ const Home = () => {
         />
       </div>
       <hr />
+      <TagsSelection />
+
     </main>
   );
 };
