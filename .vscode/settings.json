@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "ui",
         "style",
-        "heading"
+        "heading",
+        "search"
     ]
 }

@@ -2,7 +2,7 @@
 // import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 const GoogleLoginButton = () => {
   return (
-    <button className="btn-gray">
+    <button className="btn-round">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="1.25rem"

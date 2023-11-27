@@ -7,14 +7,14 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
+      body: ["SourceSans3", "sans-serif"],
       heading: ["MuseoModerno", "sans-serif"],
-      body: ["Source Code Pro", "monospace"],
     },
     fontSize: {
       h1: [
         "3rem",
         {
-          // lineHeight: "2.25rem",
+          lineHeight: "1.5em",
           letterSpacing: "0em",
           fontWeight: "600",
         },
@@ -22,16 +22,16 @@ module.exports = {
       h2: [
         "1.5rem",
         {
-          // lineHeight: "2.25rem",
+          // lineHeight: "1.5em",
           letterSpacing: "0em",
           fontWeight: "600",
         },
       ],
       h3: [
-        "1.25rem",
+        "1.125rem",
         {
-          // lineHeight: "2rem",
-          letterSpacing: "-0.01em",
+          // lineHeight: "1.5 em",
+          // letterSpacing: "-0.01em",
           fontWeight: "500",
         },
       ],
@@ -39,7 +39,7 @@ module.exports = {
         "1rem",
         {
           // lineHeight: "2rem",
-          letterSpacing: "-0.01em",
+          // letterSpacing: "-0.01em",
           fontWeight: "700",
         },
       ],
@@ -47,7 +47,7 @@ module.exports = {
         "1rem",
         {
           // lineHeight: "2rem",
-          letterSpacing: "-0.01em",
+          // letterSpacing: "-0.01em",
           fontWeight: "500",
         },
       ],
@@ -112,20 +112,7 @@ module.exports = {
         900: "#3d3d3d",
         950: "#2b2b2b",
       },
-
-      white: {
-        50: "#fafafa",
-        100: "#efefef",
-        200: "#dcdcdc",
-        300: "#bdbdbd",
-        400: "#989898",
-        500: "#7c7c7c",
-        600: "#656565",
-        700: "#525252",
-        800: "#464646",
-        900: "#3d3d3d",
-        950: "#292929",
-      },
+      white: "#fafafa",
       black: "#161616",
     },
     container: {
@@ -138,6 +125,11 @@ module.exports = {
         "2xl": "6rem",
       },
     },
+    // extends: {
+    //   borderRadius: {
+    //     DEFAULT: "3xl",
+    //   },
+    // },
   },
   plugins: [],
 };

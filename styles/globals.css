@@ -1,12 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
-  .btn-gray {
-    @apply hover:transition-colors hover:bg-gray-700 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300;
+  .btn-round {
+    @apply hover:transition-colors dark:hover:bg-white/20 hover:bg-black/20 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300;
+  }
+  hr {
+    @apply h-px dark:border-gray-950 border-gray-300 py-4;
   }
 }
