@@ -4,7 +4,6 @@ import SearchBar from "@components/SearchBar";
 import HeroSection from "@components/HeroSection";
 import SearchResults from "@components/SearchResults";
 
-
 const Home = () => {
   return (
     <main className="container">
@@ -24,6 +23,10 @@ const Home = () => {
         12 results
       </div>
       <SearchResults />
+      <div className="flex justify-center py-6">
+        {" "}
+        <button className="py-2 px-6 btn-primary">Load More</button>
+      </div>
     </main>
   );
 };

@@ -48,7 +48,7 @@ module.exports = {
         {
           // lineHeight: "2rem",
           // letterSpacing: "-0.01em",
-          fontWeight: "500",
+          fontWeight: "400",
         },
       ],
       body2: [
