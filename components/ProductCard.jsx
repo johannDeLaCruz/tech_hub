@@ -5,11 +5,8 @@ import LikeButton from "@components/LikeButton";
 
 const ProductCard = () => {
   return (
-    <div className="relative bg-gray-950 rounded-3xl overflow-hidden max-w-fit justify-self-center">
-      <span className="absolute text-body1 py-2 px-3 bg-gray-950 opacity-50 right-0 top-10 rounded-l-3xl z-50">
-        $31/mo
-      </span>
-      <div className="overflow-hidden">
+    <article className="bg-gray-950 rounded-3xl overflow-hidden max-w-fit justify-self-center">
+      <figure className="relative overflow-hidden">
         <Image
           src={
             "https://images.pexels.com/photos/6037812/pexels-photo-6037812.jpeg"
@@ -19,11 +16,14 @@ const ProductCard = () => {
           height={180}
           className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer"
         ></Image>
-      </div>
+        <figcaption className="absolute text-body1 py-2 px-3 bg-gray-950 opacity-50 right-0 top-10 rounded-l-3xl z-50">
+          $31/mo
+        </figcaption>
+      </figure>
       <div className="flex flex-col gap-1 p-6">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-h3">Product Name</h3>
-          <button>
+          <a href="#">
             <svg
               className="fill-white stroke-white"
               viewBox="0 0 24 24"
@@ -32,7 +32,7 @@ const ProductCard = () => {
             >
               <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path>
             </svg>
-          </button>
+          </a>
           <span className="text-caption grow text-end">Free</span>
         </div>
         <ProductRating />
@@ -45,7 +45,7 @@ const ProductCard = () => {
           <LikeButton />
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
