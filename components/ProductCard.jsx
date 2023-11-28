@@ -5,7 +5,7 @@ import LikeButton from "@components/LikeButton";
 
 const ProductCard = () => {
   return (
-    <div className="bg-gray-950 rounded-3xl overflow-hidden max-w-fit">
+    <div className="bg-gray-950 rounded-3xl overflow-hidden max-w-fit justify-self-center">
       <Image
         src={
           "https://images.pexels.com/photos/6037812/pexels-photo-6037812.jpeg"

@@ -94,7 +94,13 @@ const SearchResults = () => {
     },
   ];
   return (
-    <div>
+    <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 py-4 justify-center">
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
       <ProductCard />
     </div>
   );
