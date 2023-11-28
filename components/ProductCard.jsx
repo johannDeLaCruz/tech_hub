@@ -5,7 +5,8 @@ import LikeButton from "@components/LikeButton";
 
 const ProductCard = () => {
   return (
-    <div className="bg-gray-950 rounded-3xl overflow-hidden max-w-fit justify-self-center">
+    <div className="relative bg-gray-950 rounded-3xl overflow-hidden max-w-fit justify-self-center">
+      <span className="absolute text-body1 py-2 px-3 bg-gray-950 opacity-50 right-0 top-10 rounded-l-3xl">$31/mo</span>
       <Image
         src={
           "https://images.pexels.com/photos/6037812/pexels-photo-6037812.jpeg"
@@ -30,7 +31,10 @@ const ProductCard = () => {
           <span className="text-caption grow text-end">Free</span>
         </div>
         <ProductRating />
-        <p className="text-body1 pb-3 w-64">Brief description of the product that will tell us something about it and yada yada yada</p>
+        <p className="text-body1 pb-3 w-64">
+          Brief description of the product that will tell us something about it
+          and yada yada yada
+        </p>
         <div className="flex justify-between">
           <ProductTags />
           <LikeButton />
