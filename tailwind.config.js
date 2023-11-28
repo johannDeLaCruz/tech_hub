@@ -48,22 +48,22 @@ module.exports = {
         {
           // lineHeight: "2rem",
           // letterSpacing: "-0.01em",
-          fontWeight: "400",
+          fontWeight: "400", //or 500 "normal"???
         },
       ],
       body2: [
         "0.875rem",
         {
           // lineHeight: "2rem",
-          letterSpacing: "-0.01em",
-          fontWeight: "500",
+          // letterSpacing: "-0.01em",
+          fontWeight: "400", //or 500 "normal"???
         },
       ],
       button: [
         "0.875rem",
         {
           // lineHeight: "2rem",
-          letterSpacing: "-0.01em",
+          // letterSpacing: "-0.01em",
           fontWeight: "700",
         },
       ],
@@ -79,7 +79,7 @@ module.exports = {
         "0.75rem",
         {
           // lineHeight: "2rem",
-          letterSpacing: "-0.01em",
+          // letterSpacing: "-0.01em",
           fontWeight: "500",
         },
       ],
