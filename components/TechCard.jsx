@@ -1,5 +1,5 @@
 import TechImage from "@components/TechImage";
-import ProductRating from "@components/ProductRating";
+import TechRating from "@components/TechRating";
 import TechTags from "@components/TechTags";
 import LikeButton from "@components/LikeButton";
 
@@ -22,7 +22,7 @@ const TechCard = () => {
           </a>
           <span className="text-caption grow text-end">Free</span>
         </div>
-        <ProductRating />
+        <TechRating />
         <p className="text-body1 mb-3 w-64 line-clamp-3">
           Brief description of the product that will tell us something about it
           and yada yada yada and again yada yada yada yadad yadadadada
