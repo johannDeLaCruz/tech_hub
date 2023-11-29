@@ -25,7 +25,7 @@ const ProductCard = () => {
           <h3 className="text-h3">Product Name</h3>
           <a href="#">
             <svg
-              className="fill-white stroke-white"
+              className="fill-white stroke-white hover:stroke-primary-500 hover:fill-primary-500 link-hover"
               viewBox="0 0 24 24"
               width={24}
               height={24}
@@ -38,7 +38,7 @@ const ProductCard = () => {
         <ProductRating />
         <p className="text-body1 mb-3 w-64 line-clamp-3">
           Brief description of the product that will tell us something about it
-          and yada yada yada and again yada yada yada yadad yadadadada 
+          and yada yada yada and again yada yada yada yadad yadadadada
         </p>
         <div className="flex justify-between">
           <ProductTags />

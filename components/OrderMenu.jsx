@@ -7,7 +7,7 @@ const OrderMenu = () => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center text-h4 hover:opacity-70 custom-hover">
+        <Menu.Button className="inline-flex w-full justify-center text-h4 custom-hover">
           Order By
         </Menu.Button>
       </div>
@@ -20,7 +20,7 @@ const OrderMenu = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 bg-gray-950 shadow-lg custom-hover">
+        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 bg-gray-950 shadow-lg custom-hover z-50">
           <div className="px-1 py-1 ">
             <Menu.Item>
               {({ active }) => (
