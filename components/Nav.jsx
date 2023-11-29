@@ -9,9 +9,9 @@ const navLinks = [
 
 const Nav = ({ isVisible }) => {
   return (
-    <nav className={`${isVisible ? "grid" : "hidden"} grid-cols-2 gap-2`}>
+    <nav className={`${isVisible ? "grid" : "hidden"} grid-cols-2 gap-2 pb-6 grow`}>
       {navLinks.map((link, index) => (
-        <a key={index} href="#" className="font-heading text-button">
+        <a key={index} href="#" className="font-heading text-button link-hover">
           {link}
         </a>
       ))}

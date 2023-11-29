@@ -36,9 +36,9 @@ const ProductCard = () => {
           <span className="text-caption grow text-end">Free</span>
         </div>
         <ProductRating />
-        <p className="text-body1 pb-3 w-64">
+        <p className="text-body1 mb-3 w-64 line-clamp-3">
           Brief description of the product that will tell us something about it
-          and yada yada yada
+          and yada yada yada and again yada yada yada yadad yadadadada 
         </p>
         <div className="flex justify-between">
           <ProductTags />

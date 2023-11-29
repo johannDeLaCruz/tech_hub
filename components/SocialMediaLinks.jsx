@@ -1,14 +1,38 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInstagram,
+  faFacebook,
+  faDiscord,
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
 
-const SocialMediaLinks = () => {
+const socialLinks = [
+  { icon: faInstagram, href: "https://www.instagram.com/" },
+  { icon: faFacebook, href: "https://www.facebook.com/" },
+  { icon: faDiscord, href: "https://discord.com/" },
+  { icon: faLinkedin, href: "https://www.linkedin.com/" },
+];
+
+const SocialLinks = () => {
   return (
-    <div>
-      <FontAwesomeIcon />
-      <FontAwesomeIcon />
-      <FontAwesomeIcon />
-      <FontAwesomeIcon />
+    <div className="flex gap-4">
+      {socialLinks.map((link, index) => (
+        <a
+          key={index}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex align-center"
+        >
+          <FontAwesomeIcon
+            icon={link.icon}
+            className="text-primary-500"
+            width={20}
+          />
+        </a>
+      ))}
     </div>
   );
 };
 
-export default SocialMediaLinks;
+export default SocialLinks;

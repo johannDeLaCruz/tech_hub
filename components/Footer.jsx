@@ -1,18 +1,24 @@
 import Nav from "@components/Nav";
+import SocialMediaLinks from "@components/SocialMediaLinks";
 
 const Footer = () => {
   return (
     <footer className="bg-gray-950 py-9">
       <div className="container">
-        <div className="pb-6">
-          <h4 className="font-heading text-h2">
-            <span>Tech</span>
-            <span className="text-primary-500">Hub</span>
-          </h4>
-          <small className="block text-body2">2023 © TechHub</small>
-          <small className="block text-body2">All rights reserved.</small>
+        <h4 className="font-heading text-h2 pb-6">
+          <span>Tech</span>
+          <span className="text-primary-500">Hub</span>
+        </h4>
+        <div className="flex flex-col md:flex-row md:justify-between">
+          <Nav isVisible={true} />
+          <div className="flex flex-col gap-4">
+            <SocialMediaLinks />
+            <div className="flex-col">
+              <small className="block text-body2">2023 © TechHub</small>
+              <small className="block text-body2">All rights reserved.</small>
+            </div>
+          </div>
         </div>
-        <Nav isVisible={true} />
       </div>
     </footer>
   );
