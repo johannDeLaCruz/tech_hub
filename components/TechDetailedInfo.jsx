@@ -9,7 +9,7 @@ const TechDetailedInfoData = [
     title: "Features",
     description: [
       "This chair is used by asasadasdadsdasd",
-      "This adhiashdasd asdadsadasdadsadadsadasdadasda",
+      "This chair is used by asasadasdadsdasd",
     ],
   },
   {
@@ -44,7 +44,13 @@ const TechDetailedInfo = () => {
       {TechDetailedInfoData.map((item, index) => (
         <div key={index} className="flex flex-col gap-4 ">
           <h2 className="text-h4">{item.title}</h2>
-          <p className="text-body2">{item.description}</p>
+          <ul className="list-disc text-body2 pl-5 marker:text-primary-500">
+            {Array.isArray(item.description) ? (
+              item.description.map((desc, index) => <li key={index}>{desc}</li>)
+            ) : (
+              <li key={index}>{item.description}</li>
+            )}
+          </ul>
           <hr />
         </div>
       ))}
