@@ -1,4 +1,4 @@
-import ProductCard from "@components/ProductCard";
+import TechCard from "@components/TechCard";
 
 const SearchResults = () => {
   const cardsList = [
@@ -95,13 +95,13 @@ const SearchResults = () => {
   ];
   return (
     <section className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 py-4 justify-center">
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
+      <TechCard />
+      <TechCard />
+      <TechCard />
+      <TechCard />
+      <TechCard />
+      <TechCard />
+      <TechCard />
     </section>
   );
 };

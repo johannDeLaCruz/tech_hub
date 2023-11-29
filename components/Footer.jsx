@@ -11,7 +11,7 @@ const Footer = () => {
         </h4>
         <div className="flex flex-col md:flex-row md:justify-between">
           <Nav isVisible={true} />
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <SocialMediaLinks />
             <div className="flex-col">
               <small className="block text-body2">2023 © TechHub</small>

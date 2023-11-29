@@ -10,9 +10,7 @@ const Home = () => {
       <HeroSection />
       <hr />
       <div className="mx-auto flex justify-between w-full sm:max-w-2xl">
-        <button className="text-h4 custom-hover">
-          Filter results
-        </button>
+        <button className="text-h4 custom-hover">Filter results</button>
         <OrderMenu />
       </div>
       <SearchBar />

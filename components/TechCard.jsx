@@ -1,25 +1,12 @@
-import Image from "next/image";
+import TechImage from "@components/TechImage";
 import ProductRating from "@components/ProductRating";
-import ProductTags from "@components/ProductTags";
+import TechTags from "@components/TechTags";
 import LikeButton from "@components/LikeButton";
 
-const ProductCard = () => {
+const TechCard = () => {
   return (
     <article className="bg-gray-950 rounded-3xl overflow-hidden max-w-fit justify-self-center">
-      <figure className="relative overflow-hidden">
-        <Image
-          src={
-            "https://images.pexels.com/photos/6037812/pexels-photo-6037812.jpeg"
-          }
-          alt="logo"
-          width={335}
-          height={180}
-          className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer"
-        ></Image>
-        <figcaption className="absolute text-body1 py-2 px-3 bg-gray-950 opacity-50 right-0 top-10 rounded-l-3xl z-50">
-          $31/mo
-        </figcaption>
-      </figure>
+      <TechImage />
       <div className="flex flex-col gap-1 p-6">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-h3">Product Name</h3>
@@ -41,7 +28,7 @@ const ProductCard = () => {
           and yada yada yada and again yada yada yada yadad yadadadada
         </p>
         <div className="flex justify-between">
-          <ProductTags />
+          <TechTags />
           <LikeButton />
         </div>
       </div>
@@ -49,4 +36,4 @@ const ProductCard = () => {
   );
 };
 
-export default ProductCard;
+export default TechCard;

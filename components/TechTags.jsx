@@ -1,6 +1,6 @@
 const tags = ["VR", "AR", "Headset"];
 
-const ProductTags = () => {
+const TechTags = () => {
   return (
     <ul className="flex flex-wrap gap-1 ">
       {tags.map((tag, index) => {
@@ -16,4 +16,4 @@ const ProductTags = () => {
   );
 };
 
-export default ProductTags;
+export default TechTags;

@@ -1,0 +1,22 @@
+import Image from "next/image";
+
+const TechImage = () => {
+  return (
+    <figure className="relative overflow-hidden">
+      <Image
+        src={
+          "https://images.pexels.com/photos/6037812/pexels-photo-6037812.jpeg"
+        }
+        alt="tech_image"
+        width={335}
+        height={180}
+        className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer"
+      ></Image>
+      <figcaption className="absolute text-body1 py-2 px-3 bg-gray-950 opacity-50 right-0 top-10 rounded-l-3xl z-50">
+        $31/mo
+      </figcaption>
+    </figure>
+  );
+};
+
+export default TechImage;

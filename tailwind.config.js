@@ -19,6 +19,14 @@ module.exports = {
           fontWeight: "600",
         },
       ],
+      heading: [
+        "2rem",
+        {
+          lineHeight: "1.5em",
+          letterSpacing: "0em",
+          fontWeight: "400",
+        },
+      ],
       h2: [
         "1.5rem",
         {
@@ -54,7 +62,7 @@ module.exports = {
       body2: [
         "0.875rem",
         {
-          // lineHeight: "2rem",
+          lineHeight: "1.3em",
           // letterSpacing: "-0.01em",
           fontWeight: "400", //or 500 "normal"???
         },
@@ -73,6 +81,14 @@ module.exports = {
           // lineHeight: "2rem",
           // letterSpacing: "-0.01em",
           fontWeight: "400", // or 500
+        },
+      ],
+      caption: [
+        "0.75rem",
+        {
+          // lineHeight: "2rem",
+          // letterSpacing: "-0.01em",
+          fontWeight: "500",
         },
       ],
       caption: [
