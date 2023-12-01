@@ -4,12 +4,13 @@ import TechImage from "@components/TechImage";
 import TechDetailedInfo from "@components/TechDetailedInfo";
 import RecommendedSection from "@components/RecommendedSection";
 
-
 const techInfoPage = () => {
   return (
     <section>
       <Breadcrumbs />
-      <TechImage />
+      <div className="container overflow-hidden rounded-3xl">
+        <TechImage />
+      </div>
       <TechBasicInfo />
       <TechDetailedInfo />
       <RecommendedSection />

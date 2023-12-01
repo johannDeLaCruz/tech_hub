@@ -3,7 +3,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 const Breadcrumbs = () => {
   return (
     <nav
-      className="flex items-center text-body2 gap-4 py-1 px-6"
+      className="container flex items-center text-body2 gap-4 py-1"
       aria-label="Breadcrumb"
     >
       <a href="#" className="link-hover">
