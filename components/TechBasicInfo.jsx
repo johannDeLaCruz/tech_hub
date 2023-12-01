@@ -2,8 +2,8 @@ import TechRating from "@components/TechRating";
 
 const TechBasicInfo = () => {
   return (
-    <div className="bg-gray-950">
-      <div className="container py-4 ">
+    <div className="max-w-100 bg-gray-950">
+      <div className="container py-4">
         <div className="flex items-center justify-between gap-1">
           <h3 className="text-h2">Product Name</h3>
           <a href="#">

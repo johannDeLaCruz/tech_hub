@@ -40,9 +40,9 @@ const TechDetailedInfoData = [
 
 const TechDetailedInfo = () => {
   return (
-    <div className="py-4">
+    <div className="grid lg:grid-cols-2 lg:gap-x-20 py-4">
       {TechDetailedInfoData.map((item, index) => (
-        <div key={index} className="flex flex-col gap-4 ">
+        <div key={index} className="flex flex-col gap-4">
           <h2 className="text-h4">{item.title}</h2>
           <ul className="list-disc text-body2 pl-5 marker:text-primary-500">
             {Array.isArray(item.description) ? (

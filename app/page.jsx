@@ -6,7 +6,7 @@ import SearchResults from "@components/SearchResults";
 
 const Home = () => {
   return (
-    <>
+    <div className="container">
       <HeroSection />
       <hr />
       <div className="mx-auto flex justify-between w-full sm:max-w-2xl">
@@ -25,7 +25,7 @@ const Home = () => {
         {" "}
         <button className="py-2 px-6 btn-primary">Load More</button>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -91,14 +91,6 @@ module.exports = {
           fontWeight: "500",
         },
       ],
-      caption: [
-        "0.75rem",
-        {
-          // lineHeight: "2rem",
-          // letterSpacing: "-0.01em",
-          fontWeight: "500",
-        },
-      ],
     },
 
     colors: {
