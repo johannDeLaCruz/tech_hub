@@ -5,7 +5,7 @@ import LikeButton from "@components/LikeButton";
 
 const TechCard = () => {
   return (
-    <article className="bg-gray-950 rounded-3xl overflow-hidden max-w-fit justify-self-center">
+    <article className="bg-gray-950 rounded-3xl overflow-hidden justify-self-center">
       <TechImage />
       <div className="flex flex-col gap-1 p-6">
         <div className="flex items-center justify-between gap-3">

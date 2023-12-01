@@ -94,7 +94,7 @@ const SearchResults = () => {
     },
   ];
   return (
-    <section className="container grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 py-4 justify-center">
+    <section className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 py-4 justify-center">
       <TechCard />
       <TechCard />
       <TechCard />

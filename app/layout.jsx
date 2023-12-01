@@ -12,7 +12,7 @@ const RootLayout = ({ children }) => {
     <html lang="en" className="dark:text-white text-black">
       <body className="dark:bg-black bg-white">
         <Header />
-        {children}
+        <main className="container">{children}</main>
         <Footer />
       </body>
     </html>

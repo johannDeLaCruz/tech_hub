@@ -40,7 +40,7 @@ const TechDetailedInfoData = [
 
 const TechDetailedInfo = () => {
   return (
-    <div className=" container py-4">
+    <div className="py-4">
       {TechDetailedInfoData.map((item, index) => (
         <div key={index} className="flex flex-col gap-4 ">
           <h2 className="text-h4">{item.title}</h2>
