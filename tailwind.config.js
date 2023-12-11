@@ -30,7 +30,7 @@ module.exports = {
       h2: [
         "1.5rem",
         {
-          // lineHeight: "1.5em",
+          lineHeight: "1.2em",
           letterSpacing: "0em",
           fontWeight: "600",
         },
@@ -38,7 +38,7 @@ module.exports = {
       h3: [
         "1.125rem",
         {
-          // lineHeight: "1.5 em",
+          // lineHeight: "1.5em",
           // letterSpacing: "-0.01em",
           fontWeight: "500",
         },

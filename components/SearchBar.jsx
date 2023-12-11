@@ -1,3 +1,5 @@
+import InputForm from "@components/InputForm";
+
 const SearchBar = () => {
   const styles = {
     Button: {
@@ -26,15 +28,11 @@ const SearchBar = () => {
   };
   return (
     <div className="mx-auto w-full sm:max-w-2xl relative flex justify-center items-center mb-6">
-      <label htmlFor="search" className="sr-only">
-        Search technologies...
-      </label>
-      <input
-        type="text"
-        name="search"
-        id="search"
-        placeholder="  Search technologies..."
-        className="w-full rounded-3xl bg-gray-950 text-body2 custom-hover"
+      <InputForm
+        placeholder={" Search technologies..."}
+        type={"text"}
+        name={"search"}
+        id={"search"}
       />
       <span className="absolute right-0 flex items-center bg-black rounded-full mr-2 ">
         <button
