@@ -20,6 +20,9 @@
   .btn-white {
     @apply border border-white text-button text-white hover:text-black hover:transition-colors hover:bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-primary-500 focus:ring-primary-500;
   }
+  .btn-gray {
+    @apply text-button text-white bg-gray-950 hover:bg-gray-600 hover:transition-colors rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-primary-500 focus:ring-primary-500;
+  }
 }
 
 @layer utilities {
