@@ -1,18 +1,19 @@
-const navLinks = [
-  "Home",
-  "Profile",
-  "About Us",
-  "Contact",
-  "Privacy Policy",
-  "Terms of Use",
-];
+const Nav = ({ navigation, type }) => {
 
-const Nav = ({ isVisible }) => {
+ const footerStyles = "grid grid-cols-2 gap-2 pb-6 grow"
+ const headerStyles = "flex"
+
   return (
-    <nav className={`${isVisible ? "grid" : "hidden"} grid-cols-2 gap-2 pb-6 grow`}>
-      {navLinks.map((link, index) => (
-        <a key={index} href="#" className="font-heading text-button link-hover">
-          {link}
+    <nav
+      className={`${type === "footer" ? footerStyles : type === "header" ? headerStyles : ""}`}
+    >
+      {navigation?.map((item, index) => (
+        <a
+          key={index}
+          href={item.link}
+          className="font-heading text-button link-hover"
+        >
+          {item.title}
         </a>
       ))}
     </nav>

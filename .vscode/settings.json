@@ -11,6 +11,7 @@
         "techpage",
         "metadata",
         "profile",
-        "loginPage"
+        "loginPage",
+        "header"
     ]
 }

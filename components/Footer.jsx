@@ -1,7 +1,16 @@
 import Nav from "@components/Nav";
 import SocialMediaLinks from "@components/SocialMediaLinks";
 
+const footerNavLinks = [
+  { title: "Home", link: "/" },
+  { title: "Profile", link: "/login" },
+  { title: "About Us", link: "/about" },
+  { title: "Contact", link: "/contact" },
+  { title: "Privacy Policy", link: "/privacy" },
+  { title: "Terms of Use", link: "/terms" },
+];
 const Footer = () => {
+
   return (
     <footer className="bg-gray-950 py-9">
       <div className="container">
@@ -10,7 +19,7 @@ const Footer = () => {
           <span className="text-primary-500">Hub</span>
         </h4>
         <div className="flex flex-col md:flex-row md:justify-between">
-          <Nav isVisible={true} />
+          <Nav isVisible={true} navigation={footerNavLinks} type={"footer"}/>
           <div className="flex flex-col gap-2">
             <SocialMediaLinks />
             <div className="flex-col">

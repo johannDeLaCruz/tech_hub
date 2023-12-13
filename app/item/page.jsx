@@ -9,7 +9,7 @@ const techInfoPage = () => {
     <div className="container">
       <section>
         <Breadcrumbs />
-        <div className="relative overflow-hidden rounded-3xl object-cover aspect-video max-w-screen mb-4">
+        <div className="relative overflow-hidden rounded-3xl object-cover aspect-video max-w-screen xl:max-w-screen-md mb-4">
           <Image
             src={
               "https://images.pexels.com/photos/6037812/pexels-photo-6037812.jpeg"
