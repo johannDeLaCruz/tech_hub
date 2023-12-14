@@ -21,19 +21,33 @@ const Header = () => {
     setIsOpen((prevState) => !prevState);
   };
 
+  console.log(isOpen);
+
   return (
-    <header className="bg-gray-950">
-      <div className="container flex justify-between items-center">
-        <Logo />
-        <Nav navLinks={headerNavLinks} type={"header"} className="hidden" />
-        <div className="flex gap-2 py-4">
-          <GoogleLoginButton />
-          <ModeButton />
-          <HamburguerButton onButtonClick={handleButtonClick} />
+    <>
+      <header className="bg-gray-950">
+        <div className="container flex justify-between items-center">
+          <Logo />
+          <Nav navLinks={headerNavLinks} type={"header"} className="hidden" />
+          <div className="flex gap-2 py-4">
+            <GoogleLoginButton />
+            <ModeButton />
+            <HamburguerButton onButtonClick={handleButtonClick} />
+          </div>
         </div>
+      </header>
+      <div
+        className={`md:hidden absolute z-20 min-w-full top-0 bg-gray-950 transform transition-transform ease-in-out duration-300 ${
+          isOpen ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        {" "}
+        <HamburguerMenu
+          navLinks={headerNavLinks}
+          handleButtonClick={handleButtonClick}
+        />
       </div>
-      {isOpen && <HamburguerMenu navLinks={headerNavLinks} />}
-    </header>
+    </>
   );
 };
 
