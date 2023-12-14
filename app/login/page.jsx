@@ -23,7 +23,7 @@ const page = () => {
           </p>
         </div>
         <form action="POST" className="flex flex-col py-4 gap-2">
-          <div className="flex flex-center gap-4">
+          <div className="flex items-center gap-4">
             <FontAwesomeIcon
               icon={faEnvelope}
               className="text-white"
@@ -36,7 +36,7 @@ const page = () => {
               id={"email"}
             />
           </div>
-          <div className="flex flex-center gap-4">
+          <div className="flex items-center gap-4">
             <FontAwesomeIcon icon={faLock} className="text-white" width={24} />
             <InputForm
               type={"password"}

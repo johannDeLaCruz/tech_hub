@@ -16,11 +16,14 @@ const headerNavLinks = [
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const wrapperRef = useRef(null);
+  const headerRef = useRef(null);
 
-  const handleButtonClick = () => setIsOpen((prevState) => !prevState);
+  const handleButtonClick = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
   const handleClickOutside = (e) => {
-    if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+    if (headerRef.current && !headerRef.current.contains(e.target)) {
       setIsOpen(false);
     }
   };
@@ -30,10 +33,10 @@ const Header = () => {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [wrapperRef]);
+  }, [headerRef]);
 
   return (
-    <header ref={wrapperRef} className="bg-gray-950">
+    <header ref={headerRef} className="bg-gray-950">
       <div className="container flex justify-between items-center">
         <Logo />
         <Nav navLinks={headerNavLinks} type={"header"} className="hidden" />
@@ -53,6 +56,7 @@ const Header = () => {
         <HamburguerMenu
           navLinks={headerNavLinks}
           handleButtonClick={handleButtonClick}
+          handleNavClick={handleButtonClick}
         />
       </div>
     </header>
