@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Logo from "@components/Logo";
 import Nav from "@components/Nav";
 import ModeButton from "@components/ModeButton";
@@ -16,15 +16,24 @@ const headerNavLinks = [
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const wrapperRef = useRef(null);
 
-  const handleButtonClick = () => {
-    setIsOpen((prevState) => !prevState);
+  const handleButtonClick = () => setIsOpen((prevState) => !prevState);
+  const handleClickOutside = (e) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+      setIsOpen(false);
+    }
   };
 
-  console.log(isOpen);
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [wrapperRef]);
 
   return (
-    <>
+    <div ref={wrapperRef}>
       <header className="bg-gray-950">
         <div className="container flex justify-between items-center">
           <Logo />
@@ -47,7 +56,7 @@ const Header = () => {
           handleButtonClick={handleButtonClick}
         />
       </div>
-    </>
+    </div>
   );
 };
 

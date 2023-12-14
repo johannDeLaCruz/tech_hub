@@ -1,5 +1,5 @@
 const Nav = ({ navLinks, type }) => {
-  const footerStyles = "hidden md:grid grid-cols-2 gap-2 pb-6 grow";
+  const footerStyles = "grid grid-cols-2 gap-2 pb-6 grow";
   const headerStyles = "hidden md:flex gap-10";
   const menuStyles = "flex flex-col items-center gap-4 py-8 md:hidden";
 
