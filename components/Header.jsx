@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Logo from "@components/Logo";
 import Nav from "@components/Nav";
 import ModeButton from "@components/ModeButton";
@@ -12,6 +15,12 @@ const headerNavLinks = [
 ];
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
   return (
     <header className="bg-gray-950">
       <div className="container flex justify-between items-center">
@@ -20,10 +29,10 @@ const Header = () => {
         <div className="flex gap-2 py-4">
           <GoogleLoginButton />
           <ModeButton />
-          <HamburguerButton />
+          <HamburguerButton onButtonClick={handleButtonClick} />
         </div>
       </div>
-      <HamburguerMenu navLinks={headerNavLinks} />
+      {isOpen && <HamburguerMenu navLinks={headerNavLinks} />}
     </header>
   );
 };
