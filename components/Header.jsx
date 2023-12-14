@@ -2,6 +2,7 @@ import Logo from "@components/Logo";
 import Nav from "@components/Nav";
 import ModeButton from "@components/ModeButton";
 import GoogleLoginButton from "@components/GoogleLoginButton";
+import HamburguerButton from "@components/HamburguerButton";
 import HamburguerMenu from "@components/HamburguerMenu";
 
 const headerNavLinks = [
@@ -15,13 +16,14 @@ const Header = () => {
     <header className="bg-gray-950">
       <div className="container flex justify-between items-center">
         <Logo />
-        <Nav isVisible={true} navigation={headerNavLinks} type={"header"} />
+        <Nav navLinks={headerNavLinks} type={"header"} className="hidden" />
         <div className="flex gap-2 py-4">
           <GoogleLoginButton />
           <ModeButton />
-          <HamburguerMenu />
+          <HamburguerButton />
         </div>
       </div>
+      <HamburguerMenu navLinks={headerNavLinks} />
     </header>
   );
 };

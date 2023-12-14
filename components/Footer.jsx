@@ -19,7 +19,7 @@ const Footer = () => {
           <span className="text-primary-500">Hub</span>
         </h4>
         <div className="flex flex-col md:flex-row md:justify-between">
-          <Nav isVisible={true} navigation={footerNavLinks} type={"footer"}/>
+          <Nav navLinks={footerNavLinks} type={"footer"} />
           <div className="flex flex-col gap-2">
             <SocialMediaLinks />
             <div className="flex-col">

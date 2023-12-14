@@ -7,9 +7,6 @@ export const metadata = {
   description: "Modern Technology Database",
 };
 
-const footerNavLinks = {
-  
-}
 
 const RootLayout = ({ children }) => {
   return (
