@@ -42,7 +42,7 @@ const Header = () => {
         <Nav navLinks={headerNavLinks} type={"header"} className="hidden" />
         <div className="flex gap-2 py-4">
           <GoogleLoginButton />
-          <ModeButton />
+          <ModeButton  />
           <HamburguerButton onButtonClick={handleButtonClick} />
         </div>
       </div>
