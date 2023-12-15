@@ -1,7 +1,10 @@
 import "@styles/globals.css";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
-import Providers from "@components/Providers";
+import dynamic from "next/dynamic";
+const Providers = dynamic(() => import("@components/Providers"), {
+  ssr: false,
+});
 
 export const metadata = {
   title: "TechHub",
