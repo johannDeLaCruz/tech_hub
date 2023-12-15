@@ -1,5 +1,5 @@
 
-const TechRating = () => {
+const ItemRating = () => {
   return (
     <div className="flex items-center gap-2">
       <span className="flex flex-row-reverse">
@@ -65,4 +65,4 @@ const TechRating = () => {
   );
 };
 
-export default TechRating;
+export default ItemRating;

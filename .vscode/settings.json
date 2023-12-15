@@ -8,11 +8,12 @@
         "card",
         "search results",
         "footer",
-        "techpage",
+        "itempage",
         "metadata",
         "profile",
         "loginPage",
         "header",
-        "hamburguermenu"
+        "hamburguermenu",
+        "global"
     ]
 }

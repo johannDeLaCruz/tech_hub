@@ -1,12 +1,12 @@
-import TechImage from "@components/TechImage";
-import TechRating from "@components/TechRating";
-import TechTags from "@components/TechTags";
+import ItemImage from "@components/ItemImage";
+import ItemRating from "@components/ItemRating";
+import ItemTags from "@components/ItemTags";
 import LikeButton from "@components/LikeButton";
 
-const TechCard = () => {
+const ItemCard = () => {
   return (
     <article className="bg-gray-950 rounded-3xl overflow-hidden justify-self-center">
-      <TechImage />
+      <ItemImage />
       <div className="flex flex-col gap-1 p-6">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-h3">Product Name</h3>
@@ -22,13 +22,13 @@ const TechCard = () => {
           </a>
           <span className="text-caption grow text-end">Free</span>
         </div>
-        <TechRating />
+        <ItemRating />
         <p className="text-body1 mb-3 w-64 line-clamp-3">
           Brief description of the product that will tell us something about it
           and yada yada yada and again yada yada yada yadad yadadadada
         </p>
         <div className="flex justify-between">
-          <TechTags />
+          <ItemTags />
           <LikeButton />
         </div>
       </div>
@@ -36,4 +36,4 @@ const TechCard = () => {
   );
 };
 
-export default TechCard;
+export default ItemCard;

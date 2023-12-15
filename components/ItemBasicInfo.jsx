@@ -1,6 +1,6 @@
-import TechRating from "@components/TechRating";
+import ItemRating from "@components/ItemRating";
 
-const TechBasicInfo = () => {
+const ItemBasicInfo = () => {
   return (
     <div className="max-w-100 bg-gray-950">
       <div className="container py-4">
@@ -18,10 +18,10 @@ const TechBasicInfo = () => {
           </a>
           <span className="text-body1 grow text-end">Developer Name</span>
         </div>
-        <TechRating />
+        <ItemRating />
       </div>
     </div>
   );
 };
 
-export default TechBasicInfo;
+export default ItemBasicInfo;

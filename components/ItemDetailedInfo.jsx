@@ -1,4 +1,4 @@
-const TechDetailedInfoData = [
+const ItemDetailedInfoData = [
   {
     title: "Product Information",
     description: [
@@ -38,10 +38,10 @@ const TechDetailedInfoData = [
   },
 ];
 
-const TechDetailedInfo = () => {
+const ItemDetailedInfo = () => {
   return (
     <div className="grid lg:grid-cols-2 lg:gap-x-20 py-4">
-      {TechDetailedInfoData.map((item, index) => (
+      {ItemDetailedInfoData.map((item, index) => (
         <div key={index} className="flex flex-col gap-4">
           <h2 className="text-h4">{item.title}</h2>
           <ul className="list-disc text-body2 pl-5 marker:text-primary-500">
@@ -58,4 +58,4 @@ const TechDetailedInfo = () => {
   );
 };
 
-export default TechDetailedInfo;
+export default ItemDetailedInfo;

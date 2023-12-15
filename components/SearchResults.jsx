@@ -1,4 +1,4 @@
-import TechCard from "@components/TechCard";
+import ItemCard from "@components/ItemCard";
 
 const SearchResults = () => {
   const cardsList = [
@@ -7,7 +7,7 @@ const SearchResults = () => {
       image: "https://example.com/nexussync_smartassistant.jpg",
       price: 249.99,
       website_link: "https://www.nexussync.com",
-      developer: "InnovateTech Solutions",
+      developer: "InnovateItem Solutions",
       rating: 4.8,
       number_of_likes: 1200,
       subscription_type: "Premium",
@@ -53,8 +53,8 @@ const SearchResults = () => {
       name: "QuantumView VR Glasses",
       image: "https://example.com/quantumview_vr_glasses.jpg",
       price: 499.99,
-      website_link: "https://www.quantumviewtech.com",
-      developer: "Futurify Technologies",
+      website_link: "https://www.quantumviewitem.com",
+      developer: "Futurify Itemnologies",
       rating: 4.5,
       number_of_likes: 900,
       subscription_type: "Pro",
@@ -85,8 +85,8 @@ const SearchResults = () => {
         },
       ],
       social_links: {
-        twitter: "https://twitter.com/quantumviewtech",
-        facebook: "https://www.facebook.com/quantumviewtech",
+        twitter: "https://twitter.com/quantumviewitem",
+        facebook: "https://www.facebook.com/quantumviewitem",
       },
       video_embed:
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/quantumview_video' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>",
@@ -95,13 +95,13 @@ const SearchResults = () => {
   ];
   return (
     <section className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 py-4 justify-center">
-      <TechCard />
-      <TechCard />
-      <TechCard />
-      <TechCard />
-      <TechCard />
-      <TechCard />
-      <TechCard />
+      <ItemCard />
+      <ItemCard />
+      <ItemCard />
+      <ItemCard />
+      <ItemCard />
+      <ItemCard />
+      <ItemCard />
     </section>
   );
 };

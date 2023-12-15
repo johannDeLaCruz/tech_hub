@@ -1,13 +1,13 @@
 import Image from "next/image";
 
-const TechImage = () => {
+const ItemImage = () => {
   return (
     <figure className="relative overflow-hidden w-[20rem] h-[15rem]">
       <Image
         src={
           "https://images.pexels.com/photos/6037812/pexels-photo-6037812.jpeg"
         }
-        alt="tech_image"
+        alt="item_image"
         fill={true}
         className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer object-cover"
       ></Image>
@@ -18,4 +18,4 @@ const TechImage = () => {
   );
 };
 
-export default TechImage;
+export default ItemImage;

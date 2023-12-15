@@ -1,10 +1,10 @@
 import Breadcrumbs from "@components/Breadcrumbs";
-import TechBasicInfo from "@components/TechBasicInfo";
-import TechDetailedInfo from "@components/TechDetailedInfo";
+import ItemBasicInfo from "@components/ItemBasicInfo";
+import ItemDetailedInfo from "@components/ItemDetailedInfo";
 import RecommendedSection from "@components/RecommendedSection";
 import Image from "next/image";
 
-const techInfoPage = () => {
+const itemInfoPage = () => {
   return (
     <div className="container">
       <section>
@@ -14,17 +14,17 @@ const techInfoPage = () => {
             src={
               "https://images.pexels.com/photos/6037812/pexels-photo-6037812.jpeg"
             }
-            alt="tech_image"
+            alt="item_image"
             fill={true}
             className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer object-cover"
           ></Image>
         </div>
-        <TechBasicInfo />
-        <TechDetailedInfo />
+        <ItemBasicInfo />
+        <ItemDetailedInfo />
       </section>
       <RecommendedSection />
     </div>
   );
 };
 
-export default techInfoPage;
+export default itemInfoPage;

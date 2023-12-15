@@ -4,7 +4,7 @@ const SearchBar = () => {
   return (
     <div className="mx-auto w-full sm:max-w-2xl relative flex justify-center items-center mb-6">
       <InputForm
-        placeholder={" Search for technologies..."}
+        placeholder={" Search for itemnologies..."}
         type={"text"}
         name={"search"}
         id={"search"}
