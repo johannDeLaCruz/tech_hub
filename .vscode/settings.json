@@ -14,6 +14,7 @@
         "loginPage",
         "header",
         "hamburguermenu",
-        "global"
+        "global",
+        "models"
     ]
 }
