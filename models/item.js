@@ -47,3 +47,8 @@ const itemSchema = new Schema({
     default: Date.now,
   },
 });
+
+const Item = models.Item || model("Item", itemSchema);
+//the "models.User" is needed here for NextAuth serverless specifications
+
+module.exports = Item;

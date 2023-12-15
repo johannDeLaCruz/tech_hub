@@ -15,6 +15,7 @@
         "header",
         "hamburguermenu",
         "global",
-        "models"
+        "models",
+        "auth"
     ]
 }
