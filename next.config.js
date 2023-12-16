@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: ["mongoose"],
+  },
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -12,6 +15,13 @@ const nextConfig = {
         hostname: "picsum.photos",
       },
     ],
+  },
+  webpack(config) {
+    config.experiments = {
+      ...config.experiments,
+      topLevelAwait: true,
+    };
+    return config;
   },
 };
 
