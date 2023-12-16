@@ -17,6 +17,7 @@
         "global",
         "models",
         "auth",
-        "nextconfig"
+        "nextconfig",
+        "userModel"
     ]
 }

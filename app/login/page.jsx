@@ -8,13 +8,12 @@ import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import {
   signIn,
   useSession,
-  signOut,
   getSession,
   getProviders,
 } from "next-auth/react";
 const LoginPage = () => {
   const [providers, setProviders] = useState(null);
-  const {data: session} = useSession();
+  // const {data: session} = useSession();
 
   useEffect(() => {
     const setupProviders = async () => {

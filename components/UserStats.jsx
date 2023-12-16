@@ -1,17 +1,26 @@
+"use client";
+
+import Link from "next/link";
+
 const userStats = [
   { name: "Favourites", value: 50 },
   { name: "User ID", value: "#24935" },
   { name: "Subscribed Since", value: "10/10/23" },
 ];
 
-const UserStats = () => {
+const UserStats = ({ signOuthandle }) => {
   return (
     <section className="container text-center pt-14">
       <h1 className="font-heading text-h2">Your_Username</h1>
       <span className="text-caption">ai@gmail.com</span>
       <div className="relative py-4">
-        <button className="btn-white px-14 py-2 mr-3">Logout</button>
-        <button href="" className="absolute border rounded-full border-primary-500 p-2  ">
+        <button className="btn-white px-14 py-2 mr-3" onClick={signOuthandle}>
+          <Link href="/login">Logout</Link>
+        </button>
+        <button
+          href=""
+          className="absolute border rounded-full border-primary-500 p-2  "
+        >
           <svg
             className="fill-primary-500 stroke-primary-500 h-4 w-4 "
             viewBox="0 0 24 24"

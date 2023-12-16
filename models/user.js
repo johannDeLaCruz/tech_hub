@@ -37,6 +37,10 @@ const userSchema = new Schema({
       ref: "Item",
     },
   ],
+  dateCreated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const User = models.User || model("User", userSchema);
