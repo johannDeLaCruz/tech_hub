@@ -1,5 +1,5 @@
 "use client";
-
+import { useSession } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
 import Logo from "@components/Logo";
 import Nav from "@components/Nav";
@@ -7,6 +7,7 @@ import ModeButton from "@components/ModeButton";
 import GoogleLoginButton from "@components/GoogleLoginButton";
 import HamburguerButton from "@components/HamburguerButton";
 import HamburguerMenu from "@components/HamburguerMenu";
+import UserButton from "@components/UserButton";
 
 const headerNavLinks = [
   { title: "Home", link: "/" },
@@ -15,6 +16,8 @@ const headerNavLinks = [
 ];
 
 const Header = () => {
+  const { data: session } = useSession();
+
   const [isOpen, setIsOpen] = useState(false);
   const headerRef = useRef(null);
 
@@ -41,8 +44,8 @@ const Header = () => {
         <Logo />
         <Nav navLinks={headerNavLinks} type={"header"} className="hidden" />
         <div className="flex gap-2 py-4">
-          <GoogleLoginButton />
-          <ModeButton  />
+          {session?.user ? <UserButton /> : <GoogleLoginButton />}
+          <ModeButton />
           <HamburguerButton onButtonClick={handleButtonClick} />
         </div>
       </div>

@@ -13,6 +13,7 @@ export const connectToDatabase = async () => {
       dbName: "TechHub",
       // useNewUrlParser: true,
       // useUnifiedTopology: true,
+      // deprecated!
     });
     isConnected = true;
     console.log("MongoDB is connected!");

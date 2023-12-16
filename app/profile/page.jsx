@@ -1,10 +1,12 @@
+"use client"
+
 import Avatar from "@components/Avatar";
 import UserStats from "@components/UserStats";
 import UserFavouritesList from "@components/UserFavouritesList";
 import { useSession } from "next-auth/react";
 
-
-const page = () => {
+const ProfilePage = () => {
+  const { data: session } = useSession();
   return (
     <>
       <Avatar />
@@ -14,4 +16,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProfilePage;

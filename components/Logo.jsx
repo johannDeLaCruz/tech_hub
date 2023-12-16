@@ -1,11 +1,11 @@
-import React from "react";
+import Link from "next/link"
 import Image from "next/image";
 
 const Logo = () => {
   return (
-    <button>
+    <Link href={"/"} >
       <Image src={"/assets/Logo.png"} alt="logo" width={40} height={40}></Image>
-    </button>
+    </Link>
   );
 };
 
