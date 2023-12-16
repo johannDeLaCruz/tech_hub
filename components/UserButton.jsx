@@ -1,12 +1,19 @@
-import { faUser } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 const UserButton = () => {
   return (
     <button className="btn-round">
-      <FontAwesomeIcon width={20} icon={faUser}/>
+      <Link href={"/profile"}>
+        <FontAwesomeIcon
+          width={20}
+          icon={faUser}
+          style={{ display: "block" }}
+        />
+      </Link>
     </button>
-  )
-}
+  );
+};
 
-export default UserButton
+export default UserButton;

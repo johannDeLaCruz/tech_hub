@@ -9,7 +9,7 @@ const ProfilePage = () => {
   const { data: session } = useSession();
   return (
     <>
-      <Avatar />
+      <Avatar image={session?.user?.image} />
       <UserStats />
       <UserFavouritesList />
     </>
