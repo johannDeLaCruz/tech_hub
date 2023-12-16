@@ -16,12 +16,24 @@ const LoginPage = () => {
   const [providers, setProviders] = useState(null);
 
   useEffect(() => {
-    const setProviders = async () => {
+    const setupProviders = async () => {
       const response = await getProviders();
       setProviders(response);
     };
-    setProviders();
+    setupProviders();
   }, []);
+
+  const iconName = (provider) => {
+    const providerName = provider.name;
+    switch (providerName) {
+      case "Google":
+        return faGoogle;
+      case "GitHub":
+        return faGithub;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="container">
@@ -104,7 +116,7 @@ const LoginPage = () => {
               >
                 {" "}
                 <FontAwesomeIcon
-                  icon={faGoogle}
+                  icon={iconName(provider)}
                   className="text-white"
                   width={20}
                 />
