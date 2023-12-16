@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 let isConnected = false;
 
 export const connectToDatabase = async () => {
-  mongoose.set("strinctQuery", true);
+  mongoose.set("strictQuery", true);
   if (isConnected) {
     console.log("MongoDB is connected!");
     return;
@@ -11,12 +11,12 @@ export const connectToDatabase = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: "TechHub",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
     });
     isConnected = true;
     console.log("MongoDB is connected!");
   } catch (error) {
-    console.log(error);
+    console.error("Error connecting to the database:", error.message)
   }
 };

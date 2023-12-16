@@ -14,6 +14,7 @@ import {
 } from "next-auth/react";
 const LoginPage = () => {
   const [providers, setProviders] = useState(null);
+  const {data: session} = useSession();
 
   useEffect(() => {
     const setupProviders = async () => {
@@ -123,16 +124,6 @@ const LoginPage = () => {
                 <span> {provider.name}</span>
               </button>
             ))}
-
-          {/* <button className="btn-gray py-3 px-7 flex gap-2 items-center font-normal">
-            {" "}
-            <FontAwesomeIcon
-              icon={faGithub}
-              className="text-white"
-              width={20}
-            />
-            <span>GitHub</span>
-          </button> */}
         </div>
         <p className="text-caption pt-5 pb-16 text-center">
           Don&apos;t have an account? Sign up for free
