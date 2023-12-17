@@ -18,6 +18,7 @@
         "models",
         "auth",
         "nextconfig",
-        "userModel"
+        "userModel",
+        "api"
     ]
 }
