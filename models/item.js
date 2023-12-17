@@ -6,6 +6,10 @@ const itemSchema = new Schema({
     required: true,
     maxLength: [20, "The length must be maximum 20 characters!"],
   },
+  image: {
+    type: String,
+    default: "Placeholder image href",
+  },
   brand: {
     type: String,
     required: true,
@@ -19,6 +23,10 @@ const itemSchema = new Schema({
     type: String,
     required: true,
   },
+  subscriptionType: {
+    type: String,
+    required: true,
+  },
   features: {
     type: [String],
     default: ["Not Available"],
@@ -26,6 +34,11 @@ const itemSchema = new Schema({
   releaseHistory: {
     type: [String],
     default: ["Not Available"],
+  },
+  minimalPrice: {
+    type: String,
+    required: true,
+    default: "N/A",
   },
   plans: {
     type: [String],

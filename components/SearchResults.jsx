@@ -9,7 +9,6 @@ const SearchResults = () => {
     const fetchData = async () => {
       try {
         const response = await fetch("/api/item");
-
         if (response.ok) {
           const data = await response.json();
           setAllItems(data);
@@ -26,7 +25,7 @@ const SearchResults = () => {
   return (
     <section className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 py-4 justify-center">
       {allItems.map((item, index) => (
-        <ItemCard key={index} />
+        <ItemCard key={index} item={item} />
       ))}
     </section>
   );
