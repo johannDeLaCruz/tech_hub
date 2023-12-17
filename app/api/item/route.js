@@ -3,16 +3,15 @@
 import { connectToDatabase } from "@utils/database";
 import User from "@models/User";
 
-export const GET = async (res) => {
+export const GET = async (req) => {
   try {
     await connectToDatabase();
-    const items = await User.find();
-    if (items.ok) {
-      res.status(200).json(items);
-    } else {
-      throw new Error(`${items.status}${items.statusText}`);
-    }s
+    const items = await User.find({});
+    if (items) {
+      return new Response(JSON.stringify(items), { status: 200 });
+    }
   } catch (error) {
-    console.error("Failed to fetch all items:", error.message);
+    console.error("Failed to fetch prompts:", error.message);
+    return new Response("Failed to create a new prompt", { status: 500 });
   }
 };
