@@ -19,6 +19,7 @@
         "auth",
         "nextconfig",
         "userModel",
-        "api"
+        "api",
+        "itemModel"
     ]
 }

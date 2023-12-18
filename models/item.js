@@ -8,7 +8,8 @@ const itemSchema = new Schema({
   },
   image: {
     type: String,
-    default: "Placeholder image href",
+    default: "Add placeholder image href",
+    required: true,
   },
   externalLink: {
     type: String,
@@ -27,43 +28,42 @@ const itemSchema = new Schema({
     type: String,
     required: true,
   },
+  minimalPrice: {
+    type: Number,
+    default: "N/A",
+    required: true,
+  },
   subscriptionType: {
     type: String,
-    required: true,
-  },
-  features: {
-    type: [String],
-    default: ["Not Available"],
-  },
-  releaseHistory: {
-    type: [String],
-    default: ["Not Available"],
-  },
-  minimalPrice: {
-    type: String,
-    required: true,
     default: "N/A",
+    required: true,
   },
-  plans: {
-    type: [String],
-    default: ["Not Available"],
-  },
-  categories: {
-    type: [String],
-    default: ["N/A"],
-  },
-  socialLinks: {
-    type: [String],
-    default: ["Not Available"],
-  },
-  videoLink: {
-    type: String,
-    default: "Not Available",
-  },
-  created: {
-    type: Date,
-    default: Date.now,
-  },
+  itemDetailedInfo: [
+    {
+      title: {
+        type: String,
+        default: "Information",
+        required: true,
+      },
+      description: {
+        type: [String] || Date,
+        default: "Not Available",
+        required: true,
+      },
+    },
+    {
+      title: {
+        type: String,
+        default: "Date Added",
+        required: true,
+      },
+      description: {
+        type: Date,
+        default: Date.now(),
+        required: true,
+      },
+    },
+  ],
 });
 
 const Item = models.Item || model("Item", itemSchema);
