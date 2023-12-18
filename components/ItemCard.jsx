@@ -6,13 +6,15 @@ import LikeButton from "@components/LikeButton";
 const ItemCard = ({ item }) => {
   const {
     name,
-    brand,
+    // brand,
     rating,
     itemDescription,
     image,
     minimalPrice,
     subscriptionType,
+    categories,
   } = item;
+  
   return (
     <article className="bg-gray-950 rounded-3xl overflow-hidden justify-self-center">
       <ItemImage minimalPrice={minimalPrice} image={image} />
@@ -31,10 +33,10 @@ const ItemCard = ({ item }) => {
           </a>
           <span className="text-caption grow text-end">{subscriptionType}</span>
         </div>
-        <ItemRating />
+        <ItemRating rating={rating} />
         <p className="text-body1 mb-3 w-64 line-clamp-3">{itemDescription}</p>
         <div className="flex justify-between">
-          <ItemTags />
+          <ItemTags categories={categories} />
           <LikeButton />
         </div>
       </div>

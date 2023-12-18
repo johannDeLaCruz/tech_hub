@@ -44,9 +44,10 @@ const itemSchema = new Schema({
     type: [String],
     default: ["Not Available"],
   },
-  categories: [
-    { type: Schema.Types.ObjectId, ref: "Category", required: true },
-  ],
+  categories: {
+    type: [String],
+    default: ["N/A"],
+  },
   socialLinks: {
     type: [String],
     default: ["Not Available"],
@@ -63,5 +64,4 @@ const itemSchema = new Schema({
 
 const Item = models.Item || model("Item", itemSchema);
 //the "models.User" is needed here for NextAuth serverless specifications
-
 module.exports = Item;

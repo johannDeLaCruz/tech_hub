@@ -1,10 +1,11 @@
+"use client";
 import ItemCard from "@components/ItemCard";
 import { useState, useEffect } from "react";
 
 const SearchResults = () => {
   const [allItems, setAllItems] = useState([]);
   // const [loading, setLoading] = useState(true);
-
+  console.log(allItems);
   useEffect(() => {
     const fetchData = async () => {
       try {

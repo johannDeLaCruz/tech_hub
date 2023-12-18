@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
+import Item from "@models/Item";
 
 let isConnected = false;
 
 export const connectToDatabase = async () => {
   mongoose.set("strictQuery", true);
   if (isConnected) {
-    console.log("MongoDB is connected!");
+    console.log("MongoDB is already connected!");
     return;
   }
   try {
@@ -18,6 +19,8 @@ export const connectToDatabase = async () => {
     isConnected = true;
     console.log("MongoDB is connected!");
   } catch (error) {
-    console.error("Error connecting to the database:", error.message)
+    console.error("Error connecting to the database:", error.message);
   }
 };
+
+

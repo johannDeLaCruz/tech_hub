@@ -1,13 +1,13 @@
 //fetch all items from the database
-
 import { connectToDatabase } from "@utils/database";
-import User from "@models/User";
+import Item from "@models/Item"
 
 export const GET = async (req) => {
   try {
     await connectToDatabase();
-    const items = await User.find({});
+    const items = await Item.find({});
     if (items) {
+      console.log(items);
       return new Response(JSON.stringify(items), { status: 200 });
     } else {
       return new Response("No items found", { status: 404 });
@@ -17,3 +17,5 @@ export const GET = async (req) => {
     return new Response("Failed to create a new prompt", { status: 500 });
   }
 };
+
+
