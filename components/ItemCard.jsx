@@ -5,7 +5,9 @@ import LikeButton from "@components/LikeButton";
 
 const ItemCard = ({ item }) => {
   const {
+    _id,
     name,
+    externalLink,
     // brand,
     rating,
     itemDescription,
@@ -17,7 +19,7 @@ const ItemCard = ({ item }) => {
   
   return (
     <article className="bg-gray-950 rounded-3xl overflow-hidden justify-self-center">
-      <ItemImage minimalPrice={minimalPrice} image={image} />
+      <ItemImage minimalPrice={minimalPrice} image={image}  externalLink={externalLink} _id={_id}/>
       <div className="flex flex-col gap-1 p-6">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-h3">{name}</h3>

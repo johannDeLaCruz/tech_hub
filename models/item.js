@@ -10,7 +10,7 @@ const itemSchema = new Schema({
     type: String,
     default: "Placeholder image href",
   },
-  websiteLink: {
+  externalLink: {
     type: String,
     required: true,
   },

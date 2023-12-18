@@ -1,10 +1,30 @@
+"use client";
 import Breadcrumbs from "@components/Breadcrumbs";
 import ItemBasicInfo from "@components/ItemBasicInfo";
 import ItemDetailedInfo from "@components/ItemDetailedInfo";
 import RecommendedSection from "@components/RecommendedSection";
 import Image from "next/image";
+import { useState } from "react";
 
-const itemInfoPage = () => {
+const ItemInfoPage = ({ params }) => {
+  const [itemData, setItemData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/item/${params.id}`);
+        if (response.ok) {
+          const data = response.json();
+          setItemData(data);
+        } else {
+          throw new Error("Failed to fetch data!");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <div className="container">
       <section>
@@ -27,4 +47,4 @@ const itemInfoPage = () => {
   );
 };
 
-export default itemInfoPage;
+export default ItemInfoPage;
