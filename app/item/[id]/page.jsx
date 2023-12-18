@@ -4,10 +4,10 @@ import ItemBasicInfo from "@components/ItemBasicInfo";
 import ItemDetailedInfo from "@components/ItemDetailedInfo";
 import RecommendedSection from "@components/RecommendedSection";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ItemInfoPage = ({ params }) => {
-  const [itemData, setItemData] = useState([]);
+  const [itemData, setItemData] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +42,7 @@ const ItemInfoPage = ({ params }) => {
         <ItemBasicInfo />
         <ItemDetailedInfo />
       </section>
-      <RecommendedSection />
+      {/* <RecommendedSection /> */}
     </div>
   );
 };

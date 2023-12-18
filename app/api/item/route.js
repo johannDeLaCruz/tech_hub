@@ -1,13 +1,12 @@
 //fetch all items from the database
 import { connectToDatabase } from "@utils/database";
-import Item from "@models/Item"
+import Item from "@models/Item";
 
 export const GET = async (req) => {
   try {
     await connectToDatabase();
     const items = await Item.find({});
-    if (items) {
-      console.log(items);
+    if (items) {      
       return new Response(JSON.stringify(items), { status: 200 });
     } else {
       return new Response("No items found", { status: 404 });
