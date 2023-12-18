@@ -10,6 +10,10 @@ const itemSchema = new Schema({
     type: String,
     default: "Placeholder image href",
   },
+  websiteLink: {
+    type: String,
+    required: true,
+  },
   brand: {
     type: String,
     required: true,
