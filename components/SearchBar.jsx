@@ -1,13 +1,19 @@
 import InputForm from "@components/InputForm";
-
-const SearchBar = () => {
+const SearchBar = ({ searchText, onChange, handleSearch }) => {
   return (
-    <div className="mx-auto w-full sm:max-w-2xl relative flex justify-center items-center mb-6">
+    <form
+      action=""
+      method="GET"
+      className="mx-auto w-full sm:max-w-2xl relative flex justify-center items-center mb-6"
+      onSubmit={handleSearch}
+    >
       <InputForm
-        placeholder={" Search for technologies..."}
-        type={"text"}
-        name={"search"}
-        id={"search"}
+        type="text"
+        value={searchText}
+        onChange={onChange}
+        name="search"
+        id="search"
+        placeholder=" Search for technologies..."
       />
       <span className="absolute right-0 flex items-center bg-black rounded-full mr-2 ">
         <button
@@ -28,7 +34,7 @@ const SearchBar = () => {
           </svg>
         </button>
       </span>
-    </div>
+    </form>
   );
 };
 

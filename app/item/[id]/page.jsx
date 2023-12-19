@@ -1,6 +1,5 @@
 "use client";
 import Breadcrumbs from "@components/Breadcrumbs";
-import ItemDetailedInfo from "@components/ItemDetailedInfo";
 import ItemRating from "@components/ItemRating";
 // import RecommendedSection from "@components/RecommendedSection";
 import Image from "next/image";
@@ -30,8 +29,7 @@ const ItemInfoPage = ({ params }) => {
       fetchData();
     }
   }, [params.id]);
-
-  console.log(ItemDetailedInfo);
+ 
   return (
     <div className="container">
       <section>
