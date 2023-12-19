@@ -1,7 +1,13 @@
 import { Schema, model, models } from "mongoose";
 
-const tagsSchema = new Schema({ name: { type: String, required: true } });
+const tagSchema = new Schema({
+  name: { type: String, required: true }
+});
 
-const Tag = models.Tags || model("Tags", tagsSchema);
+const tagsSchema = new Schema({
+  tags: { type: [tagSchema], required: true }
+});
 
-module.exports = Tag;
+const Tags = models.Tags || model("Tags", tagsSchema);
+
+module.exports = Tags;
