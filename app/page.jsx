@@ -11,8 +11,10 @@ const Home = () => {
   // const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
+  const [tags, setTags] = useState([]);
 
-  const itemsCount = allItems.length;
+  const itemsCount = filteredItems.length > 0 ? filteredItems.length : allItems.length;
+
 
   const filterItems = (items) => {
     const regex = new RegExp(searchText, "i");
