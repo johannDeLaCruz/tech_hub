@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 // import Item from "@models/Item";
+// import Tag from "@models/Tag";
 
 let isConnected = false;
 
@@ -12,8 +13,8 @@ export const connectToDatabase = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: "TechHub",
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       // deprecated!
     });
     isConnected = true;
@@ -28,7 +29,7 @@ export const connectToDatabase = async () => {
 //   image: "https://images.pexels.com/photos/6037812/pexels-photo-6037812.jpeg",
 //   externalLink: "https://apple.com",
 //   brand: "Your Brand",
-//   rating: 5, 
+//   rating: 5,
 //   itemDescription: "Your short general Item Description",
 //   subscriptionType: "free",
 //   minimalPrice: 29.99,
@@ -82,3 +83,4 @@ export const connectToDatabase = async () => {
 //   .catch((error) => {
 //     console.error("Error saving item:", error);
 //   });
+
