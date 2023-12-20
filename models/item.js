@@ -38,6 +38,11 @@ const itemSchema = new Schema({
     default: "N/A",
     required: true,
   },
+  tags: {
+    type: [String],
+    default: "N/A",
+    required: true,
+  },
   itemDetailedInfo: [
     {
       title: {

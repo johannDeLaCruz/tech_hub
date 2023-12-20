@@ -13,8 +13,8 @@ export const connectToDatabase = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: "TechHub",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
       // deprecated!
     });
     isConnected = true;

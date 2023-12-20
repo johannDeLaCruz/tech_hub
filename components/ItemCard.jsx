@@ -15,7 +15,7 @@ const ItemCard = ({ item }) => {
     image,
     minimalPrice,
     subscriptionType,
-    categories,
+    tags,
   } = item;
   
   return (
@@ -39,7 +39,7 @@ const ItemCard = ({ item }) => {
         <ItemRating rating={rating} />
         <p className="text-body1 mb-3 w-64 line-clamp-3">{itemDescription}</p>
         <div className="flex justify-between">
-          <ItemTags categories={categories} />
+          <ItemTags tags={tags} />
           <LikeButton />
         </div>
       </div>

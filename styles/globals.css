@@ -12,7 +12,10 @@
     @apply h-px dark:border-gray-950 border-gray-300 py-2;
   }
   .tag {
-    @apply border border-primary-500 font-body text-tag text-primary-500 hover:bg-primary-500 hover:text-white hover:transition-colors focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-500 focus:ring-inset duration-300;
+    @apply border border-primary-500 font-body text-tag text-primary-500 lg:hover:bg-primary-500 lg:hover:text-white lg:hover:transition-colors focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-500 focus:ring-inset duration-300;
+  }
+  .tag-selected {
+    @apply bg-primary-500 text-white
   }
   .btn-primary {
     @apply text-button text-black bg-primary-500 hover:transition-colors hover:bg-primary-400 rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-white focus:ring-white;

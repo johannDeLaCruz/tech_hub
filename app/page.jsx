@@ -8,13 +8,42 @@ import { useState, useEffect } from "react";
 
 const Home = () => {
   const [allItems, setAllItems] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
   const [tags, setTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
 
-  const itemsCount = filteredItems.length > 0 ? filteredItems.length : allItems.length;
+  console.log(selectedTags);
+  console.log(allItems?.[0]?.tags);
 
+  const handleTagClick = (e) => {
+    e.preventDefault();
+    const selectedTag = e.target.value;
+    setSelectedTags((prevTags) =>
+      prevTags.includes(selectedTag)
+        ? prevTags.filter((t) => t !== selectedTag)
+        : [...prevTags, selectedTag]
+    );
+  };
+  useEffect(() => {
+    // This effect runs whenever selectedTags changes
+    const filteredItemsByTags = filterItemsByTags(allItems);
+    if (filteredItems.length > 0) {
+      setFilteredItems((prevItems) => filteredItemsByTags);
+    } else {
+      setFilteredItems(filteredItemsByTags);
+    }
+  }, [selectedTags]);
+
+  const filterItemsByTags = (items) => {
+    return items.filter((item) =>
+      selectedTags.some((tag) => item.tags.includes(tag))
+    );
+  };
+
+  const itemsCount =
+    filteredItems.length > 0 ? filteredItems.length : allItems.length;
 
   const filterItems = (items) => {
     const regex = new RegExp(searchText, "i");
@@ -30,23 +59,34 @@ const Home = () => {
     e.preventDefault();
     setFilteredItems(filterItems(allItems));
   };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/item");
-        if (response.ok) {
-          const data = await response.json();
-          setAllItems(data);
-        } else {
-          throw new Error("Failed to fetch data");
+        const [tagsResponse, itemsResponse] = await Promise.all([
+          fetch("/api/tags"),
+          fetch("/api/item"),
+        ]);
+
+        if (!tagsResponse.ok) {
+          throw new Error("Failed to fetch tags");
         }
+        const tagsData = await tagsResponse.json();
+        setTags(tagsData);
+
+        if (!itemsResponse.ok) {
+          throw new Error("Failed to fetch items");
+        }
+        const itemsData = await itemsResponse.json();
+        setAllItems(itemsData);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
+
   return (
     <div className="container">
       <HeroSection />
@@ -61,7 +101,11 @@ const Home = () => {
         onChange={(e) => setSearchText(e.target.value)}
       />
       <hr />
-      <TagsSelection />
+      <TagsSelection
+        selectedTags={selectedTags}
+        handleTagClick={handleTagClick}
+        tags={tags}
+      />
       <div className="mx-auto w-full sm:max-w-sm bg-gray-950 text-button text-center p-2 mb-6 rounded-3xl">
         {" "}
         Showing {itemsCount} items
