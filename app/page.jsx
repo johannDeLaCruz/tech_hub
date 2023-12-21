@@ -4,18 +4,16 @@ import TagsSelection from "@components/TagsSelection";
 import SearchBar from "@components/SearchBar";
 import HeroSection from "@components/HeroSection";
 import SearchResults from "@components/SearchResults";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 const Home = () => {
   const [allItems, setAllItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
-  const [filteredItems, setFilteredItems] = useState([]);
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
 
   console.log(selectedTags);
-  console.log(allItems?.[0]?.tags);
 
   const handleTagClick = (e) => {
     e.preventDefault();
@@ -26,39 +24,32 @@ const Home = () => {
         : [...prevTags, selectedTag]
     );
   };
-  useEffect(() => {
-    // This effect runs whenever selectedTags changes
-    const filteredItemsByTags = filterItemsByTags(allItems);
-    if (filteredItems.length > 0) {
-      setFilteredItems((prevItems) => filteredItemsByTags);
-    } else {
-      setFilteredItems(filteredItemsByTags);
-    }
-  }, [selectedTags]);
 
-  const filterItemsByTags = (items) => {
-    return items.filter((item) =>
-      selectedTags.some((tag) => item.tags.includes(tag))
-    );
-  };
+  const searchTextRegex = useMemo(() => {
+    return new RegExp(searchText.toLowerCase(), "i");
+  }, [searchText]);
 
-  const itemsCount =
-    filteredItems.length > 0 ? filteredItems.length : allItems.length;
+  const filteredItems = useMemo(() => {
+    return allItems.filter((item) => {
+      const matchesTag =
+        selectedTags.length === 0 ||
+        selectedTags.every((tag) =>
+          item.tags.some(
+            (itemTag) =>
+              itemTag.trim().toLowerCase() === tag.trim().toLowerCase()
+          )
+        );
+      const matchesSearch =
+        searchTextRegex.test(item.name) ||
+        searchTextRegex.test(item.itemDescription) ||
+        searchTextRegex.test(item.brand);
 
-  const filterItems = (items) => {
-    const regex = new RegExp(searchText, "i");
-    return items.filter(
-      (item) =>
-        regex.test(item.name) ||
-        regex.test(item.itemDescription) ||
-        regex.test(item.brand)
-    );
-  };
+      return matchesTag && matchesSearch;
+    });
+  }, [allItems, searchTextRegex, selectedTags]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setFilteredItems(filterItems(allItems));
-  };
+  const itemsCount = filteredItems.length;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -66,13 +57,11 @@ const Home = () => {
           fetch("/api/tags"),
           fetch("/api/item"),
         ]);
-
         if (!tagsResponse.ok) {
           throw new Error("Failed to fetch tags");
         }
         const tagsData = await tagsResponse.json();
         setTags(tagsData);
-
         if (!itemsResponse.ok) {
           throw new Error("Failed to fetch items");
         }
@@ -97,7 +86,6 @@ const Home = () => {
       </div>
       <SearchBar
         searchText={searchText}
-        handleSearch={handleSearch}
         onChange={(e) => setSearchText(e.target.value)}
       />
       <hr />
@@ -110,11 +98,7 @@ const Home = () => {
         {" "}
         Showing {itemsCount} items
       </div>
-      {filteredItems.length > 0 ? (
-        <SearchResults items={filteredItems} />
-      ) : (
-        <SearchResults items={allItems}></SearchResults>
-      )}
+      <SearchResults items={filteredItems} />
       <div className="flex justify-center py-6">
         {" "}
         <button className="py-2 px-6 btn-primary">Load More</button>
