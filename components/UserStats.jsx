@@ -2,13 +2,7 @@
 
 import Link from "next/link";
 
-const userStats = [
-  { name: "Favourites", value: 50 },
-  { name: "User ID", value: "#24935" },
-  { name: "Subscribed Since", value: "10/10/23" },
-];
-
-const UserStats = ({ signOuthandle }) => {
+const UserStats = ({ signOuthandle }, userInfo) => {
   return (
     <section className="container text-center pt-14">
       <h1 className="font-heading text-h2">Your_Username</h1>
@@ -30,10 +24,14 @@ const UserStats = ({ signOuthandle }) => {
         </button>
       </div>
       <ul className="grid grid-cols-3 max-w-2xl mx-auto py-6">
-        {userStats.map((item, index) => (
+
+
+
+        {Object.entries}
+        {userInfo.map((item, index) => (
           <li key={index}>
-            <span className="text-h4">{item.value}</span>
-            <p className="text-caption">{item.name}</p>{" "}
+            <span className="text-h4">{Object.keys(item)}</span>
+            <p className="text-caption">{Object.values(item)}</p>{" "}
           </li>
         ))}
       </ul>

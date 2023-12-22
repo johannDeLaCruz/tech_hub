@@ -40,13 +40,14 @@ const Home = () => {
           )
         );
       const matchesSearch =
+        searchText === "" ||
         searchTextRegex.test(item.name) ||
         searchTextRegex.test(item.itemDescription) ||
         searchTextRegex.test(item.brand);
 
       return matchesTag && matchesSearch;
     });
-  }, [allItems, searchTextRegex, selectedTags]);
+  }, [allItems, searchTextRegex, selectedTags, searchText]);
 
   const itemsCount = filteredItems.length;
 

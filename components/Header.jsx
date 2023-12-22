@@ -11,7 +11,7 @@ import UserButton from "@components/UserButton";
 
 const headerNavLinks = [
   { title: "Home", link: "/" },
-  { title: "Profile", link: "/login" },
+  { title: "Profile", link: "/profile" },
   { title: "About Us", link: "/about" },
 ];
 

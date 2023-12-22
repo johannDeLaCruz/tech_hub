@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 const ProfilePage = () => {
   const { data: session } = useSession();
   const [provider, setProvider] = useState();
+  const [user, setUser] = useState();
+
   useEffect(() => {
     const setupProviders = async () => {
       const response = await getProviders();
@@ -16,10 +18,32 @@ const ProfilePage = () => {
     };
     setupProviders();
   }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`/api/user/${session?.user.id}`);
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch user data. Response: ${response.status}`
+          );
+        }
+        const data = await response.json();
+        setUser(data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchUser();
+  }, [session.user.id]);
+
   return (
     <>
       <Avatar image={session?.user?.image} />
-      <UserStats signOuthandle={() => signOut(provider.id)} />
+      <UserStats
+        signOuthandle={() => signOut(provider.id)}
+        userInfo={session?.user}
+      />
       <UserFavouritesList />
     </>
   );
