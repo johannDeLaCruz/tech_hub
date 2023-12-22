@@ -77,13 +77,11 @@ const LoginPage = () => {
               id={"password"}
             />
           </div>
-
           <div className="flex flex-col py-2">
             <button type="submit" className="btn-primary py-2 text-white">
               Login
             </button>
           </div>
-
           <div className="flex justify-between gap-1">
             <input
               type="checkbox"

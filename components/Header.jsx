@@ -1,17 +1,18 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import Logo from "@components/Logo";
 import Nav from "@components/Nav";
 import ModeButton from "@components/ModeButton";
-import GoogleLoginButton from "@components/GoogleLoginButton";
 import HamburguerButton from "@components/HamburguerButton";
 import HamburguerMenu from "@components/HamburguerMenu";
-import UserButton from "@components/UserButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const headerNavLinks = [
   { title: "Home", link: "/" },
-  { title: "Profile", link: "/profile" },
+  // { title: "Profile", link: "/profile" },
   { title: "About Us", link: "/about" },
 ];
 
@@ -44,7 +45,27 @@ const Header = () => {
         <Logo />
         <Nav navLinks={headerNavLinks} type={"header"} className="hidden" />
         <div className="flex gap-2 py-4">
-          {session?.user ? <UserButton /> : <GoogleLoginButton />}
+          {session?.user ? (
+            <button className="btn-round">
+              <Link href={"/profile"}>
+                <FontAwesomeIcon
+                  width={20}
+                  icon={faUser}
+                  style={{ display: "block" }}
+                />
+              </Link>
+            </button>
+          ) : (
+            <button className="btn-round">
+              <Link href={"/login"}>
+                <FontAwesomeIcon
+                  width={20}
+                  icon={faRightToBracket}
+                  style={{ display: "block" }}
+                />
+              </Link>
+            </button>
+          )}
           <ModeButton />
           <HamburguerButton onButtonClick={handleButtonClick} />
         </div>

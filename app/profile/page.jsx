@@ -53,7 +53,7 @@ const ProfilePage = () => {
         userInfo={session?.user}
         user={user}
       />
-      <UserFavouritesList favoriteslist={user.favorites} />
+      <UserFavouritesList favoriteslist={user?.favorites} />
     </>
   );
 };
