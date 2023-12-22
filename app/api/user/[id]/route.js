@@ -4,7 +4,7 @@ import { connectToDatabase } from "@utils/database";
 export const GET = async (rea, { params }) => {
   try {
     await connectToDatabase();
-    const user = await User.findById(params.id);
+    const user = await User.findById(params.id).populate("favorites");
     if (user) {
       return new Response(JSON.stringify(user), { status: 200 });
     } else {

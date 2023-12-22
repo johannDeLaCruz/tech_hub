@@ -11,6 +11,7 @@ import {
   getSession,
   getProviders,
 } from "next-auth/react";
+
 const LoginPage = () => {
   const [providers, setProviders] = useState(null);
   // const {data: session} = useSession();
@@ -33,7 +34,7 @@ const LoginPage = () => {
       default:
         return null;
     }
-  };
+  }; 
 
   return (
     <div className="container">

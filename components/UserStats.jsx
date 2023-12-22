@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 
-const UserStats = ({ signOuthandle }, userInfo) => {
+const UserStats = ({ signOuthandle, user }) => {
+  const { email, username } = user;
+
   return (
     <section className="container text-center pt-14">
-      <h1 className="font-heading text-h2">Your_Username</h1>
-      <span className="text-caption">ai@gmail.com</span>
+      <h1 className="font-heading text-h2">{username}</h1>
+      <span className="text-caption">{email}</span>
       <div className="relative py-4">
         <button className="btn-white px-14 py-2 mr-3" onClick={signOuthandle}>
           <Link href="/login">Logout</Link>
@@ -24,17 +26,22 @@ const UserStats = ({ signOuthandle }, userInfo) => {
         </button>
       </div>
       <ul className="grid grid-cols-3 max-w-2xl mx-auto py-6">
-
-
-
-        {Object.entries}
-        {userInfo.map((item, index) => (
-          <li key={index}>
-            <span className="text-h4">{Object.keys(item)}</span>
-            <p className="text-caption">{Object.values(item)}</p>{" "}
-          </li>
-        ))}
+        {user &&
+          Object.entries(user).map(([key, value], index) => {
+            if (["username", "dateCreated", "_id"].includes(key)) {
+              return (
+                <li key={index}>
+                  <span className="text-h4">
+                    {key[0].toUpperCase() + key.slice(1).toLowerCase()}
+                  </span>
+                  <p className="text-caption">{value}</p>{" "}
+                </li>
+              );
+            }
+            return null;
+          })}
       </ul>
+
       <hr />
     </section>
   );

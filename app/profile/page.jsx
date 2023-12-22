@@ -5,11 +5,14 @@ import UserStats from "@components/UserStats";
 import UserFavouritesList from "@components/UserFavouritesList";
 import { useSession, getProviders, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
-  const { data: session } = useSession();
+  const { data: session } = useSession({});
   const [provider, setProvider] = useState();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
+
+  // console.log(session?.user);
 
   useEffect(() => {
     const setupProviders = async () => {
@@ -35,16 +38,22 @@ const ProfilePage = () => {
       }
     };
     fetchUser();
-  }, [session.user.id]);
+  }, [session?.user.id]);
+
+  const signOutHandle = () => {
+    signOut(provider.id);
+    router.push("/login");
+  };
 
   return (
     <>
       <Avatar image={session?.user?.image} />
       <UserStats
-        signOuthandle={() => signOut(provider.id)}
+        signOuthandle={signOutHandle}
         userInfo={session?.user}
+        user={user}
       />
-      <UserFavouritesList />
+      <UserFavouritesList favoriteslist={user.favorites} />
     </>
   );
 };
