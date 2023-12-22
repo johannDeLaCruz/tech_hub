@@ -5,12 +5,7 @@ import InputForm from "@/components/InputForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
-import {
-  signIn,
-  useSession,
-  getSession,
-  getProviders,
-} from "next-auth/react";
+import { signIn, useSession, getSession, getProviders } from "next-auth/react";
 
 const LoginPage = () => {
   const [providers, setProviders] = useState(null);
@@ -34,7 +29,18 @@ const LoginPage = () => {
       default:
         return null;
     }
-  }; 
+  };
+
+  const handleSignIn = async (providerId) => {
+    try {
+      const result = await signIn(providerId, { callbackUrl: "/" });
+      if (result?.error) {
+        console.error("Login error:", result.error);
+      }
+    } catch (error) {
+      console.error("Unexpected error during login:", error);
+    }
+  };
 
   return (
     <div className="container">
@@ -110,7 +116,7 @@ const LoginPage = () => {
             Object.values(providers).map((provider) => (
               <button
                 key={provider.name}
-                onClick={() => signIn(provider.id)}
+                onClick={() => handleSignIn(provider.id)}
                 className="btn-gray py-3 px-7 flex gap-2 items-center font-normal"
               >
                 {" "}

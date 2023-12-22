@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 const UserStats = ({ signOuthandle, user }) => {
   const { email, username } = user;
 
@@ -11,7 +9,7 @@ const UserStats = ({ signOuthandle, user }) => {
       <span className="text-caption">{email}</span>
       <div className="relative py-4">
         <button className="btn-white px-14 py-2 mr-3" onClick={signOuthandle}>
-          <Link href="/login">Logout</Link>
+          Logout
         </button>
         <button
           href=""

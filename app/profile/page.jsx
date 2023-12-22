@@ -11,8 +11,7 @@ const ProfilePage = () => {
   const { data: session } = useSession({});
   const [provider, setProvider] = useState();
   const [user, setUser] = useState({});
-
-  // console.log(session?.user);
+  const router = useRouter();
 
   useEffect(() => {
     const setupProviders = async () => {
@@ -40,9 +39,12 @@ const ProfilePage = () => {
     fetchUser();
   }, [session?.user.id]);
 
-  const signOutHandle = () => {
-    signOut(provider.id);
-    router.push("/login");
+  const signOutHandle = async () => {
+    try {
+      await signOut({ callbackUrl: "/" });
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
   };
 
   return (
