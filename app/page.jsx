@@ -8,7 +8,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 
 const Home = () => {
-  const {data: session} = useSession();
+  const { data: session, status } = useSession();
   const [allItems, setAllItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
@@ -16,7 +16,7 @@ const Home = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [user, setUser] = useState({});
 
-  console.log(selectedTags);
+  console.log(user);
 
   const handleTagClick = (e) => {
     e.preventDefault();
@@ -57,10 +57,9 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [tagsResponse, itemsResponse, userResponse] = await Promise.all([
+        const [tagsResponse, itemsResponse] = await Promise.all([
           fetch("/api/tags"),
           fetch("/api/item"),
-          fetch(`/api/user/${session?.user.id}`),
         ]);
         if (!tagsResponse.ok) {
           throw new Error("Failed to fetch tags");
@@ -72,11 +71,14 @@ const Home = () => {
         }
         const itemsData = await itemsResponse.json();
         setAllItems(itemsData);
-        if (!userResponse.ok) {
-          throw new Error("Failed to fetch user info");
+        if (status === "authenticated") {
+          const userResponse = await fetch(`/api/user/${session?.user.id}`);
+          if (!userResponse.ok) {
+            throw new Error("Failed to fetch user info");
+          }
+          const userData = await userResponse.json();
+          setUser(userData);
         }
-        const userData = await userResponse.json();
-        setUser(userData);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -84,11 +86,58 @@ const Home = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [session?.user.id, status]);
 
-  const handleLike = async(itemId) => {
+  const handleLike = async (itemId) => {
+    try {
+      setLoading(true);
 
-  }
+      if (user?.favorites.includes(itemId)) {
+        const response = await fetch(
+          `/api/user/${session?.user.id}/like/${itemId}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to unlike item");
+        }
+        setUser((prevUser) => {
+          const updatedFavorites = prevUser.favorites.filter(
+            (fav) => fav !== itemId
+          );
+          return {
+            ...prevUser,
+            favorites: updatedFavorites,
+          };
+        });
+      } else {
+        const response = await fetch(
+          `/api/user/${session?.user.id}/like/${itemId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to like item");
+        }
+        setUser((prevUser) => ({
+          ...prevUser,
+          favorites: [...prevUser.favorites, itemId],
+        }));
+      }
+    } catch (error) {
+      console.error("Error handling like:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="container">
@@ -112,7 +161,11 @@ const Home = () => {
         {" "}
         Showing {itemsCount} items
       </div>
-      <SearchResults items={filteredItems} handleLike={handleLike} favorites={user.favorites} />
+      <SearchResults
+        items={filteredItems}
+        handleLike={handleLike}
+        favorites={user?.favorites}
+      />
       <div className="flex justify-center py-6">
         {" "}
         <button className="py-2 px-6 btn-primary">Load More</button>
