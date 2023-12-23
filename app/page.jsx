@@ -5,13 +5,16 @@ import SearchBar from "@components/SearchBar";
 import HeroSection from "@components/HeroSection";
 import SearchResults from "@components/SearchResults";
 import { useState, useEffect, useMemo } from "react";
+import { useSession } from "next-auth/react";
 
 const Home = () => {
+  const {data: session} = useSession();
   const [allItems, setAllItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [user, setUser] = useState({});
 
   console.log(selectedTags);
 
@@ -54,9 +57,10 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [tagsResponse, itemsResponse] = await Promise.all([
+        const [tagsResponse, itemsResponse, userResponse] = await Promise.all([
           fetch("/api/tags"),
           fetch("/api/item"),
+          fetch(`/api/user/${session?.user.id}`),
         ]);
         if (!tagsResponse.ok) {
           throw new Error("Failed to fetch tags");
@@ -68,6 +72,11 @@ const Home = () => {
         }
         const itemsData = await itemsResponse.json();
         setAllItems(itemsData);
+        if (!userResponse.ok) {
+          throw new Error("Failed to fetch user info");
+        }
+        const userData = await userResponse.json();
+        setUser(userData);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -76,6 +85,10 @@ const Home = () => {
     };
     fetchData();
   }, []);
+
+  const handleLike = async(itemId) => {
+
+  }
 
   return (
     <div className="container">
@@ -99,7 +112,7 @@ const Home = () => {
         {" "}
         Showing {itemsCount} items
       </div>
-      <SearchResults items={filteredItems} />
+      <SearchResults items={filteredItems} handleLike={handleLike} favorites={user.favorites} />
       <div className="flex justify-center py-6">
         {" "}
         <button className="py-2 px-6 btn-primary">Load More</button>

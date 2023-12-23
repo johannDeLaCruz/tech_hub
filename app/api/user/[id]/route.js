@@ -1,7 +1,7 @@
 import User from "@models/User";
 import { connectToDatabase } from "@utils/database";
 
-export const GET = async (rea, { params }) => {
+export const GET = async (req, { params }) => {
   try {
     await connectToDatabase();
     const user = await User.findById(params.id).populate("favorites");
@@ -15,3 +15,4 @@ export const GET = async (rea, { params }) => {
     return new Response("Failed to create a new user", { status: 500 });
   }
 };
+

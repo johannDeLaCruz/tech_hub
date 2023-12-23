@@ -4,7 +4,7 @@ import ItemTags from "@components/ItemTags";
 import LikeButton from "@components/LikeButton";
 import Link from "next/link";
 
-const ItemCard = ({ item }) => {
+const ItemCard = ({ item, handleLike }) => {
   const {
     _id,
     name,
@@ -17,10 +17,15 @@ const ItemCard = ({ item }) => {
     subscriptionType,
     tags,
   } = item;
-  
+
   return (
     <article className="bg-gray-950 rounded-3xl overflow-hidden justify-self-center">
-      <ItemImage minimalPrice={minimalPrice} image={image}  externalLink={externalLink} _id={_id}/>
+      <ItemImage
+        minimalPrice={minimalPrice}
+        image={image}
+        externalLink={externalLink}
+        _id={_id}
+      />
       <div className="flex flex-col gap-1 p-6">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-h3">{name}</h3>
@@ -40,7 +45,7 @@ const ItemCard = ({ item }) => {
         <p className="text-body1 mb-3 w-64 line-clamp-3">{itemDescription}</p>
         <div className="flex justify-between">
           <ItemTags tags={tags} />
-          <LikeButton />
+          <LikeButton handleLike={handleLike} />
         </div>
       </div>
     </article>

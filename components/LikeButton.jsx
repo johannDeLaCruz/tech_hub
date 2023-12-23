@@ -1,10 +1,10 @@
-const LikeButton = () => {
+const LikeButton = ({ handleLike }) => {
   return (
     <div className="relative">
       <span className="absolute inset-x-0 -top-6 text-body1 text-center">
         124
       </span>
-      <button>
+      <button onClick={handleLike}>
         <svg
           viewBox="0 0 24 24"
           width={"2rem"}

@@ -8,10 +8,15 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
-  const { data: session } = useSession({});
+  const router = useRouter();
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/");
+    },
+  });
   const [provider, setProvider] = useState();
   const [user, setUser] = useState({});
-  const router = useRouter();
 
   useEffect(() => {
     const setupProviders = async () => {
@@ -46,6 +51,9 @@ const ProfilePage = () => {
       console.error("Error signing out:", error);
     }
   };
+  if (status === "loading") {
+    return <div>loading...</div>;
+  }
 
   return (
     <>
