@@ -7,7 +7,7 @@ const UserFavouritesList = ({ favorites }) => {
         Your Favourites List
       </h3>
       {favorites ? (
-        <SearchResults items={favorites} />
+        <SearchResults items={favorites} userFavorites={favorites} />
       ) : (
         <h4 className="text-center py-6">No favourites yet...</h4>
       )}

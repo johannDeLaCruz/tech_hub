@@ -17,8 +17,6 @@ const ItemCard = ({ item, handleLike, userFavorites }) => {
     tags,
   } = item;
 
-  console.log(userFavorites);
-
   return (
     <article className="bg-gray-950 rounded-3xl overflow-hidden justify-self-center">
       <ItemImage
