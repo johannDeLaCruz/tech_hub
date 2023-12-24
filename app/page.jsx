@@ -16,7 +16,7 @@ const Home = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [user, setUser] = useState({});
 
-  console.log(user);
+
 
   const handleTagClick = (e) => {
     e.preventDefault();

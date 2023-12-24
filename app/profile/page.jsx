@@ -53,7 +53,7 @@ const ProfilePage = () => {
   };
   if (status === "loading") {
     return <div>loading...</div>;
-  }
+  } 
 
   return (
     <>
@@ -63,7 +63,7 @@ const ProfilePage = () => {
         userInfo={session?.user}
         user={user}
       />
-      <UserFavouritesList favoriteslist={user?.favorites} />
+      <UserFavouritesList favorites={user?.favorites} />
     </>
   );
 };

@@ -1,3 +1,4 @@
+//fetch specific user by ID
 import User from "@models/User";
 import { connectToDatabase } from "@utils/database";
 
