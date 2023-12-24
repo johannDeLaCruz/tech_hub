@@ -16,8 +16,6 @@ const Home = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [user, setUser] = useState({});
 
-
-
   const handleTagClick = (e) => {
     e.preventDefault();
     const selectedTag = e.target.value;
@@ -132,7 +130,7 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }; 
 
   return (
     <div className="container">
@@ -159,7 +157,7 @@ const Home = () => {
       <SearchResults
         items={filteredItems}
         handleLike={handleLike}
-        favorites={user?.favorites}
+        userFavorites={user?.favorites}
       />
       <div className="flex justify-center py-6">
         {" "}

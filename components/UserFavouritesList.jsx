@@ -1,7 +1,6 @@
 import SearchResults from "@components/SearchResults";
 
 const UserFavouritesList = ({ favorites }) => {
-  console.log(favorites)
   return (
     <section className="container py-4">
       <h3 className="font-heading text-heading text-center py-6">
