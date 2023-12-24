@@ -91,17 +91,14 @@ const Home = () => {
   const handleLike = async (itemId) => {
     try {
       setLoading(true);
-
       if (user?.favorites.includes(itemId)) {
-        const response = await fetch(
-          `/api/user/${session?.user.id}/like/${itemId}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch(`/api/user/${session?.user.id}/favorites`, {
+          method: "DELETE",
+          body: JSON.stringify({ favoriteId: itemId }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         if (!response.ok) {
           throw new Error("Failed to unlike item");
         }
@@ -115,15 +112,13 @@ const Home = () => {
           };
         });
       } else {
-        const response = await fetch(
-          `/api/user/${session?.user.id}/like/${itemId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch(`/api/user/${session?.user.id}/favorites`, {
+          method: "POST",
+          body: JSON.stringify({ favoriteId: itemId }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         if (!response.ok) {
           throw new Error("Failed to like item");
         }
