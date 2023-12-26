@@ -1,6 +1,6 @@
 const TagsSelection = ({ selectedTags, tags, handleTagClick }) => {
   return (
-    //justify-center
+    //optionally, you can use "justify-center"
     <div className="mx-auto w-full sm:max-w-2xl flex flex-wrap gap-2 pb-6">
       {tags.map((tag) => {
         return (
