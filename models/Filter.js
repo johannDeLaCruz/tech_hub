@@ -1,25 +1,25 @@
 import { Schema, model, models } from "mongoose";
 
 const FilterSchema = new Schema({
-  tag: {
+  tags: {
     type: [String],
     required: true,
     unique: true,
     trim: true,
   },
-  type: {
+  // types: {
+  //   type: [String],
+  //   required: true,
+  //   unique: true,
+  //   trim: true,
+  // },
+  categories: {
     type: [String],
     required: true,
-    unique: true,
-    trim: true,
-  },
-  category: {
-    type: [String],
-    required: true,
     trim: true,
     unique: true,
   },
-  subscriptionType: {
+  subscriptionTypes: {
     type: [String],
     required: true,
     trim: true,

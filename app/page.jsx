@@ -16,13 +16,14 @@ const Home = () => {
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [user, setUser] = useState({});
-  let [isOpen, setIsOpen] = useState(false);
+  const[filter, setFilter] = useState();
+  let [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = () => {
-    setIsOpen(false);
+    setIsModalOpen(false);
   };
   const openModal = () => {
-    setIsOpen(true);
+    setIsModalOpen(true);
   };
 
   const handleTagClick = (e) => {
@@ -146,7 +147,7 @@ const Home = () => {
         >
           Filter results
         </button>
-        <FilterModal isOpen={isOpen} closeModal={closeModal} />
+        <FilterModal isOpen={isModalOpen} closeModal={closeModal} />
         <OrderMenu />
       </div>
       <SearchBar

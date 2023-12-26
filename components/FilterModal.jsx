@@ -3,16 +3,12 @@ import { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { Disclosure } from "@headlessui/react";
-// import TagsSelection from "@/components/TagsSelection";
+import TagsSelection from "@/components/TagsSelection";
 
-const filters = [
-  {
-    filterName: "Type",
-    filterOptions: "blahblha",
-  },
+const filters = [ 
   {
     filterName: "Category",
-    filterOptions: "blahblha",
+    filterOptions: <TagsSelection/>,
   },
   {
     filterName: "Price Range",
@@ -20,7 +16,7 @@ const filters = [
   },
   {
     filterName: "Subscription Type",
-    filterOptions: "blahblha",
+    filterOptions: <TagsSelection/>,
   },
   {
     filterName: "Year Of Release",
