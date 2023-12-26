@@ -89,48 +89,46 @@ const Home = () => {
   const handleLike = async (itemId) => {
     try {
       setLoading(true);
-      if (user?.favorites.includes(itemId)) {
-        const response = await fetch(`/api/user/${session?.user.id}/favorites`, {
-          method: "DELETE",
-          body: JSON.stringify({ favoriteId: itemId }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Failed to unlike item");
-        }
-        setUser((prevUser) => {
-          const updatedFavorites = prevUser.favorites.filter(
-            (fav) => fav !== itemId
+      const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
+      setUser((prevUser) => {
+        if (isLiked) {
+          const updatedFavorites = prevUser?.favorites?.filter(
+            (fav) => fav._id !== itemId
           );
           return {
             ...prevUser,
             favorites: updatedFavorites,
           };
-        });
-      } else {
-        const response = await fetch(`/api/user/${session?.user.id}/favorites`, {
-          method: "POST",
-          body: JSON.stringify({ favoriteId: itemId }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Failed to like item");
+        } else {
+          return {
+            ...prevUser,
+            favorites: [...prevUser?.favorites, { _id: itemId }],
+          };
         }
-        setUser((prevUser) => ({
-          ...prevUser,
-          favorites: [...prevUser.favorites, itemId],
-        }));
+      });
+      const response = await fetch(`/api/user/${session?.user.id}/favorites`, {
+        method: isLiked ? "DELETE" : "POST",
+        body: JSON.stringify({ favoriteId: itemId }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to ${isLiked ? "unlike" : "like"} item`);
       }
     } catch (error) {
       console.error("Error handling like:", error);
+      // Revert the state in case of an error
+      setUser((prevUser) => ({
+        ...prevUser,
+        favorites: prevUser?.favorites?.filter((fav) => fav._id !== itemId),
+      }));
     } finally {
       setLoading(false);
     }
-  }; 
+  };
+
+  console.log(user?.favorites);
 
   return (
     <div className="container">

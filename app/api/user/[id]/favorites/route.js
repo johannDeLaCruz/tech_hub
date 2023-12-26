@@ -1,4 +1,4 @@
-//create and delete favorite item from user's favorite list
+//create or delete favorite item from user's favorite list
 import { connectToDatabase } from "@utils/database";
 import User from "@models/User";
 
