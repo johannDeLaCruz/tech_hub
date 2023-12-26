@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,6 +10,11 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    // extend: {
+    //   screens: {
+    //     "hover-hover": { raw: "(hover: hover)" },
+    //   },
+    // },
     fontFamily: {
       body: ["SourceSans3", "sans-serif"],
       heading: ["MuseoModerno", "sans-serif"],

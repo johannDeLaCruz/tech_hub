@@ -43,6 +43,11 @@ const itemSchema = new Schema({
     default: "N/A",
     required: true,
   },
+  timesFavorited: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
   itemDetailedInfo: [
     {
       title: {

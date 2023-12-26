@@ -45,7 +45,6 @@ const Home = () => {
         searchTextRegex.test(item.name) ||
         searchTextRegex.test(item.itemDescription) ||
         searchTextRegex.test(item.brand);
-
       return matchesTag && matchesSearch;
     });
   }, [allItems, searchTextRegex, selectedTags, searchText]);
@@ -118,7 +117,6 @@ const Home = () => {
       }
     } catch (error) {
       console.error("Error handling like:", error);
-      // Revert the state in case of an error
       setUser((prevUser) => ({
         ...prevUser,
         favorites: prevUser?.favorites?.filter((fav) => fav._id !== itemId),
@@ -127,9 +125,6 @@ const Home = () => {
       setLoading(false);
     }
   };
-
-  console.log(user?.favorites);
-
   return (
     <div className="container">
       <HeroSection />

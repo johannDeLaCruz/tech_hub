@@ -21,6 +21,7 @@
         "userModel",
         "api",
         "itemModel",
-        "tagsModel"
+        "tagsModel",
+        "filtermodal"
     ]
 }
