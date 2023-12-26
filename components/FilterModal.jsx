@@ -5,30 +5,51 @@ import { faXmark, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { Disclosure } from "@headlessui/react";
 import TagsSelection from "@/components/TagsSelection";
 
-const filters = [ 
-  {
-    filterName: "Category",
-    filterOptions: <TagsSelection/>,
-  },
-  {
-    filterName: "Price Range",
-    filterOptions: "blahblha",
-  },
-  {
-    filterName: "Subscription Type",
-    filterOptions: <TagsSelection/>,
-  },
-  {
-    filterName: "Year Of Release",
-    filterOptions: "blahblha",
-  },
-  {
-    filterName: "Customer Rating",
-    filterOptions: "blahblha",
-  },
-];
-
-export default function FilterModal({ closeModal, isOpen }) {
+export default function FilterModal({
+  closeModal,
+  isOpen,
+  filter,
+  handleCategoryClick,
+  handleSubscriptionClick,
+  handleYearOfReleaseClick,
+}) {
+  const filters = [
+    {
+      filterName: "Category",
+      filterOptions: (
+        <TagsSelection
+          tags={filter.categories}
+          handleTagClick={handleCategoryClick}
+        />
+      ),
+    },
+    {
+      filterName: "Price Range",
+      filterOptions: "blahblha",
+    },
+    {
+      filterName: "Subscription Type",
+      filterOptions: (
+        <TagsSelection
+          tags={filter.subscriptionTypes}
+          handleTagClick={handleSubscriptionClick}
+        />
+      ),
+    },
+    {
+      filterName: "Year Of Release",
+      filterOptions: (
+        <TagsSelection
+          tags={filter.yearOfRelease}
+          handleTagClick={handleYearOfReleaseClick}
+        />
+      ),
+    },
+    {
+      filterName: "Customer Rating",
+      filterOptions: "blahblha",
+    },
+  ];
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -88,7 +109,7 @@ export default function FilterModal({ closeModal, isOpen }) {
                                 } hover:text-primary-500`}
                               />
                             </Disclosure.Button>
-                            <Disclosure.Panel className="pb-4">
+                            <Disclosure.Panel>
                               <div>{item.filterOptions}</div>
                             </Disclosure.Panel>
                           </>

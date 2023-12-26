@@ -63,7 +63,7 @@ module.exports = {
       body1: [
         "1rem",
         {
-          // lineHeight: "2rem",
+          lineHeight: "1.3rem",
           // letterSpacing: "-0.01em",
           fontWeight: "400", //or 500 "normal"???
         },

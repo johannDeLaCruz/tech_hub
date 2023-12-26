@@ -13,10 +13,9 @@ const Home = () => {
   const [allItems, setAllItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
-  const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [user, setUser] = useState({});
-  const[filter, setFilter] = useState();
+  const [filter, setFilter] = useState({});
   let [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = () => {
@@ -62,17 +61,26 @@ const Home = () => {
   const itemsCount = filteredItems.length;
 
   useEffect(() => {
+    const fetchFilterData = async () => {
+      try {
+        const filterResponse = await fetch("/api/filter");
+        if (!filterResponse.ok) {
+          throw new Error("Failed to fetch filter");
+        }
+        const filterData = await filterResponse.json();
+        setFilter(filterData);
+      } catch (error) {
+        console.error("Error fetching filter data:", error);
+      }
+    };
+    fetchFilterData();
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const [tagsResponse, itemsResponse] = await Promise.all([
-          fetch("/api/tags"),
-          fetch("/api/item"),
-        ]);
-        if (!tagsResponse.ok) {
-          throw new Error("Failed to fetch tags");
-        }
-        const tagsData = await tagsResponse.json();
-        setTags(tagsData);
+        const [itemsResponse] = await Promise.all([fetch("/api/item")]);
+
         if (!itemsResponse.ok) {
           throw new Error("Failed to fetch items");
         }
@@ -135,6 +143,7 @@ const Home = () => {
       setLoading(false);
     }
   };
+  console.log(filter);
   return (
     <div className="container">
       <HeroSection />
@@ -147,7 +156,11 @@ const Home = () => {
         >
           Filter results
         </button>
-        <FilterModal isOpen={isModalOpen} closeModal={closeModal} />
+        <FilterModal
+          isOpen={isModalOpen}
+          closeModal={closeModal}
+          filter={filter}
+        />
         <OrderMenu />
       </div>
       <SearchBar
@@ -158,7 +171,7 @@ const Home = () => {
       <TagsSelection
         selectedTags={selectedTags}
         handleTagClick={handleTagClick}
-        tags={tags}
+        tags={filter?.tags}
       />
       <div className="mx-auto w-full sm:max-w-sm bg-gray-950 text-button text-center p-2 mb-6 rounded-3xl">
         {" "}

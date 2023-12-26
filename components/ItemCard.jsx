@@ -41,7 +41,7 @@ const ItemCard = ({ item, handleLike, userFavorites }) => {
           <span className="text-caption grow text-end">{subscriptionType}</span>
         </div>
         <ItemRating rating={rating} />
-        <p className="text-body1 mb-3 w-64 line-clamp-3">{itemDescription}</p>
+        <p className="text-body1 mb-3 w-64 line-clamp-2 h-11">{itemDescription}</p>
         <div className="flex justify-between">
           <ItemTags tags={tags} />
           <div className="relative">
