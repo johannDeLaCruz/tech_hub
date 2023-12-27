@@ -13,9 +13,14 @@ const Home = () => {
   const [allItems, setAllItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
-  const [selectedTags, setSelectedTags] = useState([]);
   const [user, setUser] = useState({});
   const [filter, setFilter] = useState({});
+  const [activeFilters, setActiveFilters] = useState({
+    tags: [],
+    category: [],
+    subscriptionType: [],
+    yearOfRelease: [],
+  });
   let [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = () => {
@@ -25,40 +30,57 @@ const Home = () => {
     setIsModalOpen(true);
   };
 
-  const handleTagClick = (e) => {
-    e.preventDefault();
-    const selectedTag = e.target.value;
-    setSelectedTags((prevTags) =>
-      prevTags.includes(selectedTag)
-        ? prevTags.filter((t) => t !== selectedTag)
-        : [...prevTags, selectedTag]
-    );
-  };
-
   const searchTextRegex = useMemo(() => {
     return new RegExp(searchText.toLowerCase(), "i");
   }, [searchText]);
 
   const filteredItems = useMemo(() => {
     return allItems.filter((item) => {
-      const matchesTag =
-        selectedTags.length === 0 ||
-        selectedTags.every((tag) =>
-          item.tags.some(
-            (itemTag) =>
-              itemTag.trim().toLowerCase() === tag.trim().toLowerCase()
-          )
+      const matchesFilters = Object.keys(activeFilters).every((filterType) => {
+        return (
+          activeFilters[filterType].length === 0 ||
+          (Array.isArray(item[filterType]) // Check if the property is an array
+            ? activeFilters[filterType].every((filterValue) =>
+                item[filterType].some(
+                  (itemValue) =>
+                    itemValue.trim().toLowerCase() ===
+                    filterValue.trim().toLowerCase()
+                )
+              )
+            : activeFilters[filterType].includes(item[filterType]))
         );
+      });
       const matchesSearch =
         searchText === "" ||
         searchTextRegex.test(item.name) ||
         searchTextRegex.test(item.itemDescription) ||
         searchTextRegex.test(item.brand);
-      return matchesTag && matchesSearch;
+      return matchesFilters && matchesSearch;
     });
-  }, [allItems, searchTextRegex, selectedTags, searchText]);
+  }, [allItems, searchTextRegex, activeFilters, searchText]);
 
   const itemsCount = filteredItems.length;
+
+  const handleFilter = (filterType, filterValue) => {
+    setActiveFilters((prevFilters) => {
+      const updatedFilters = { ...prevFilters };
+      if (updatedFilters.hasOwnProperty(filterType)) {
+        if (updatedFilters[filterType].includes(filterValue)) {
+          updatedFilters[filterType] = updatedFilters[filterType].filter(
+            (value) => value !== filterValue
+          );
+        } else {
+          updatedFilters[filterType] = [
+            ...updatedFilters[filterType],
+            filterValue,
+          ];
+        }
+      } else {
+        updatedFilters[filterType] = [filterValue];
+      }
+      return updatedFilters;
+    });
+  };
 
   useEffect(() => {
     const fetchFilterData = async () => {
@@ -143,7 +165,8 @@ const Home = () => {
       setLoading(false);
     }
   };
-  console.log(filter);
+  console.log(activeFilters);
+
   return (
     <div className="container">
       <HeroSection />
@@ -160,7 +183,10 @@ const Home = () => {
           isOpen={isModalOpen}
           closeModal={closeModal}
           filter={filter}
+          handleFilter={handleFilter}
+          activeFilters={activeFilters}
         />
+
         <OrderMenu />
       </div>
       <SearchBar
@@ -169,9 +195,9 @@ const Home = () => {
       />
       <hr />
       <TagsSelection
-        selectedTags={selectedTags}
-        handleTagClick={handleTagClick}
+        activeFilters={activeFilters.tags}
         tags={filter?.tags}
+        handleFilter={(value) => handleFilter("tags", value)}
       />
       <div className="mx-auto w-full sm:max-w-sm bg-gray-950 text-button text-center p-2 mb-6 rounded-3xl">
         {" "}

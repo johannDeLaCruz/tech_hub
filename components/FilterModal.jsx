@@ -9,17 +9,17 @@ export default function FilterModal({
   closeModal,
   isOpen,
   filter,
-  handleCategoryClick,
-  handleSubscriptionClick,
-  handleYearOfReleaseClick,
+  handleFilter,
+  activeFilters,
 }) {
   const filters = [
     {
       filterName: "Category",
       filterOptions: (
         <TagsSelection
-          tags={filter.categories}
-          handleTagClick={handleCategoryClick}
+          tags={filter?.category}
+          handleFilter={(value) => handleFilter("category", value)}
+          activeFilters={activeFilters.category}
         />
       ),
     },
@@ -31,8 +31,9 @@ export default function FilterModal({
       filterName: "Subscription Type",
       filterOptions: (
         <TagsSelection
-          tags={filter.subscriptionTypes}
-          handleTagClick={handleSubscriptionClick}
+          tags={filter?.subscriptionType}
+          handleFilter={(value) => handleFilter("subscriptionType", value)}
+          activeFilters={activeFilters.subscriptionType}
         />
       ),
     },
@@ -40,8 +41,9 @@ export default function FilterModal({
       filterName: "Year Of Release",
       filterOptions: (
         <TagsSelection
-          tags={filter.yearOfRelease}
-          handleTagClick={handleYearOfReleaseClick}
+          tags={filter?.yearOfRelease}
+          handleFilter={(value) => handleFilter("yearOfRelease", value)}
+          activeFilters={activeFilters.yearOfRelease}
         />
       ),
     },
