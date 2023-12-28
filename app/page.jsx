@@ -15,6 +15,7 @@ const Home = () => {
     subscriptionType: [],
     yearOfRelease: [],
     priceRange: [],
+    rating: 0,
   };
 
   const { data: session, status } = useSession();
@@ -46,6 +47,12 @@ const Home = () => {
             return true;
           }
           return item.minimalPrice >= minPrice && item.minimalPrice <= maxPrice;
+        }
+        if (filterType === "rating") {
+          return (
+            activeFilters[filterType] === 0 ||
+            item.rating === activeFilters[filterType]
+          );
         } else {
           return (
             activeFilters[filterType].length === 0 ||
@@ -79,18 +86,23 @@ const Home = () => {
   const handleFilter = (filterType, filterValue) => {
     setActiveFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
+
       if (updatedFilters.hasOwnProperty(filterType)) {
-        if (updatedFilters[filterType].includes(filterValue)) {
-          updatedFilters[filterType] = updatedFilters[filterType].filter(
-            (value) => value !== filterValue
-          );
-        } else if (filterType === "priceRange") {
-          updatedFilters[filterType] = filterValue;
+        if (Array.isArray(updatedFilters[filterType])) {
+          // If it's an array, handle it as before
+          if (updatedFilters[filterType].includes(filterValue)) {
+            updatedFilters[filterType] = updatedFilters[filterType].filter(
+              (value) => value !== filterValue
+            );
+          } else {
+            updatedFilters[filterType] = [
+              ...updatedFilters[filterType],
+              filterValue,
+            ];
+          }
         } else {
-          updatedFilters[filterType] = [
-            ...updatedFilters[filterType],
-            filterValue,
-          ];
+          // If it's a number, simply set the value
+          updatedFilters[filterType] = filterValue;
         }
       } else {
         updatedFilters[filterType] = [filterValue];
@@ -203,7 +215,6 @@ const Home = () => {
           activeFilters={activeFilters}
           handleReset={handleReset}
           itemsCount={itemsCount}
-         
         />
 
         <OrderMenu />
