@@ -20,7 +20,8 @@
     "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-slider": "^2.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

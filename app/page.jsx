@@ -61,6 +61,15 @@ const Home = () => {
 
   const itemsCount = filteredItems.length;
 
+  const handleReset = () => {
+    setActiveFilters({
+      tags: [],
+      category: [],
+      subscriptionType: [],
+      yearOfRelease: [],
+    });
+  };
+
   const handleFilter = (filterType, filterValue) => {
     setActiveFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
@@ -185,6 +194,7 @@ const Home = () => {
           filter={filter}
           handleFilter={handleFilter}
           activeFilters={activeFilters}
+          handleReset={handleReset}
         />
 
         <OrderMenu />

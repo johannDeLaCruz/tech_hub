@@ -23,6 +23,7 @@
         "itemModel",
         "tagsModel",
         "filtermodal",
-        "filterModel"
+        "filterModel",
+        "npm"
     ]
 }

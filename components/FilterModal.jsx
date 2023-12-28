@@ -11,6 +11,7 @@ export default function FilterModal({
   filter,
   handleFilter,
   activeFilters,
+  handleReset,
 }) {
   const filters = [
     {
@@ -80,7 +81,7 @@ export default function FilterModal({
               >
                 <Dialog.Panel className="w-full max-w-md bg-black transform overflow-hidden divide-y divide-gray-950  rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-between pb-4">
-                    <button className="text-caption">Reset</button>
+                    <button className="text-caption link-hover" onClick={handleReset}>Reset</button>
                     <h4 className="font-heading text-h2">Filter</h4>
                     <button onClick={closeModal}>
                       <FontAwesomeIcon
