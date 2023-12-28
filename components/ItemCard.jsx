@@ -15,6 +15,7 @@ const ItemCard = ({ item, handleLike, userFavorites }) => {
     minimalPrice,
     subscriptionType,
     tags,
+    timesFavorited,
   } = item;
 
   return (
@@ -46,7 +47,7 @@ const ItemCard = ({ item, handleLike, userFavorites }) => {
           <ItemTags tags={tags} />
           <div className="relative">
             <span className="absolute inset-x-0 -top-6 text-body1 text-center">
-              124
+              {timesFavorited}
             </span>
             <button onClick={() => handleLike(_id)}>
               <svg
