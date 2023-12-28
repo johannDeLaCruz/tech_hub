@@ -9,6 +9,7 @@ import {
 import { Disclosure } from "@headlessui/react";
 import TagsSelection from "@/components/TagsSelection";
 import StyledReactSlider from "@/components/StyledReactSlider";
+import RatingSelection from "@/components/RatingSelection";
 export default function FilterModal({
   closeModal,
   isOpen,
@@ -33,7 +34,6 @@ export default function FilterModal({
       filterName: "Price Range",
       filterOptions: (
         <StyledReactSlider
-          // defaultValue={filter.priceRange}
           handleFilter={(value) => handleFilter("priceRange", value)}
           filterValue={activeFilters.priceRange}
         />
@@ -61,7 +61,11 @@ export default function FilterModal({
     },
     {
       filterName: "Customer Rating",
-      filterOptions: "blahblha",
+      filterOptions: (
+        <RatingSelection
+          handleFilter={(value) => handleFilter("rating", value)}
+        />
+      ),
     },
   ];
   return (
