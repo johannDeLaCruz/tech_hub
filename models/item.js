@@ -24,6 +24,10 @@ const itemSchema = new Schema({
     type: Number,
     required: true,
   },
+  category: {
+    type: String,
+    required: true,
+  },
   itemDescription: {
     type: String,
     required: true,
@@ -46,6 +50,11 @@ const itemSchema = new Schema({
   timesFavorited: {
     type: Number,
     default: 0,
+    required: true,
+  },
+  yearOfRelease: {
+    type: Number,
+    default: "N/A",
     required: true,
   },
   itemDetailedInfo: [
