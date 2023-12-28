@@ -6,6 +6,7 @@ const UserFavouritesList = ({ favorites }) => {
       <h3 className="font-heading text-heading text-center py-6">
         Your Favourites List
       </h3>
+      <hr />
       {favorites ? (
         <SearchResults items={favorites} userFavorites={favorites} />
       ) : (

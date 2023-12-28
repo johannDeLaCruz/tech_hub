@@ -119,7 +119,6 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const [itemsResponse] = await Promise.all([fetch("/api/item")]);
-
         if (!itemsResponse.ok) {
           throw new Error("Failed to fetch items");
         }
@@ -203,6 +202,8 @@ const Home = () => {
           handleFilter={handleFilter}
           activeFilters={activeFilters}
           handleReset={handleReset}
+          itemsCount={itemsCount}
+         
         />
 
         <OrderMenu />

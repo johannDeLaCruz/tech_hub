@@ -29,10 +29,10 @@ const UserStats = ({ signOuthandle, user }) => {
             if (["username", "dateCreated", "_id"].includes(key)) {
               return (
                 <li key={index}>
-                  <span className="text-h4">
+                  <span className="text-h4">{value}</span>
+                  <p className="text-caption">
                     {key[0].toUpperCase() + key.slice(1).toLowerCase()}
-                  </span>
-                  <p className="text-caption">{value}</p>{" "}
+                  </p>{" "}
                 </li>
               );
             }

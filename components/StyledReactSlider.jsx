@@ -11,7 +11,7 @@ const Track = (props, state) => (
         ? "bg-primary-500"
         : props.index === 1
         ? "bg-gray-950"
-        : "bg-gray-950"
+        : "bg-primary-500"
     }`}
     //fix the colors of the selection of the range, it isn't working
   ></div>

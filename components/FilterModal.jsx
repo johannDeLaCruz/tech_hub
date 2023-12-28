@@ -16,6 +16,7 @@ export default function FilterModal({
   handleFilter,
   activeFilters,
   handleReset,
+  itemsCount,
 }) {
   const filters = [
     {
@@ -89,7 +90,7 @@ export default function FilterModal({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md bg-black transform overflow-hidden divide-y divide-gray-950  rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md bg-black border-2 border-primary-500 transform overflow-hidden divide-y divide-gray-950  rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-between pb-4">
                     <button className="text-caption" onClick={handleReset}>
                       Reset
@@ -132,6 +133,10 @@ export default function FilterModal({
                       </Disclosure>
                     </div>
                   ))}
+                  <div className="mx-auto w-full sm:max-w-sm bg-primary-500 text-button text-center p-2 mb-6 rounded-3xl">
+                    {" "}
+                    Showing {itemsCount} items
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
