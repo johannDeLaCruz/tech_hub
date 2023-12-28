@@ -33,6 +33,7 @@ const Thumb = (props, state) => {
 const StyledReactSlider = ({ handleFilter, filterValue }) => {
   const [priceRange, setPriceRange] = useState(filterValue);
   console.log(priceRange);
+  //find a way to handle this without tracking the onchange each time it happens (a lot)
   return (
     <div className="pt-3 pb-8 px-1">
       <ReactSlider

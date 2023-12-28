@@ -86,10 +86,12 @@ const Home = () => {
   const handleFilter = (filterType, filterValue) => {
     setActiveFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
-
-      if (updatedFilters.hasOwnProperty(filterType)) {
+      if (filterType === "priceRange") {
+        updatedFilters[filterType] = filterValue;
+      } else if (filterType === "rating") {
+        updatedFilters[filterType] = filterValue;
+      } else if (updatedFilters.hasOwnProperty(filterType)) {
         if (Array.isArray(updatedFilters[filterType])) {
-          // If it's an array, handle it as before
           if (updatedFilters[filterType].includes(filterValue)) {
             updatedFilters[filterType] = updatedFilters[filterType].filter(
               (value) => value !== filterValue
@@ -101,12 +103,12 @@ const Home = () => {
             ];
           }
         } else {
-          // If it's a number, simply set the value
           updatedFilters[filterType] = filterValue;
         }
       } else {
         updatedFilters[filterType] = [filterValue];
       }
+
       return updatedFilters;
     });
   };
