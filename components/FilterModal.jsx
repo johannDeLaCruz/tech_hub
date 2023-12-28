@@ -1,10 +1,14 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faXmark,
+  faChevronRight,
+  faA,
+} from "@fortawesome/free-solid-svg-icons";
 import { Disclosure } from "@headlessui/react";
 import TagsSelection from "@/components/TagsSelection";
-
+import StyledReactSlider from "@/components/StyledReactSlider";
 export default function FilterModal({
   closeModal,
   isOpen,
@@ -26,7 +30,13 @@ export default function FilterModal({
     },
     {
       filterName: "Price Range",
-      filterOptions: "blahblha",
+      filterOptions: (
+        <StyledReactSlider
+          // defaultValue={filter.priceRange}
+          handleFilter={(value) => handleFilter("priceRange", value)}
+          filterValue={activeFilters.priceRange}
+        />
+      ),
     },
     {
       filterName: "Subscription Type",
@@ -81,7 +91,9 @@ export default function FilterModal({
               >
                 <Dialog.Panel className="w-full max-w-md bg-black transform overflow-hidden divide-y divide-gray-950  rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-between pb-4">
-                    <button className="text-caption link-hover" onClick={handleReset}>Reset</button>
+                    <button className="text-caption" onClick={handleReset}>
+                      Reset
+                    </button>
                     <h4 className="font-heading text-h2">Filter</h4>
                     <button onClick={closeModal}>
                       <FontAwesomeIcon

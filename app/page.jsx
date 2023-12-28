@@ -9,18 +9,21 @@ import { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 
 const Home = () => {
+  const emptyFilter = {
+    tags: [],
+    category: [],
+    subscriptionType: [],
+    yearOfRelease: [],
+    priceRange: [],
+  };
+
   const { data: session, status } = useSession();
   const [allItems, setAllItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const [user, setUser] = useState({});
   const [filter, setFilter] = useState({});
-  const [activeFilters, setActiveFilters] = useState({
-    tags: [],
-    category: [],
-    subscriptionType: [],
-    yearOfRelease: [],
-  });
+  const [activeFilters, setActiveFilters] = useState(emptyFilter);
   let [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = () => {
@@ -37,18 +40,26 @@ const Home = () => {
   const filteredItems = useMemo(() => {
     return allItems.filter((item) => {
       const matchesFilters = Object.keys(activeFilters).every((filterType) => {
-        return (
-          activeFilters[filterType].length === 0 ||
-          (Array.isArray(item[filterType]) // Check if the property is an array
-            ? activeFilters[filterType].every((filterValue) =>
-                item[filterType].some(
-                  (itemValue) =>
-                    itemValue.trim().toLowerCase() ===
-                    filterValue.trim().toLowerCase()
+        if (filterType === "priceRange") {
+          const [minPrice, maxPrice] = activeFilters[filterType];
+          if (minPrice === undefined || maxPrice === undefined) {
+            return true;
+          }
+          return item.minimalPrice >= minPrice && item.minimalPrice <= maxPrice;
+        } else {
+          return (
+            activeFilters[filterType].length === 0 ||
+            (Array.isArray(item[filterType]) // Check if the property is an array
+              ? activeFilters[filterType].every((filterValue) =>
+                  item[filterType].some(
+                    (itemValue) =>
+                      itemValue.trim().toLowerCase() ===
+                      filterValue.trim().toLowerCase()
+                  )
                 )
-              )
-            : activeFilters[filterType].includes(item[filterType]))
-        );
+              : activeFilters[filterType].includes(item[filterType]))
+          );
+        }
       });
       const matchesSearch =
         searchText === "" ||
@@ -62,12 +73,7 @@ const Home = () => {
   const itemsCount = filteredItems.length;
 
   const handleReset = () => {
-    setActiveFilters({
-      tags: [],
-      category: [],
-      subscriptionType: [],
-      yearOfRelease: [],
-    });
+    setActiveFilters(emptyFilter);
   };
 
   const handleFilter = (filterType, filterValue) => {
@@ -78,6 +84,8 @@ const Home = () => {
           updatedFilters[filterType] = updatedFilters[filterType].filter(
             (value) => value !== filterValue
           );
+        } else if (filterType === "priceRange") {
+          updatedFilters[filterType] = filterValue;
         } else {
           updatedFilters[filterType] = [
             ...updatedFilters[filterType],
