@@ -7,20 +7,26 @@ const FilterSchema = new Schema({
     unique: true,
     trim: true,
   },
-  // types: {
-  //   type: [String],
-  //   required: true,
-  //   unique: true,
-  //   trim: true,
-  // },
-  categories: {
+  rating: {
+    type: Number,
+    required: true,
+    unique: true,
+    trim: true,
+  },
+  category: {
     type: [String],
     required: true,
     trim: true,
     unique: true,
   },
-  subscriptionTypes: {
+  subscriptionType: {
     type: [String],
+    required: true,
+    trim: true,
+    unique: true,
+  },
+  yearOfRelease: {
+    type: Number,
     required: true,
     trim: true,
     unique: true,

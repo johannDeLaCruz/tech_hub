@@ -64,6 +64,7 @@ export default function FilterModal({
       filterOptions: (
         <RatingSelection
           handleFilter={(value) => handleFilter("rating", value)}
+          activeFilters={activeFilters.rating}
         />
       ),
     },
@@ -137,7 +138,7 @@ export default function FilterModal({
                       </Disclosure>
                     </div>
                   ))}
-                  <div className="mx-auto w-full sm:max-w-sm bg-primary-500 text-button text-center p-2 mb-6 rounded-3xl">
+                  <div className="mx-auto w-full sm:max-w-sm bg-primary-500 text-button text-center p-2 my-6 rounded-3xl">
                     {" "}
                     Showing {itemsCount} items
                   </div>
