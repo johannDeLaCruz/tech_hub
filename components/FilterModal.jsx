@@ -82,7 +82,7 @@ export default function FilterModal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/25" />
+            <div className="fixed inset-0 bg-black/50" />
           </Transition.Child>
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
@@ -138,7 +138,7 @@ export default function FilterModal({
                       </Disclosure>
                     </div>
                   ))}
-                  <div className="mx-auto w-full sm:max-w-sm bg-primary-500 text-button text-center p-2 my-6 rounded-3xl">
+                  <div className="mx-auto w-full sm:max-w-sm bg-primary-500 text-button text-center p-2 mt-6 rounded-3xl">
                     {" "}
                     Showing {itemsCount} items
                   </div>

@@ -41,7 +41,6 @@ const LoginPage = () => {
       console.error("Unexpected error during login:", error);
     }
   };
-
   return (
     <div className="container">
       <div className="max-w-md mx-auto">

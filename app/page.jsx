@@ -108,7 +108,6 @@ const Home = () => {
       } else {
         updatedFilters[filterType] = [filterValue];
       }
-
       return updatedFilters;
     });
   };
@@ -195,7 +194,6 @@ const Home = () => {
       setLoading(false);
     }
   };
-  console.log(activeFilters);
 
   return (
     <div className="container">
