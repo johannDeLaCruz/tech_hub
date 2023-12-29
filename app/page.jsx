@@ -7,8 +7,9 @@ import SearchResults from "@components/SearchResults";
 import FilterModal from "@components/FilterModal";
 import { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
-
+import { useRouter } from "next/navigation";
 const Home = () => {
+  const router = useRouter();
   const emptyFilter = {
     tags: [],
     category: [],
@@ -157,32 +158,39 @@ const Home = () => {
   const handleLike = async (itemId) => {
     try {
       setLoading(true);
-      const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
-      setUser((prevUser) => {
-        if (isLiked) {
-          const updatedFavorites = prevUser?.favorites?.filter(
-            (fav) => fav._id !== itemId
-          );
-          return {
-            ...prevUser,
-            favorites: updatedFavorites,
-          };
-        } else {
-          return {
-            ...prevUser,
-            favorites: [...prevUser?.favorites, { _id: itemId }],
-          };
+      if (status === "authenticated") {
+        const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
+        setUser((prevUser) => {
+          if (isLiked) {
+            const updatedFavorites = prevUser?.favorites?.filter(
+              (fav) => fav._id !== itemId
+            );
+            return {
+              ...prevUser,
+              favorites: updatedFavorites,
+            };
+          } else {
+            return {
+              ...prevUser,
+              favorites: [...prevUser?.favorites, { _id: itemId }],
+            };
+          }
+        });
+        const response = await fetch(
+          `/api/user/${session?.user.id}/favorites`,
+          {
+            method: isLiked ? "DELETE" : "POST",
+            body: JSON.stringify({ favoriteId: itemId }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error(`Failed to ${isLiked ? "unlike" : "like"} item`);
         }
-      });
-      const response = await fetch(`/api/user/${session?.user.id}/favorites`, {
-        method: isLiked ? "DELETE" : "POST",
-        body: JSON.stringify({ favoriteId: itemId }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`Failed to ${isLiked ? "unlike" : "like"} item`);
+      } else {
+        router.push("/login");
       }
     } catch (error) {
       console.error("Error handling like:", error);
