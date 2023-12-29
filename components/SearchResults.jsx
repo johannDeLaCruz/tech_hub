@@ -1,3 +1,4 @@
+
 import ItemCard from "@components/ItemCard";
 
 const SearchResults = ({ items, handleLike, userFavorites }) => {

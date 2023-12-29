@@ -5,9 +5,11 @@ import SearchBar from "@components/SearchBar";
 import HeroSection from "@components/HeroSection";
 import SearchResults from "@components/SearchResults";
 import FilterModal from "@components/FilterModal";
+import SearchResultsSkeleton from "@components/SearchResultsSkeleton";
 import { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+
 const Home = () => {
   const router = useRouter();
   const emptyFilter = {
@@ -21,7 +23,6 @@ const Home = () => {
 
   const { data: session, status } = useSession();
   const [allItems, setAllItems] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const [user, setUser] = useState({});
   const [filter, setFilter] = useState({});
@@ -148,8 +149,6 @@ const Home = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
       }
     };
     fetchData();
@@ -157,7 +156,6 @@ const Home = () => {
 
   const handleLike = async (itemId) => {
     try {
-      setLoading(true);
       if (status === "authenticated") {
         const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
         setUser((prevUser) => {
@@ -198,8 +196,6 @@ const Home = () => {
         ...prevUser,
         favorites: prevUser?.favorites?.filter((fav) => fav._id !== itemId),
       }));
-    } finally {
-      setLoading(false);
     }
   };
 

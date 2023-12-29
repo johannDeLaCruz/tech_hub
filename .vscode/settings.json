@@ -24,6 +24,7 @@
         "tagsModel",
         "filtermodal",
         "filterModel",
-        "npm"
+        "npm",
+        "loading"
     ]
 }

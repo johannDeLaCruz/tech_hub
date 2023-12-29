@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 
 const ItemRating = ({ activeFilters, handleFilter }) => {
-  console.log(activeFilters);
   return (
     <div className="flex items-center gap-2 pb-4">
       <FontAwesomeIcon
