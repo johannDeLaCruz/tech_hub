@@ -166,9 +166,18 @@ const LoginPage = () => {
                 );
               })}
         </div>
-        <p className="text-caption pt-5 pb-16 text-center">
-          Don&apos;t have an account? Sign up for free
-        </p>
+        <div className="flex gap-2 justify-center pt-5 pb-16">
+          <p className="text-caption">
+            Don&apos;t have an account?
+          </p>
+          <Link
+            href="/register"
+            className="text-caption hover:underline hover:underline-offset-2 decoration-white"
+          >
+            {" "}
+            Sign up for free!
+          </Link>
+        </div>
       </div>
     </div>
   );
