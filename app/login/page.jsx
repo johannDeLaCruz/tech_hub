@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import InputForm from "@/components/InputForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -131,12 +132,12 @@ const LoginPage = () => {
             <label htmlFor="remember" className="text-caption">
               Remember Me
             </label>
-            <a
+            <Link
               href=""
               className="text-caption text-right grow decoration-white hover:underline hover:underline-offset-2"
             >
               Forgot your password?
-            </a>
+            </Link>
           </div>
         </form>
         <div className="relative flex py-5 items-center">

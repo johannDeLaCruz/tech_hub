@@ -26,6 +26,7 @@
         "filterModel",
         "npm",
         "loading",
-        "auth"
+        "auth",
+        "register"
     ]
 }
