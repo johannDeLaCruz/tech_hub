@@ -5,7 +5,6 @@ import SearchBar from "@components/SearchBar";
 import HeroSection from "@components/HeroSection";
 import SearchResults from "@components/SearchResults";
 import FilterModal from "@components/FilterModal";
-import SearchResultsSkeleton from "@components/SearchResultsSkeleton";
 import { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";

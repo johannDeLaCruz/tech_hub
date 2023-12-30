@@ -25,6 +25,7 @@
         "filtermodal",
         "filterModel",
         "npm",
-        "loading"
+        "loading",
+        "auth"
     ]
 }

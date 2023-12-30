@@ -19,15 +19,14 @@ const userSchema = new Schema({
     lowercase: true,
     match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
   },
-  // password: {
-  //   type: String,
-  //   required: [true, "Password is required"],
-  //   minlength: [6, "Password must be at least 6 characters"],
-  //   match: [
-  //     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
-  //     "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
-  //   ],
-  // },
+  password: {
+    type: String,
+    minlength: [6, "Password must be at least 6 characters"],
+    match: [
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
+      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    ],
+  },
   avatar: {
     type: String,
   },

@@ -6,10 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { signIn, useSession, getSession, getProviders } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const [providers, setProviders] = useState(null);
+  const [formData, setFormData] = useState({ email: "", password: "" });
   // const {data: session} = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     const setupProviders = async () => {
@@ -41,6 +44,26 @@ const LoginPage = () => {
       console.error("Unexpected error during login:", error);
     }
   };
+  const handleSignInCredentials = async (e) => {
+    e.preventDefault();
+    const { email, password } = formData;
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: "/",
+      });
+      console.log(result);
+      if (result?.error) {
+        console.error("Login with credentials error:", result.error);
+      }
+      router.replace("/");
+    } catch (error) {
+      console.error("Unexpected error during credentials login:", error);
+    }
+  };
+
   return (
     <div className="container">
       <div className="max-w-md mx-auto">
@@ -59,7 +82,10 @@ const LoginPage = () => {
             Login to access your favourite AI tools!
           </p>
         </div>
-        <form action="POST" className="flex flex-col py-4 gap-2">
+        <form
+          className="flex flex-col py-4 gap-2"
+          onSubmit={handleSignInCredentials}
+        >
           <div className="flex items-center gap-4">
             <FontAwesomeIcon
               icon={faEnvelope}
@@ -71,6 +97,10 @@ const LoginPage = () => {
               placeholder={"Email"}
               name={"email"}
               id={"email"}
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
             />
           </div>
           <div className="flex items-center gap-4">
@@ -80,6 +110,10 @@ const LoginPage = () => {
               placeholder={"Password"}
               name={"password"}
               id={"password"}
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
             />
           </div>
           <div className="flex flex-col py-2">
@@ -112,21 +146,24 @@ const LoginPage = () => {
         </div>
         <div className="flex justify-center px-4 py-2 gap-4 ">
           {providers &&
-            Object.values(providers).map((provider) => (
-              <button
-                key={provider.name}
-                onClick={() => handleSignIn(provider.id)}
-                className="btn-gray py-3 px-7 flex gap-2 items-center font-normal"
-              >
-                {" "}
-                <FontAwesomeIcon
-                  icon={iconName(provider)}
-                  className="text-white"
-                  width={20}
-                />
-                <span> {provider.name}</span>
-              </button>
-            ))}
+            Object.values(providers)
+              .filter((provider) => provider.name !== "credentials")
+              .map((provider) => {
+                return (
+                  <button
+                    key={provider.name}
+                    onClick={() => handleSignIn(provider.id)}
+                    className="btn-gray py-3 px-7 flex gap-2 items-center font-normal"
+                  >
+                    <FontAwesomeIcon
+                      icon={iconName(provider)}
+                      className="text-white"
+                      width={20}
+                    />
+                    <span> {provider.name}</span>
+                  </button>
+                );
+              })}
         </div>
         <p className="text-caption pt-5 pb-16 text-center">
           Don&apos;t have an account? Sign up for free
