@@ -10,59 +10,43 @@ import { signIn, useSession, getSession, getProviders } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-  const [providers, setProviders] = useState(null);
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   // const {data: session} = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    const setupProviders = async () => {
-      const response = await getProviders();
-      setProviders(response);
-    };
-    setupProviders();
-  }, []);
-
-  const iconName = (provider) => {
-    const providerName = provider.name;
-    switch (providerName) {
-      case "Google":
-        return faGoogle;
-      case "GitHub":
-        return faGithub;
-      default:
-        return null;
-    }
-  };
-
-  const handleSignIn = async (providerId) => {
-    try {
-      const result = await signIn(providerId, { callbackUrl: "/" });
-      if (result?.error) {
-        console.error("Login error:", result.error);
-      }
-    } catch (error) {
-      console.error("Unexpected error during login:", error);
-    }
-  };
-  const handleSignInCredentials = async (e) => {
+  const handleRegistration = async (e) => {
     e.preventDefault();
-    const { email, password } = formData;
     try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-        callbackUrl: "/",
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-      console.log(result);
-      if (result?.error) {
-        console.error("Login with credentials error:", result.error);
+      console.log(response)
+      if (response.ok) {
+        const form = e.target;
+        form.reset();
+      } else {
+        const errorData = await response.text();
+        console.log(errorData);
+        setError(errorData);
       }
-      router.replace("/");
     } catch (error) {
-      console.error("Unexpected error during credentials login:", error);
+      console.error("An error fetching data happened!", error);
     }
+  };
+ console.log(error)
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
@@ -85,7 +69,7 @@ const LoginPage = () => {
         </div>
         <form
           className="flex flex-col pt-4 pb-20 gap-2"
-          onSubmit={handleSignInCredentials}
+          onSubmit={handleRegistration}
         >
           <div className="flex items-center gap-4">
             <FontAwesomeIcon icon={faUser} className="text-white" width={24} />
@@ -95,9 +79,7 @@ const LoginPage = () => {
               name={"username"}
               id={"username"}
               value={formData.username}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              onChange={handleFormChange}
             />
           </div>
           <div className="flex items-center gap-4">
@@ -112,9 +94,7 @@ const LoginPage = () => {
               name={"email"}
               id={"email"}
               value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              onChange={handleFormChange}
             />
           </div>
           <div className="flex items-center gap-4">
@@ -125,25 +105,24 @@ const LoginPage = () => {
               name={"password"}
               id={"password"}
               value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
+              onChange={handleFormChange}
             />
           </div>
+          {error && (
+            <span className="text-error text-center text-danger">{error}</span>
+          )}
           <div className="flex flex-col py-2">
             <button type="submit" className="btn-primary py-2 text-white">
               Register
             </button>
           </div>
           <div className="flex justify-between gap-2 text-caption">
-            <p className=" text-right grow ">
-              Already got an account?
-            </p>
+            <p className=" text-right grow ">Already got an account?</p>
             <Link
               href="/login"
               className="hover:underline hover:underline-offset-2 decoration-white"
             >
-              Login
+              Login here!
             </Link>
           </div>
         </form>

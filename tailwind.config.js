@@ -100,6 +100,14 @@ module.exports = {
           fontWeight: "500",
         },
       ],
+      error: [
+        "0.75rem",
+        {
+          // lineHeight: "2rem",
+          // letterSpacing: "-0.01em",
+          fontWeight: "400",
+        },
+      ],
     },
 
     colors: {
@@ -131,6 +139,7 @@ module.exports = {
       },
       white: "#fafafa",
       black: "#161616",
+      danger: "red",
     },
     container: {
       center: true,

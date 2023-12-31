@@ -2,22 +2,22 @@ import User from "@models/User";
 import { connectToDatabase } from "@utils/database";
 import bcrypt from "bcrypt";
 export const POST = async (req) => {
-  const { email, password } = await req.json();
+  const { username, email, password } = await req.json();
   try {
     await connectToDatabase();
-    const userExists = await User.findOne({ email: email });
+    const userExists = await User.findOne({ $or: [({ email }, { username })] });
     if (!userExists) {
       const hashedPassword = await bcrypt.hash(password, 10);
-      const username = email.slice(0, email.indexOf("@"));
       const user = await User.create({
+        username: username,
         email: email,
         password: hashedPassword,
-        username: username.replace(/\./g, ""),
       });
       return new Response(JSON.stringify(user), { status: 201 });
     }
+    return new Response("Username or email already exists", { status: 400 });
   } catch (error) {
-    console.error("Error saving new user:", error);
-    return new Response("Failed to save new user", { status: 500 });
+    console.error("Error registering new user:", error);
+    return new Response("Failed to register new user", { status: 500 });
   }
 };
