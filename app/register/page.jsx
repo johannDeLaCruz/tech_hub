@@ -33,9 +33,11 @@ const LoginPage = () => {
         },
         body: JSON.stringify(formData),
       });
+      console.log(response);
       if (response.ok) {
         const form = e.target;
         form.reset();
+        router.replace("/login/?registration=success");
       } else {
         const errorData = await response.text();
         setError(errorData);

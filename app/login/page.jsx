@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { signIn, useSession, getSession, getProviders } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginPage = () => {
   const [providers, setProviders] = useState(null);
@@ -15,6 +15,9 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   // const {data: session} = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const registrationStatus = searchParams.get("registration");
 
   useEffect(() => {
     const setupProviders = async () => {
@@ -60,9 +63,8 @@ const LoginPage = () => {
         redirect: false,
         callbackUrl: "/",
       });
-      console.log(result);
-      if (result?.error) {
-        setError("Wrong username and/or password!");
+      if (result.error) {
+        setError("User not found!");
         return;
       }
       router.replace("/");
@@ -93,6 +95,12 @@ const LoginPage = () => {
           className="flex flex-col py-4 gap-2"
           onSubmit={handleSignInCredentials}
         >
+          {registrationStatus === "success" ? (
+            <span className="text-erro text-primary-500 text-center r">
+              Success! You can sign in with your credentials
+              now!
+            </span>
+          ) : null}
           <div className="flex items-center gap-4">
             <FontAwesomeIcon
               icon={faEnvelope}
