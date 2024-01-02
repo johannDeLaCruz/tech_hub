@@ -21,6 +21,10 @@ const LoginPage = () => {
 
   const handleRegistration = async (e) => {
     e.preventDefault();
+    if (!formData.username || !formData.email || !formData.password) {
+      setError("Please fill in all fields!");
+      return;
+    }
     try {
       const response = await fetch("/api/register", {
         method: "POST",
@@ -29,20 +33,17 @@ const LoginPage = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(response)
       if (response.ok) {
         const form = e.target;
         form.reset();
       } else {
         const errorData = await response.text();
-        console.log(errorData);
         setError(errorData);
       }
     } catch (error) {
       console.error("An error fetching data happened!", error);
     }
   };
- console.log(error)
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;

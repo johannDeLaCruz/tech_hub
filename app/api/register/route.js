@@ -15,7 +15,7 @@ export const POST = async (req) => {
       });
       return new Response(JSON.stringify(user), { status: 201 });
     }
-    return new Response("Username or email already exists", { status: 400 });
+    return new Response("Username or email already exists!", { status: 400 });
   } catch (error) {
     console.error("Error registering new user:", error);
     return new Response("Failed to register new user", { status: 500 });

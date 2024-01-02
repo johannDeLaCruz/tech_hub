@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 const LoginPage = () => {
   const [providers, setProviders] = useState(null);
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   // const {data: session} = useSession();
   const router = useRouter();
 
@@ -47,17 +48,22 @@ const LoginPage = () => {
   };
   const handleSignInCredentials = async (e) => {
     e.preventDefault();
+    if (!formData.email || !formData.password) {
+      setError("Please, fill in all the inputs!");
+      return;
+    }
     const { email, password } = formData;
     try {
       const result = await signIn("credentials", {
-        email,
-        password,
+        email: email,
+        password: password,
         redirect: false,
         callbackUrl: "/",
       });
       console.log(result);
       if (result?.error) {
-        console.error("Login with credentials error:", result.error);
+        setError("Wrong username and/or password!");
+        return;
       }
       router.replace("/");
     } catch (error) {
@@ -117,6 +123,9 @@ const LoginPage = () => {
               }
             />
           </div>
+          {error && (
+            <span className="text-error text-center text-danger">{error}</span>
+          )}
           <div className="flex flex-col py-2">
             <button type="submit" className="btn-primary py-2 text-white">
               Login
@@ -167,9 +176,7 @@ const LoginPage = () => {
               })}
         </div>
         <div className="flex gap-2 justify-center pt-5 pb-16">
-          <p className="text-caption">
-            Don&apos;t have an account?
-          </p>
+          <p className="text-caption">Don&apos;t have an account?</p>
           <Link
             href="/register"
             className="text-caption hover:underline hover:underline-offset-2 decoration-white"

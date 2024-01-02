@@ -12,7 +12,6 @@ const InputForm = ({ type, placeholder, name, id, value, onChange }) => {
         value={value}
         onChange={onChange}
         className="w-full rounded-3xl bg-gray-950 text-body2 custom-hover"
-        required
       />
     </>
   );

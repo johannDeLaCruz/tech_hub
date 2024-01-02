@@ -15,21 +15,11 @@ const handler = NextAuth({
       },
       async authorize(credentials, req) {
         try {
-          const response = await fetch("/api/register", {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(credentials),
-          });
-          if (!response.ok) {
-            return null;
-          }
-          const user = await response.json();
-          return user;
+          await connectToDatabase();
+          const user = await User.findOne({ email: email.credentials });
         } catch (error) {
           console.error("An error fetching to the API:", error);
-          return false;
+          return null;
         }
       },
     }),
