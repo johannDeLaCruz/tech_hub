@@ -19,7 +19,7 @@ const handler = NextAuth({
           await connectToDatabase();
           const user = await User.findOne({ email: credentials.email });
           if (!user) {
-            throw new Error("User not found");
+            throw new Error("Email not found!");
           }
           const isCorrect = await bcrypt.compare(
             credentials.password,
@@ -30,8 +30,8 @@ const handler = NextAuth({
           }
           return user;
         } catch (error) {
-          console.error("An error logging in:", error.message);
-          return null;
+          console.error("An error logging in:", error);
+          throw new Error(error.message);
         }
       },
     }),
@@ -52,15 +52,28 @@ const handler = NextAuth({
     signIn: "/login",
   },
   callbacks: {
-    async session({ session, token }) {
-      if (token) {
-        session.user.username = token.username;
-        session.user.email = token.email;
-        session.user.id = token.id;
-        return session;
+    async jwt({ token, user, account }) {
+      // console.log("jwt", { token, user, account });
+      await connectToDatabase();
+      const currentUser = await User.findOne({ email: user?.email });
+      const userID = currentUser?._id?.toString();
+      if (account?.type === "credentials") {
+        token.name = user.username;
+        token.id = user._id.toString();
+        // token.picture = user.avatar;
+      } else if (account?.type === "oauth") {
+        token.id = userID;
+        token.picture = user.image;
+        token.name = user.name;
       }
-      const sessionUser = await User.findOne({ email: session.user.email });
-      session.user.id = sessionUser._id.toString();
+      return token;
+    },
+    async session({ session, user, token }) {
+      session.user.id = token.id;
+      session.user.email = token.email;
+      session.user.name = token.name;
+      session.user.image = token.picture;
+      // console.log("session", { session, user, token });
       return session;
     },
     async signIn({ profile, user }) {
@@ -75,6 +88,7 @@ const handler = NextAuth({
               avatar: profile.picture,
             });
           }
+          // console.log(profile);
           return true;
         } catch (error) {
           console.error(error.message);
@@ -84,14 +98,6 @@ const handler = NextAuth({
       if (user) {
         return true;
       }
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.username = user.username;
-        token.email = user.email;
-        token.id = user.id;
-      }
-      return token;
     },
   },
 });

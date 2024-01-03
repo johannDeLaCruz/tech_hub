@@ -25,7 +25,7 @@ const ProfilePage = () => {
     };
     setupProviders();
   }, []);
-
+  // console.log(session?.user.id);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -53,7 +53,7 @@ const ProfilePage = () => {
   };
   if (status === "loading") {
     return <div>loading...</div>;
-  } 
+  }
 
   return (
     <>

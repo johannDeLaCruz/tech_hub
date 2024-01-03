@@ -17,7 +17,7 @@ const userSchema = new Schema({
     unique: [true, "Email is already registered!"],
     trim: true,
     lowercase: true,
-    match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
+    match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address!"],
   },
   password: {
     type: String,

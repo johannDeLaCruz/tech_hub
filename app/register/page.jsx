@@ -24,6 +24,9 @@ const LoginPage = () => {
     if (!formData.username || !formData.email || !formData.password) {
       setError("Please fill in all fields!");
       return;
+    } else if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters long!");
+      return;
     }
     try {
       const response = await fetch("/api/register", {
@@ -33,7 +36,6 @@ const LoginPage = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(response);
       if (response.ok) {
         const form = e.target;
         form.reset();

@@ -52,7 +52,10 @@ const LoginPage = () => {
   const handleSignInCredentials = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      setError("Please, fill in all the inputs!");
+      setError("Please, fill in all fields!");
+      return;
+    } else if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters long!");
       return;
     }
     const { email, password } = formData;
@@ -63,8 +66,8 @@ const LoginPage = () => {
         redirect: false,
         callbackUrl: "/",
       });
-      if (result.error) {
-        setError("User not found!");
+      if (result?.error) {
+        setError(result.error);
         return;
       }
       router.replace("/");
@@ -97,8 +100,7 @@ const LoginPage = () => {
         >
           {registrationStatus === "success" ? (
             <span className="text-erro text-primary-500 text-center r">
-              Success! You can sign in with your credentials
-              now!
+              Success! You can sign in with your credentials now!
             </span>
           ) : null}
           <div className="flex items-center gap-4">
