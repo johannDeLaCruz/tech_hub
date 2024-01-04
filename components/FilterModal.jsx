@@ -138,10 +138,10 @@ export default function FilterModal({
                       </Disclosure>
                     </div>
                   ))}
-                  <div className="mx-auto w-full sm:max-w-sm bg-primary-500 text-button text-center p-2 mt-6 rounded-3xl">
+                  <button onClick={closeModal} className="mx-auto w-full sm:max-w-sm bg-primary-500 text-button text-center p-2 mt-6 rounded-3xl">
                     {" "}
                     Showing {itemsCount} items
-                  </div>
+                  </button>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

@@ -26,6 +26,7 @@ const Home = () => {
   const [user, setUser] = useState({});
   const [filter, setFilter] = useState({});
   const [activeFilters, setActiveFilters] = useState(emptyFilter);
+  const [loadingFavorite, setLoadingFavorite] = useState(false);
   let [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = () => {
@@ -156,6 +157,7 @@ const Home = () => {
   const handleLike = async (itemId) => {
     try {
       if (status === "authenticated") {
+        setLoadingFavorite(true);
         const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
         setUser((prevUser) => {
           if (isLiked) {
