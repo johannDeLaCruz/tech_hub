@@ -28,14 +28,20 @@ const ItemCard = ({ item, handleLike, userFavorites, loadingFavorite }) => {
 
   useEffect(() => {
     const handleFavorited = () => {
-      if (loadingFavorite.increment === true) {
+      if (
+        loadingFavorite.increment === true &&
+        loadingFavorite.itemId === _id
+      ) {
         setFavoritedNumber((prevState) => prevState + 1);
-      } else if (loadingFavorite.increment === false) {
+      } else if (
+        loadingFavorite.increment === false &&
+        loadingFavorite.itemId === _id
+      ) {
         setFavoritedNumber((prevState) => prevState - 1);
       }
     };
     handleFavorited();
-  }, [loadingFavorite.increment]);
+  }, [_id, loadingFavorite.increment, loadingFavorite.itemId]);
 
   return (
     <article className="bg-gray-950 rounded-3xl overflow-hidden justify-self-center">
