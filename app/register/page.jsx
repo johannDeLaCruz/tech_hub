@@ -77,7 +77,11 @@ const LoginPage = () => {
           onSubmit={handleRegistration}
         >
           <div className="flex items-center gap-4">
-            <FontAwesomeIcon icon={faUser} className="text-white" width={24} />
+            <FontAwesomeIcon
+              icon={faUser}
+              className="dark:text-white text-primary-500"
+              width={24}
+            />
             <InputForm
               type={"text"}
               placeholder={"Username"}
@@ -90,7 +94,7 @@ const LoginPage = () => {
           <div className="flex items-center gap-4">
             <FontAwesomeIcon
               icon={faEnvelope}
-              className="text-white"
+              className="dark:text-white text-primary-500"
               width={24}
             />
             <InputForm
@@ -103,7 +107,11 @@ const LoginPage = () => {
             />
           </div>
           <div className="flex items-center gap-4">
-            <FontAwesomeIcon icon={faLock} className="text-white" width={24} />
+            <FontAwesomeIcon
+              icon={faLock}
+              className="dark:text-white text-primary-500"
+              width={24}
+            />
             <InputForm
               type={"password"}
               placeholder={"Password"}

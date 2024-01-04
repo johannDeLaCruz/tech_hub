@@ -236,7 +236,6 @@ const Home = () => {
           handleReset={handleReset}
           itemsCount={itemsCount}
         />
-
         <OrderMenu />
       </div>
       <SearchBar

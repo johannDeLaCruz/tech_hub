@@ -13,7 +13,7 @@ const ItemImage = ({ minimalPrice, image, _id }) => {
         ></Image>
       </Link>
       <figcaption className="absolute text-body1 py-2 px-3 bg-gray-950 opacity-50 right-0 top-10 rounded-l-3xl z-5">
-        {minimalPrice}
+        ${minimalPrice}
       </figcaption>
     </figure>
   );
