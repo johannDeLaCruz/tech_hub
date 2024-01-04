@@ -1,9 +1,13 @@
+"use client";
 import ItemImage from "@components/ItemImage";
 import ItemRating from "@components/ItemRating";
 import ItemTags from "@components/ItemTags";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 
-const ItemCard = ({ item, handleLike, userFavorites }) => {
+const ItemCard = ({ item, handleLike, userFavorites, loadingFavorite }) => {
   const {
     _id,
     name,
@@ -17,6 +21,21 @@ const ItemCard = ({ item, handleLike, userFavorites }) => {
     tags,
     timesFavorited,
   } = item;
+
+  const [favoritedNumber, setFavoritedNumber] = useState(timesFavorited);
+  console.log(loadingFavorite);
+  console.log(favoritedNumber);
+
+  useEffect(() => {
+    const handleFavorited = () => {
+      if (loadingFavorite.increment === true) {
+        setFavoritedNumber((prevState) => prevState + 1);
+      } else if (loadingFavorite.increment === false) {
+        setFavoritedNumber((prevState) => prevState - 1);
+      }
+    };
+    handleFavorited();
+  }, [loadingFavorite.increment]);
 
   return (
     <article className="bg-gray-950 rounded-3xl overflow-hidden justify-self-center">
@@ -49,22 +68,32 @@ const ItemCard = ({ item, handleLike, userFavorites }) => {
           <ItemTags tags={tags} />
           <div className="relative">
             <span className="absolute inset-x-0 -top-6 text-body1 text-center">
-              {timesFavorited}
+              {favoritedNumber}
             </span>
-            <button onClick={() => handleLike(_id)}>
-              <svg
-                viewBox="0 0 24 24"
-                width={"2rem"}
-                height={"2rem"}
-                className={`stroke-primary-500 hover:fill-primary-500 ${
-                  userFavorites?.some((favorite) => favorite._id === _id)
-                    ? "fill-primary-500"
-                    : "fill-none"
-                }`}
-              >
-                <path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-              </svg>
-            </button>
+            {loadingFavorite.itemId === _id &&
+            loadingFavorite.loading === true ? (
+              <FontAwesomeIcon
+                icon={faCircleNotch}
+                width={32}
+                height={32}
+                className="text-primary-500 animate-spin"
+              />
+            ) : (
+              <button onClick={() => handleLike(_id)}>
+                <svg
+                  viewBox="0 0 24 24"
+                  width={"2rem"}
+                  height={"2rem"}
+                  className={`stroke-primary-500 hover:fill-primary-500 ${
+                    userFavorites?.some((favorite) => favorite._id === _id)
+                      ? "fill-primary-500"
+                      : "fill-none"
+                  }`}
+                >
+                  <path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                </svg>
+              </button>
+            )}
           </div>
         </div>
       </div>

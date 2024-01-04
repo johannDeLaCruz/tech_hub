@@ -22,7 +22,7 @@ export const POST = async (req, { params }) => {
       { $push: { favorites: favoriteId } },
       { new: true }
     );
-    return new Response(JSON.stringify(updatedUser.favorites), { status: 201 });
+    return new Response("Successfully saved favorite!", { status: 201 });
   } catch (error) {
     console.error(error);
     return new Response("Failed to save favorite", { status: 500 });

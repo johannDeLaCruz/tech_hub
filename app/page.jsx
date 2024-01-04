@@ -26,7 +26,11 @@ const Home = () => {
   const [user, setUser] = useState({});
   const [filter, setFilter] = useState({});
   const [activeFilters, setActiveFilters] = useState(emptyFilter);
-  const [loadingFavorite, setLoadingFavorite] = useState(false);
+  const [loadingFavorite, setLoadingFavorite] = useState({
+    loading: false,
+    itemId: "",
+    increment: null,
+  });
   let [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = () => {
@@ -133,7 +137,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [itemsResponse] = await Promise.all([fetch("/api/item")]);
+        const itemsResponse = await fetch("/api/item");
         if (!itemsResponse.ok) {
           throw new Error("Failed to fetch items");
         }
@@ -157,8 +161,31 @@ const Home = () => {
   const handleLike = async (itemId) => {
     try {
       if (status === "authenticated") {
-        setLoadingFavorite(true);
+        setLoadingFavorite({ loading: true, itemId: itemId, increment: null });
         const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
+        const addFavoriteResponse = await fetch(
+          `/api/user/${session?.user.id}/favorites`,
+          {
+            method: isLiked ? "DELETE" : "POST",
+            body: JSON.stringify({ favoriteId: itemId }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!addFavoriteResponse.ok) {
+          throw new Error(`Failed to ${isLiked ? "unlike" : "like"} item`);
+        }
+        const numberFavoritedResponse = await fetch(
+          `/api/item/${itemId}/favorite`,
+          {
+            method: isLiked ? "DELETE" : "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (!numberFavoritedResponse.ok) {
+          throw new Error("Failed to update number of favorites");
+        }
         setUser((prevUser) => {
           if (isLiked) {
             const updatedFavorites = prevUser?.favorites?.filter(
@@ -175,28 +202,16 @@ const Home = () => {
             };
           }
         });
-        const response = await fetch(
-          `/api/user/${session?.user.id}/favorites`,
-          {
-            method: isLiked ? "DELETE" : "POST",
-            body: JSON.stringify({ favoriteId: itemId }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error(`Failed to ${isLiked ? "unlike" : "like"} item`);
-        }
+        setLoadingFavorite((prevState) => ({
+          ...prevState,
+          loading: false,
+          increment: !isLiked,
+        }));
       } else {
         router.push("/login");
       }
     } catch (error) {
       console.error("Error handling like:", error);
-      setUser((prevUser) => ({
-        ...prevUser,
-        favorites: prevUser?.favorites?.filter((fav) => fav._id !== itemId),
-      }));
     }
   };
 
@@ -242,6 +257,7 @@ const Home = () => {
         items={filteredItems}
         handleLike={handleLike}
         userFavorites={user?.favorites}
+        loadingFavorite={loadingFavorite}
       />
       <div className="flex justify-center py-6">
         {" "}
