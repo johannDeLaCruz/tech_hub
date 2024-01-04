@@ -26,7 +26,7 @@ const Home = () => {
   const [user, setUser] = useState({});
   const [filter, setFilter] = useState({});
   const [activeFilters, setActiveFilters] = useState(emptyFilter);
-  const [loadingFavorite, setLoadingFavorite] = useState({
+  const [handleFavorite, setHandleFavorite] = useState({
     loading: false,
     itemId: "",
     increment: null,
@@ -161,7 +161,7 @@ const Home = () => {
   const handleLike = async (itemId) => {
     try {
       if (status === "authenticated") {
-        setLoadingFavorite({ loading: true, itemId: itemId, increment: null });
+        setHandleFavorite({ loading: true, itemId: itemId, increment: null });
         const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
         const addFavoriteResponse = await fetch(
           `/api/user/${session?.user.id}/favorites`,
@@ -202,7 +202,7 @@ const Home = () => {
             };
           }
         });
-        setLoadingFavorite((prevState) => ({
+        setHandleFavorite((prevState) => ({
           ...prevState,
           loading: false,
           increment: !isLiked,
@@ -257,7 +257,7 @@ const Home = () => {
         items={filteredItems}
         handleLike={handleLike}
         userFavorites={user?.favorites}
-        loadingFavorite={loadingFavorite}
+        handleFavorite={handleFavorite}
       />
       <div className="flex justify-center py-6">
         {" "}

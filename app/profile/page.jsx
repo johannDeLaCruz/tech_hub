@@ -17,6 +17,11 @@ const ProfilePage = () => {
   });
   const [provider, setProvider] = useState();
   const [user, setUser] = useState({});
+  const [handleFavorite, setHandleFavorite] = useState({
+    loading: false,
+    itemId: "",
+    increment: null,
+  });
 
   useEffect(() => {
     const setupProviders = async () => {
@@ -55,6 +60,63 @@ const ProfilePage = () => {
     return <div>loading...</div>;
   }
 
+  const handleLike = async (itemId) => {
+    try {
+      if (status === "authenticated") {
+        setHandleFavorite({ loading: true, itemId: itemId, increment: null });
+        const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
+        const addFavoriteResponse = await fetch(
+          `/api/user/${session?.user.id}/favorites`,
+          {
+            method: isLiked ? "DELETE" : "POST",
+            body: JSON.stringify({ favoriteId: itemId }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!addFavoriteResponse.ok) {
+          throw new Error(`Failed to ${isLiked ? "unlike" : "like"} item`);
+        }
+        const numberFavoritedResponse = await fetch(
+          `/api/item/${itemId}/favorite`,
+          {
+            method: isLiked ? "DELETE" : "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (!numberFavoritedResponse.ok) {
+          throw new Error("Failed to update number of favorites");
+        }
+        setUser((prevUser) => {
+          if (isLiked) {
+            const updatedFavorites = prevUser?.favorites?.filter(
+              (fav) => fav._id !== itemId
+            );
+            return {
+              ...prevUser,
+              favorites: updatedFavorites,
+            };
+          } else {
+            return {
+              ...prevUser,
+              favorites: [...prevUser?.favorites, { _id: itemId }],
+            };
+          }
+        });
+        setHandleFavorite((prevState) => ({
+          ...prevState,
+          loading: false,
+          increment: !isLiked,
+        }));
+      } else {
+        router.push("/login");
+      }
+    } catch (error) {
+      console.error("Error handling like:", error);
+    }
+  };
+
   return (
     <>
       <Avatar image={session?.user?.image} />
@@ -63,7 +125,11 @@ const ProfilePage = () => {
         userInfo={session?.user}
         user={user}
       />
-      <UserFavouritesList favorites={user?.favorites} />
+      <UserFavouritesList
+        favorites={user?.favorites}
+        handleLike={handleLike}
+        handleFavorite={handleFavorite}
+      />
     </>
   );
 };

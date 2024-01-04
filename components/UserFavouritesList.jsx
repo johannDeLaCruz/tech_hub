@@ -1,6 +1,6 @@
 import SearchResults from "@components/SearchResults";
 
-const UserFavouritesList = ({ favorites }) => {
+const UserFavouritesList = ({ favorites, handleLike, handleFavorite }) => {
   return (
     <section className="container py-4">
       <h3 className="font-heading text-heading text-center py-6">
@@ -8,7 +8,12 @@ const UserFavouritesList = ({ favorites }) => {
       </h3>
       <hr />
       {favorites ? (
-        <SearchResults items={favorites} userFavorites={favorites} />
+        <SearchResults
+          items={favorites}
+          handleLike={handleLike}
+          userFavorites={favorites}
+          handleFavorite={handleFavorite}
+        />
       ) : (
         <h4 className="text-center py-6">No favourites yet...</h4>
       )}

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 
-const ItemCard = ({ item, handleLike, userFavorites, loadingFavorite }) => {
+const ItemCard = ({ item, handleLike, userFavorites, handleFavorite }) => {
   const {
     _id,
     name,
@@ -22,26 +22,24 @@ const ItemCard = ({ item, handleLike, userFavorites, loadingFavorite }) => {
     timesFavorited,
   } = item;
 
-  const [favoritedNumber, setFavoritedNumber] = useState(timesFavorited);
-  console.log(loadingFavorite);
-  console.log(favoritedNumber);
+  const [favoritedNumber, setFavoritedNumber] = useState(timesFavorited);  
 
   useEffect(() => {
     const handleFavorited = () => {
       if (
-        loadingFavorite.increment === true &&
-        loadingFavorite.itemId === _id
+        handleFavorite.increment === true &&
+        handleFavorite.itemId === _id
       ) {
         setFavoritedNumber((prevState) => prevState + 1);
       } else if (
-        loadingFavorite.increment === false &&
-        loadingFavorite.itemId === _id
+        handleFavorite.increment === false &&
+        handleFavorite.itemId === _id
       ) {
         setFavoritedNumber((prevState) => prevState - 1);
       }
     };
     handleFavorited();
-  }, [_id, loadingFavorite.increment, loadingFavorite.itemId]);
+  }, [_id, handleFavorite.increment, handleFavorite.itemId]);
 
   return (
     <article className="bg-gray-950 rounded-3xl overflow-hidden justify-self-center">
@@ -76,8 +74,8 @@ const ItemCard = ({ item, handleLike, userFavorites, loadingFavorite }) => {
             <span className="absolute inset-x-0 -top-6 text-body1 text-center">
               {favoritedNumber}
             </span>
-            {loadingFavorite.itemId === _id &&
-            loadingFavorite.loading === true ? (
+            {handleFavorite.itemId === _id &&
+            handleFavorite.loading === true ? (
               <FontAwesomeIcon
                 icon={faCircleNotch}
                 width={32}
