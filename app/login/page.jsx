@@ -165,10 +165,12 @@ const LoginPage = () => {
         </form>
         <div className="relative flex py-5 items-center">
           <div className="flex-grow border-t dark:border-gray-950 border-gray-200"></div>
-          <span className="flex-shrink mx-4 text-caption dark:text-white">OR</span>
+          <span className="flex-shrink mx-4 text-caption dark:text-white">
+            OR
+          </span>
           <div className="flex-grow border-t dark:border-gray-950 border-gray-200"></div>
         </div>
-        <div className="flex justify-center px-4 py-2 gap-4 ">
+        <div className="flex justify-center px-4 py-2 gap-4">
           {providers &&
             Object.values(providers)
               .filter((provider) => provider.name !== "credentials")
@@ -179,11 +181,7 @@ const LoginPage = () => {
                     onClick={() => handleSignIn(provider.id)}
                     className="btn-gray py-3 px-7 flex gap-2 items-center font-normal"
                   >
-                    <FontAwesomeIcon
-                      icon={iconName(provider)}
-                      className="dark:text-white text-black"
-                      width={20}
-                    />
+                    <FontAwesomeIcon icon={iconName(provider)} width={20} />
                     <span> {provider.name}</span>
                   </button>
                 );

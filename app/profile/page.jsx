@@ -51,7 +51,7 @@ const ProfilePage = () => {
 
   const signOutHandle = async () => {
     try {
-      await signOut({ callbackUrl: "/" });
+      await signOut({ callbackUrl: "/login" });
     } catch (error) {
       console.error("Error signing out:", error);
     }

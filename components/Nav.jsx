@@ -21,7 +21,7 @@ const Nav = ({ navLinks, type, handleNavClick }) => {
         <Link
           key={index}
           href={item.link}
-          className="font-heading text-button link-hover"
+          className="font-heading text-button custom-hover"
           onClick={handleNavClick}
         >
           {item.title}

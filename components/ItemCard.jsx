@@ -22,14 +22,11 @@ const ItemCard = ({ item, handleLike, userFavorites, handleFavorite }) => {
     timesFavorited,
   } = item;
 
-  const [favoritedNumber, setFavoritedNumber] = useState(timesFavorited);  
+  const [favoritedNumber, setFavoritedNumber] = useState(timesFavorited);
 
   useEffect(() => {
     const handleFavorited = () => {
-      if (
-        handleFavorite.increment === true &&
-        handleFavorite.itemId === _id
-      ) {
+      if (handleFavorite.increment === true && handleFavorite.itemId === _id) {
         setFavoritedNumber((prevState) => prevState + 1);
       } else if (
         handleFavorite.increment === false &&
@@ -52,7 +49,9 @@ const ItemCard = ({ item, handleLike, userFavorites, handleFavorite }) => {
       />
       <div className="flex flex-col gap-1 p-6">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="text-h3">{name}</h3>
+          <Link href={`/item/${_id}`} className="text-h3 link-hover">
+            {name}
+          </Link>
           <Link href={`${externalLink}`}>
             <svg
               className="fill-white stroke-white hover:stroke-primary-500 hover:fill-primary-500 link-hover"
