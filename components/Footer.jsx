@@ -12,7 +12,7 @@ const footerNavLinks = [
 const Footer = () => {
 
   return (
-    <footer className="bg-gray-950 py-9">
+    <footer className="bg-gray-950 py-9 text-white">
       <div className="container">
         <h4 className="font-heading text-h2 pb-6">
           <span>Tech</span>

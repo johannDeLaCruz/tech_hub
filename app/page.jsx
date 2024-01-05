@@ -248,7 +248,7 @@ const Home = () => {
         tags={filter?.tags}
         handleFilter={(value) => handleFilter("tags", value)}
       />
-      <div className="mx-auto w-full sm:max-w-sm bg-gray-950 text-button text-center p-2 mb-6 rounded-3xl">
+      <div className="mx-auto w-full sm:max-w-sm dark:bg-gray-950 bg-primary-500 text-white text-button text-center p-2 mb-6 rounded-3xl">
         {" "}
         Showing {itemsCount} items out of {allItems.length}
       </div>

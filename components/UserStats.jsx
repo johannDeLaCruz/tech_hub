@@ -1,4 +1,3 @@
-"use client";
 
 const UserStats = ({ signOuthandle, user }) => {
   const { email, username } = user;
@@ -39,7 +38,6 @@ const UserStats = ({ signOuthandle, user }) => {
             return null;
           })}
       </ul>
-
       <hr />
     </section>
   );

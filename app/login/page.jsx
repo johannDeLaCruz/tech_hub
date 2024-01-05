@@ -141,7 +141,7 @@ const LoginPage = () => {
             <span className="text-error text-center text-danger">{error}</span>
           )}
           <div className="flex flex-col py-2">
-            <button type="submit" className="btn-primary py-2 text-white">
+            <button type="submit" className="btn-primary py-2">
               Login
             </button>
           </div>
@@ -164,9 +164,9 @@ const LoginPage = () => {
           </div>
         </form>
         <div className="relative flex py-5 items-center">
-          <div className="flex-grow border-t dark:border-gray-950 border-gray-300"></div>
-          <span className="flex-shrink mx-4 text-caption text-white">OR</span>
-          <div className="flex-grow border-t dark:border-gray-950 border-gray-300"></div>
+          <div className="flex-grow border-t dark:border-gray-950 border-gray-200"></div>
+          <span className="flex-shrink mx-4 text-caption dark:text-white">OR</span>
+          <div className="flex-grow border-t dark:border-gray-950 border-gray-200"></div>
         </div>
         <div className="flex justify-center px-4 py-2 gap-4 ">
           {providers &&
@@ -181,7 +181,7 @@ const LoginPage = () => {
                   >
                     <FontAwesomeIcon
                       icon={iconName(provider)}
-                      className="text-white"
+                      className="dark:text-white text-black"
                       width={20}
                     />
                     <span> {provider.name}</span>

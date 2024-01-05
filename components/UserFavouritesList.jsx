@@ -2,11 +2,11 @@ import SearchResults from "@components/SearchResults";
 
 const UserFavouritesList = ({ favorites, handleLike, handleFavorite }) => {
   return (
-    <section className="container py-4">
+    <section className="container pb-4 divide-y dark:divide-gray-950 divide-gray-200">
       <h3 className="font-heading text-heading text-center py-6">
         Your Favourites List
       </h3>
-      <hr />
+      
       {favorites ? (
         <SearchResults
           items={favorites}

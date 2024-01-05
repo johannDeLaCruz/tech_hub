@@ -6,25 +6,25 @@
 
 @layer components {
   .btn-round {
-    @apply hover:transition-colors dark:hover:bg-white/20 hover:bg-black/20 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-primary-500 focus:ring-primary-500;
+    @apply hover:transition-colors hover:bg-white/20 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-primary-500 focus:ring-primary-500;
   }
   hr {
-    @apply h-px dark:border-gray-950 border-gray-300 py-2;
+    @apply h-px dark:border-gray-950 border-gray-200 py-2;
   }
   .tag {
-    @apply border border-primary-500 font-body text-tag text-primary-500 lg:hover:bg-primary-500 lg:hover:text-white lg:hover:transition-colors focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-500 focus:ring-inset duration-300;
+    @apply border font-body text-tag lg:hover:bg-primary-500 lg:hover:text-white lg:hover:transition-colors focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-500 focus:ring-inset duration-300;
   }
   .tag-selected {
-    @apply bg-primary-500 text-white
-  }
+    @apply bg-primary-500 dark:bg-primary-500 text-white dark:text-white !important;
+  } 
   .btn-primary {
-    @apply text-button text-black bg-primary-500 hover:transition-colors hover:bg-primary-400 rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-white focus:ring-white;
+    @apply text-button text-white bg-primary-500 hover:transition-colors hover:bg-primary-400 rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-white focus:ring-white;
   }
   .btn-white {
-    @apply border border-white text-button text-white hover:text-black hover:transition-colors hover:bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-primary-500 focus:ring-primary-500;
+    @apply border text-button dark:hover:text-black hover:transition-colors dark:hover:bg-white hover:bg-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-primary-500 focus:ring-primary-500;
   }
   .btn-gray {
-    @apply text-button text-white bg-gray-950 hover:bg-gray-600 hover:transition-colors rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-primary-500 focus:ring-primary-500;
+    @apply text-button text-black border border-primary-500 dark:border-0 dark:text-white dark:bg-gray-950 hover:bg-gray-600 hover:transition-colors rounded-full focus:outline-none focus:ring-2 focus:ring-inset duration-300 focus:border-primary-500 focus:ring-primary-500;
   }
 }
 

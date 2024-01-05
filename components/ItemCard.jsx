@@ -42,7 +42,8 @@ const ItemCard = ({ item, handleLike, userFavorites, handleFavorite }) => {
   }, [_id, handleFavorite.increment, handleFavorite.itemId]);
 
   return (
-    <article className="bg-gray-950 rounded-3xl overflow-hidden justify-self-center">
+    //alt: bg-gray-950
+    <article className="rounded-3xl overflow-hidden justify-self-center border dark:border-gray-950 border-gray-200">
       <ItemImage
         minimalPrice={minimalPrice}
         image={image}

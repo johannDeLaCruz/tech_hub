@@ -12,7 +12,7 @@ const ItemImage = ({ minimalPrice, image, _id }) => {
           className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer object-cover"
         ></Image>
       </Link>
-      <figcaption className="absolute text-body1 py-2 px-3 bg-gray-950 opacity-50 right-0 top-10 rounded-l-3xl z-5">
+      <figcaption className="absolute text-white text-body1 py-2 px-3 bg-gray-950 opacity-50 right-0 top-10 rounded-l-3xl z-5">
         ${minimalPrice}
       </figcaption>
     </figure>

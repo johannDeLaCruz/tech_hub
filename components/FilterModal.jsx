@@ -95,16 +95,16 @@ export default function FilterModal({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md bg-black border-2 border-primary-500 transform overflow-hidden divide-y divide-gray-950  rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md dark:bg-black bg-white border-2 border-primary-500 transform overflow-hidden divide-y dark:divide-gray-950 divide-gray-300  rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-between pb-4">
-                    <button className="text-caption" onClick={handleReset}>
+                    <button className="text-caption hover:text-primary-500" onClick={handleReset}>
                       Reset
                     </button>
                     <h4 className="font-heading text-h2">Filter</h4>
                     <button onClick={closeModal}>
                       <FontAwesomeIcon
                         icon={faXmark}
-                        className="text-primary-500"
+                        className="hover:text-primary-500"
                         width={20}
                       />
                     </button>
@@ -126,7 +126,7 @@ export default function FilterModal({
                                 className={`transition-transform duration-300 ${
                                   open
                                     ? "rotate-90 transform text-primary-500"
-                                    : "text-white"
+                                    : ""
                                 } hover:text-primary-500`}
                               />
                             </Disclosure.Button>
@@ -138,7 +138,7 @@ export default function FilterModal({
                       </Disclosure>
                     </div>
                   ))}
-                  <button onClick={closeModal} className="mx-auto w-full sm:max-w-sm bg-primary-500 text-button text-center p-2 mt-6 rounded-3xl">
+                  <button onClick={closeModal} className="mx-auto w-full sm:max-w-sm p-2 mt-6 btn-primary">
                     {" "}
                     Showing {itemsCount} items
                   </button>

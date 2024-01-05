@@ -6,8 +6,10 @@ const TagsSelection = ({ activeFilters, tags, handleFilter }) => {
         return (
           <button
             key={index}
-            className={`border-primary-500 rounded-3xl px-4 py-1 tag ${
-              activeFilters?.includes(tag) ? "tag-selected" : ""
+            className={`border border-0 bg-gray-950 text-primary-500 rounded-3xl px-4 py-1 tag ${
+              activeFilters?.includes(tag)
+                ? "tag-selected"
+                : ""
             }`}
             onClick={() => handleFilter(tag)}
           >
