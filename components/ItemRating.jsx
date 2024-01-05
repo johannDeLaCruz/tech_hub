@@ -8,7 +8,7 @@ const ItemRating = ({ rating }) => {
       stars.push(
         <svg
           key={i}
-          className={`text-gray-600 cursor-pointer ${
+          className={`text-gray-600 ${
             isHighlighted
               ? "text-primary-500 hover:text-primary-500 peer peer-hover:text-primary-500 hover:text-primary-500 duration-100"
               : ""
@@ -30,7 +30,7 @@ const ItemRating = ({ rating }) => {
     <div className="flex items-center gap-2">
       <span className="flex flex-row">{renderStars()}</span>
       <span className="text-caption">{rating}</span>
-      <span className="text-caption">(12)</span>
+      {/* <span className="text-caption">(12)</span> */}
     </div>
   );
 };
