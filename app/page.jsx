@@ -219,7 +219,7 @@ const Home = () => {
     <div className="container">
       <HeroSection />
       <hr />
-      <div className="mx-auto flex justify-between w-full sm:max-w-2xl">
+      <div className="mx-auto mb-1 flex justify-between w-full sm:max-w-2xl">
         <button
           type="button"
           className="text-h4 custom-hover"

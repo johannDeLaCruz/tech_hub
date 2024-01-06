@@ -57,7 +57,7 @@ const LoginPage = () => {
   return (
     <div className="container">
       <div className="max-w-md mx-auto">
-        <div className="py-16">
+        <div className="pb-10 pt-16">
           <div className="mx-auto relative rounded-full w-32 aspect-square overflow-hidden">
             <Image
               src="https://picsum.photos/1200/600"
