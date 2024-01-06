@@ -6,10 +6,8 @@ const OrderMenu = ({ handleOrderByChange }) => {
     { type: "dateAdded", label: "Date Added" },
     { type: "rating", label: "Rating" },
     { type: "aToZ", label: "A-Z" },
-    { type: "zToA", label: "Z-A" },
     { type: "releaseDate", label: "Release Date" },
-    { type: "highestPrice", label: "Highest Price" },
-    { type: "lowestPrice", label: "Lowest Price" },
+    { type: "price", label: "Price" },
   ];
 
   return (
@@ -33,7 +31,9 @@ const OrderMenu = ({ handleOrderByChange }) => {
             <Menu.Item key={option.type}>
               {({ active }) => (
                 <button
-                  onClick={() => handleOrderByChange([{ type: option.type, direction: "asc" }])}
+                  onClick={() =>
+                    handleOrderByChange({ type: option.type, direction: "asc" })
+                  }
                   className={`${
                     active ? "text-primary-500" : "dark:text-white"
                   } group flex w-full items-center px-2 py-2 text-body1`}

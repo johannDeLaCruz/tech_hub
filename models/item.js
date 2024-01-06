@@ -57,6 +57,11 @@ const itemSchema = new Schema({
     default: "N/A",
     required: true,
   },
+  dateAdded: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
   itemDetailedInfo: [
     {
       title: {
@@ -67,18 +72,6 @@ const itemSchema = new Schema({
       description: {
         type: [String] || Date,
         default: "Not Available",
-        required: true,
-      },
-    },
-    {
-      title: {
-        type: String,
-        default: "Date Added",
-        required: true,
-      },
-      description: {
-        type: Date,
-        default: Date.now(),
         required: true,
       },
     },

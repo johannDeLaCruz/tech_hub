@@ -8,7 +8,7 @@ import FilterModal from "@components/FilterModal";
 import { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { set } from "mongoose";
+
 
 const Home = () => {
   const router = useRouter();
@@ -221,6 +221,7 @@ const Home = () => {
 
   const handleOrderByChange = (options) => {
     const exists = orderBy.some((option) => option.type === options.type);
+    console.log(exists)
     if (exists) {
       setOrderBy(orderBy.filter((option) => option.type !== options.type));
     } else {
@@ -228,9 +229,51 @@ const Home = () => {
     }
   };
 
-  const orderedItems = (orderBy) => {
-    
-  }
+  const sortItems = (itemsToDisplay, type, direction) => {
+    switch (type) {
+      case "dateAdded":
+        return itemsToDisplay.sort((a, b) =>
+          direction === "asc"
+            ? new Date(a.dateAdded) - new Date(b.dateAdded)
+            : new Date(b.dateAdded) - new Date(a.dateAdded)
+        );
+      case "rating":
+        return itemsToDisplay.sort((a, b) =>
+          direction === "asc" ? a.rating - b.rating : b.rating - a.rating
+        );
+      case "aToZ":
+        return itemsToDisplay.sort((a, b) =>
+          direction === "asc"
+            ? a.name.localeCompare(b.name)
+            : b.name.localeCompare(a.name)
+        );
+      case "releaseDate":
+        return itemsToDisplay.sort((a, b) =>
+          direction === "asc"
+            ? new Date(a.releaseDate) - new Date(b.releaseDate)
+            : new Date(b.releaseDate) - new Date(a.releaseDate)
+        );
+      case "price":
+        return itemsToDisplay.sort((a, b) =>
+          direction === "asc"
+            ? a.minimalPrice - b.minimalPrice
+            : b.minimalPrice - a.minimalPrice
+        );
+      default:
+        return itemsToDisplay;
+    }
+  };
+
+  const orderedItems = useMemo(() => {
+    let itemsToDisplay = [...filteredItems];
+    return orderBy.reduce((sortedItems, { type, direction }) => {
+      return sortItems(sortedItems, type, direction);
+    }, itemsToDisplay);
+  }, [filteredItems, orderBy]);
+
+  console.log(orderBy)
+  console.log(orderedItems);
+  
 
   return (
     <div className="container">
@@ -253,7 +296,7 @@ const Home = () => {
           handleReset={handleReset}
           itemsCount={itemsCount}
         />
-        <OrderMenu />
+        <OrderMenu handleOrderByChange={handleOrderByChange} />
       </div>
       <SearchBar
         searchText={searchText}
