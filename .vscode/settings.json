@@ -27,6 +27,7 @@
         "npm",
         "loading",
         "auth",
-        "register"
+        "register",
+        "orderMenu"
     ]
 }

@@ -95,7 +95,7 @@ export default function FilterModal({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md dark:bg-black bg-white border-2 border-primary-500 transform overflow-hidden divide-y dark:divide-gray-950 divide-gray-300  rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md dark:bg-black bg-white border-2 border-primary-500 transform overflow-hidden divide-y dark:divide-gray-950 divide-gray-300 rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-between pb-4">
                     <button className="text-caption hover:text-primary-500" onClick={handleReset}>
                       Reset
