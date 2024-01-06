@@ -1,9 +1,17 @@
-"use client";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-// import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
-const OrderMenu = () => {
+const OrderMenu = ({ handleOrderByChange }) => {
+  const orderOptions = [
+    { type: "dateAdded", label: "Date Added" },
+    { type: "rating", label: "Rating" },
+    { type: "aToZ", label: "A-Z" },
+    { type: "zToA", label: "Z-A" },
+    { type: "releaseDate", label: "Release Date" },
+    { type: "highestPrice", label: "Highest Price" },
+    { type: "lowestPrice", label: "Lowest Price" },
+  ];
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -21,91 +29,20 @@ const OrderMenu = () => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute right-0 mt-1 w-56 origin-top-right divide-y dark:divide-gray-950 divide-gray-300 dark:bg-black bg-white shadow-lg rounded-3xl border-2 border-primary-500 z-50 p-3">
-          <div className="px-1 py-1">
-            <Menu.Item>
+          {orderOptions.map((option) => (
+            <Menu.Item key={option.type}>
               {({ active }) => (
                 <button
+                  onClick={() => handleOrderByChange([{ type: option.type, direction: "asc" }])}
                   className={`${
                     active ? "text-primary-500" : "dark:text-white"
                   } group flex w-full items-center px-2 py-2 text-body1`}
                 >
-                  Date Added
+                  {option.label}
                 </button>
               )}
             </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "text-primary-500" : "dark:text-white"
-                  } group flex w-full items-center px-2 py-2 text-body1`}
-                >
-                  Rating
-                </button>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="px-1 py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "text-primary-500" : "dark:text-white"
-                  } group flex w-full items-center px-2 py-2 text-body1`}
-                >
-                  A-Z
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "text-primary-500" : "dark:text-white"
-                  } group flex w-full items-center px-2 py-2 text-body1`}
-                >
-                  Z-A
-                </button>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="px-1 py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "text-primary-500" : "dark:text-white"
-                  } group flex w-full items-center px-2 py-2 text-body1`}
-                >
-                  Release Date
-                </button>
-              )}
-            </Menu.Item>
-          </div>{" "}
-          <div className="px-1 py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "text-primary-500" : "dark:text-white"
-                  } group flex w-full items-center px-2 py-2 text-body1`}
-                >
-                  Highest Price
-                </button>
-              )}
-            </Menu.Item>{" "}
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "text-primary-500" : "dark:text-white"
-                  } group flex w-full items-center px-2 py-2 text-body1`}
-                >
-                  Lowest Price
-                </button>
-              )}
-            </Menu.Item>
-          </div>
+          ))}
         </Menu.Items>
       </Transition>
     </Menu>

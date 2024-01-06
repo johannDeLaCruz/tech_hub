@@ -8,6 +8,7 @@ import FilterModal from "@components/FilterModal";
 import { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { set } from "mongoose";
 
 const Home = () => {
   const router = useRouter();
@@ -26,6 +27,9 @@ const Home = () => {
   const [user, setUser] = useState({});
   const [filter, setFilter] = useState({});
   const [activeFilters, setActiveFilters] = useState(emptyFilter);
+  const [orderBy, setOrderBy] = useState([
+    { type: "dateAdded", direction: "asc" },
+  ]);
   const [handleFavorite, setHandleFavorite] = useState({
     loading: false,
     itemId: "",
@@ -214,6 +218,19 @@ const Home = () => {
       console.error("Error handling like:", error);
     }
   };
+
+  const handleOrderByChange = (options) => {
+    const exists = orderBy.some((option) => option.type === options.type);
+    if (exists) {
+      setOrderBy(orderBy.filter((option) => option.type !== options.type));
+    } else {
+      setOrderBy([...orderBy, options]);
+    }
+  };
+
+  const orderedItems = (orderBy) => {
+    
+  }
 
   return (
     <div className="container">
