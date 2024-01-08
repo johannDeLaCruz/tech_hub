@@ -228,65 +228,63 @@ const Home = () => {
       console.error("Error handling like:", error);
     }
   };
-  console.log(orderBy);
-  const handleOrderByChange = (options) => {
-   
-    // const typeExists = orderBy.some((option) => option.type === options.type);
-    // const directionExists = orderBy.some(
-    //   (option) => option.direction === options.direction
-    // );
-    // console.log(typeExists, directionExists);
-    // if (typeExists) {
-    //   setOrderBy(orderBy.filter((option) => option.type !== options.type));
-    // } else if (directionExists) {
-    //   setOrderBy(orderBy.map((option) => option.direction ===))
 
-    // } else {
-    //   setOrderBy([...orderBy, options]);
-    // }
-  };
-
-  const sortItems = (itemsToDisplay, type, direction) => {
-    switch (type) {
-      case "dateAdded":
-        return itemsToDisplay.sort((a, b) =>
-          direction === "asc"
-            ? new Date(a.dateAdded) - new Date(b.dateAdded)
-            : new Date(b.dateAdded) - new Date(a.dateAdded)
-        );
-      case "rating":
-        return itemsToDisplay.sort((a, b) =>
-          direction === "asc" ? a.rating - b.rating : b.rating - a.rating
-        );
-      case "aToZ":
-        return itemsToDisplay.sort((a, b) =>
-          direction === "asc"
-            ? a.name.localeCompare(b.name)
-            : b.name.localeCompare(a.name)
-        );
-      case "releaseDate":
-        return itemsToDisplay.sort((a, b) =>
-          direction === "asc"
-            ? new Date(a.releaseDate) - new Date(b.releaseDate)
-            : new Date(b.releaseDate) - new Date(a.releaseDate)
-        );
-      case "price":
-        return itemsToDisplay.sort((a, b) =>
-          direction === "asc"
-            ? a.minimalPrice - b.minimalPrice
-            : b.minimalPrice - a.minimalPrice
-        );
-      default:
-        return itemsToDisplay;
-    }
+  const sortItems = (itemsToDisplay, orderBy) => {
+    return itemsToDisplay.sort((a, b) => {
+      for (const { type, direction, active } of orderBy) {
+        if (active) {
+          switch (type) {
+            case "dateAdded":
+              if (new Date(a.dateAdded) !== new Date(b.dateAdded)) {
+                return direction === "asc"
+                  ? new Date(a.dateAdded) - new Date(b.dateAdded)
+                  : new Date(b.dateAdded) - new Date(a.dateAdded);
+              }
+              break;
+            case "rating":
+              if (a.rating !== b.rating) {
+                return direction === "asc"
+                  ? a.rating - b.rating
+                  : b.rating - a.rating;
+              }
+              break;
+            case "aToZ":
+              if (a.name.toLowerCase() !== b.name.toLowerCase()) {
+                return direction === "asc"
+                  ? a.name.localeCompare(b.name)
+                  : b.name.localeCompare(a.name);
+              }
+              break;
+            case "releaseDate":
+              if (new Date(a.releaseDate) !== new Date(b.releaseDate)) {
+                return direction === "asc"
+                  ? new Date(a.releaseDate) - new Date(b.releaseDate)
+                  : new Date(b.releaseDate) - new Date(a.releaseDate);
+              }
+              break;
+            case "price":
+              if (a.minimalPrice !== b.minimalPrice) {
+                return direction === "asc"
+                  ? a.minimalPrice - b.minimalPrice
+                  : b.minimalPrice - a.minimalPrice;
+              }
+              break;
+            default:
+              return 0;
+          }
+        }
+      }
+      return 0;
+    });
   };
 
   const orderedItems = useMemo(() => {
     let itemsToDisplay = [...filteredItems];
-    return orderBy.reduce((sortedItems, { type, direction }) => {
-      return sortItems(sortedItems, type, direction);
-    }, itemsToDisplay);
+    itemsToDisplay = sortItems(itemsToDisplay, orderBy);
+    return itemsToDisplay;
   }, [filteredItems, orderBy]);
+
+  console.log(orderBy);
 
   return (
     <div className="container">
@@ -309,11 +307,7 @@ const Home = () => {
           handleReset={handleReset}
           itemsCount={itemsCount}
         />
-        <OrderMenu
-          handleOrderByChange={handleOrderByChange}          
-          orderBy={orderBy}
-          setOrderBy={setOrderBy}
-        />
+        <OrderMenu orderBy={orderBy} setOrderBy={setOrderBy} />
       </div>
       <SearchBar
         searchText={searchText}
