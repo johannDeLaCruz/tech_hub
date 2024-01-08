@@ -1,13 +1,14 @@
 "use client";
 import Breadcrumbs from "@components/Breadcrumbs";
 import ItemRating from "@components/ItemRating";
-// import RecommendedSection from "@components/RecommendedSection";
+import RecommendedSection from "@components/RecommendedSection";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const ItemInfoPage = ({ params }) => {
   const [item, setItem] = useState({});
+  const [recommendedItems, setRecommendedItems] = useState([]);
   const { name, externalLink, brand, image, rating } = item;
   const itemDetailedInfo = item.itemDetailedInfo;
 
@@ -22,14 +23,31 @@ const ItemInfoPage = ({ params }) => {
           throw new Error("Failed to fetch data!");
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error.message);
       }
     };
     if (params.id) {
       fetchData();
     }
   }, [params.id]);
- 
+
+  useEffect(() => {
+    const fetchRecommendedItems = async () => {
+      try {
+        const response = await fetch(`/api/item/recommended/${params.id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setRecommendedItems(data);
+        } else {
+          throw new Error("Failed to fetch recommended items!");
+        }
+      } catch (error) {
+        console.error("Error fetching recommended items!", error.message);
+      }
+    };
+    fetchRecommendedItems();
+  }, [params.id]);
+
   return (
     <div className="container">
       <section>
@@ -82,7 +100,7 @@ const ItemInfoPage = ({ params }) => {
           ))}
         </div>
       </section>
-      {/* <RecommendedSection /> */}
+      <RecommendedSection recommendedItems={recommendedItems} />
     </div>
   );
 };

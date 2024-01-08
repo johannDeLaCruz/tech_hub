@@ -1,6 +1,6 @@
 import SearchResults from "@components/SearchResults";
 
-const RecommendedSection = () => {
+const RecommendedSection = ({recommendedItems}) => {
   return (
     <div>
       <h3 className="font-heading text-heading text-center py-8">

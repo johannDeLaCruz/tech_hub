@@ -30,7 +30,7 @@ const ProfilePage = () => {
     };
     setupProviders();
   }, []);
-  // console.log(session?.user.id);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
