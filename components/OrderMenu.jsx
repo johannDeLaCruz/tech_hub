@@ -1,15 +1,12 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowDownWideShort,
+  faArrowUpWideShort,
+} from "@fortawesome/free-solid-svg-icons";
 
-const OrderMenu = ({ handleOrderByChange }) => {
-  const orderOptions = [
-    { type: "dateAdded", label: "Date Added" },
-    { type: "rating", label: "Rating" },
-    { type: "aToZ", label: "A-Z" },
-    { type: "releaseDate", label: "Release Date" },
-    { type: "price", label: "Price" },
-  ];
-
+const OrderMenu = ({ orderBy, setOrderBy }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -26,20 +23,56 @@ const OrderMenu = ({ handleOrderByChange }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-1 w-56 origin-top-right divide-y dark:divide-gray-950 divide-gray-300 dark:bg-black bg-white shadow-lg rounded-3xl border-2 border-primary-500 z-50 p-3">
-          {orderOptions.map((option) => (
-            <Menu.Item key={option.type}>
+        <Menu.Items
+          static
+          className="absolute right-0 mt-1 w-56 origin-top-right divide-y dark:divide-gray-950 divide-gray-300 dark:bg-black bg-white shadow-lg rounded-3xl border-2 border-primary-500 z-50 p-3"
+        >
+          {orderBy?.map((option, index) => (
+            <Menu.Item key={index}>
               {({ active }) => (
-                <button
-                  onClick={() =>
-                    handleOrderByChange({ type: option.type, direction: "asc" })
-                  }
-                  className={`${
-                    active ? "text-primary-500" : "dark:text-white"
-                  } group flex w-full items-center px-2 py-2 text-body1`}
-                >
-                  {option.label}
-                </button>
+                <div className="flex w-full justify-between px-2 py-2 text-body1">
+                  <button
+                    onClick={() =>
+                      setOrderBy((prevOrder) =>
+                        prevOrder.map((o) =>
+                          o.type === option.type
+                            ? { ...o, active: !o.active }
+                            : o
+                        )
+                      )
+                    }
+                    className={`${
+                      option.active ? "text-primary-500" : "dark:text-white"
+                    } hover:text-primary-500`}
+                  >
+                    {option.label}
+                  </button>
+                  <button>
+                    <FontAwesomeIcon
+                      icon={
+                        option.direction === "asc"
+                          ? faArrowUpWideShort
+                          : faArrowDownWideShort
+                      }
+                      width={16}
+                      height={16}
+                      onClick={() =>
+                        setOrderBy((prevOrder) =>
+                          prevOrder.map((o) =>
+                            o.type === option.type
+                              ? {
+                                  ...o,
+                                  direction:
+                                    o.direction === "asc" ? "desc" : "asc",
+                                }
+                              : o
+                          )
+                        )
+                      }
+                      className="hover:text-primary-500"
+                    />
+                  </button>
+                </div>
               )}
             </Menu.Item>
           ))}

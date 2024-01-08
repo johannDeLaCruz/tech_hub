@@ -9,7 +9,6 @@ import { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-
 const Home = () => {
   const router = useRouter();
   const emptyFilter = {
@@ -21,15 +20,26 @@ const Home = () => {
     rating: 0,
   };
 
+  const startingOrderOptions = [
+    { type: "dateAdded", label: "Date Added", direction: "asc", active: true },
+    { type: "rating", label: "Rating", direction: "asc", active: false },
+    { type: "aToZ", label: "A-Z", direction: "asc", active: false },
+    {
+      type: "releaseDate",
+      label: "Release Date",
+      direction: "asc",
+      active: false,
+    },
+    { type: "price", label: "Price", direction: "asc", active: false },
+  ];
+
   const { data: session, status } = useSession();
   const [allItems, setAllItems] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [user, setUser] = useState({});
   const [filter, setFilter] = useState({});
   const [activeFilters, setActiveFilters] = useState(emptyFilter);
-  const [orderBy, setOrderBy] = useState([
-    { type: "dateAdded", direction: "asc" },
-  ]);
+  const [orderBy, setOrderBy] = useState(startingOrderOptions);
   const [handleFavorite, setHandleFavorite] = useState({
     loading: false,
     itemId: "",
@@ -218,15 +228,22 @@ const Home = () => {
       console.error("Error handling like:", error);
     }
   };
-
+  console.log(orderBy);
   const handleOrderByChange = (options) => {
-    const exists = orderBy.some((option) => option.type === options.type);
-    console.log(exists)
-    if (exists) {
-      setOrderBy(orderBy.filter((option) => option.type !== options.type));
-    } else {
-      setOrderBy([...orderBy, options]);
-    }
+   
+    // const typeExists = orderBy.some((option) => option.type === options.type);
+    // const directionExists = orderBy.some(
+    //   (option) => option.direction === options.direction
+    // );
+    // console.log(typeExists, directionExists);
+    // if (typeExists) {
+    //   setOrderBy(orderBy.filter((option) => option.type !== options.type));
+    // } else if (directionExists) {
+    //   setOrderBy(orderBy.map((option) => option.direction ===))
+
+    // } else {
+    //   setOrderBy([...orderBy, options]);
+    // }
   };
 
   const sortItems = (itemsToDisplay, type, direction) => {
@@ -271,10 +288,6 @@ const Home = () => {
     }, itemsToDisplay);
   }, [filteredItems, orderBy]);
 
-  console.log(orderBy)
-  console.log(orderedItems);
-  
-
   return (
     <div className="container">
       <HeroSection />
@@ -296,7 +309,11 @@ const Home = () => {
           handleReset={handleReset}
           itemsCount={itemsCount}
         />
-        <OrderMenu handleOrderByChange={handleOrderByChange} />
+        <OrderMenu
+          handleOrderByChange={handleOrderByChange}          
+          orderBy={orderBy}
+          setOrderBy={setOrderBy}
+        />
       </div>
       <SearchBar
         searchText={searchText}
@@ -313,7 +330,7 @@ const Home = () => {
         Showing {itemsCount} items out of {allItems.length}
       </div>
       <SearchResults
-        items={filteredItems}
+        items={orderedItems}
         handleLike={handleLike}
         userFavorites={user?.favorites}
         handleFavorite={handleFavorite}

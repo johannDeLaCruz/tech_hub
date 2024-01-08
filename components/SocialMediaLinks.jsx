@@ -28,6 +28,7 @@ const SocialLinks = () => {
             icon={link.icon}
             className="text-primary-500"
             width={20}
+            height={20}
           />
         </a>
       ))}
