@@ -28,6 +28,7 @@
         "loading",
         "auth",
         "register",
-        "orderMenu"
+        "orderMenu",
+        "breadscrumbs"
     ]
 }

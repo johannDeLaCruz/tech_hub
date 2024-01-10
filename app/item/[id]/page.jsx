@@ -18,7 +18,18 @@ const ItemInfoPage = ({ params }) => {
     itemId: "",
     increment: null,
   });
-  const { name, externalLink, brand, image, rating, subscriptionType } = item;
+  const {
+    name,
+    externalLink,
+    brand,
+    image,
+    rating,
+    subscriptionType,
+    category,
+    itemDescription,
+    yearOfRelease,
+    tags,
+  } = item;
   const itemDetailedInfo = item.itemDetailedInfo;
 
   useEffect(() => {
@@ -137,7 +148,7 @@ const ItemInfoPage = ({ params }) => {
   return (
     <div className="container">
       <section>
-        <Breadcrumbs />
+        <Breadcrumbs category={category} tag={tags} itemName={name} />
         <div className="relative overflow-hidden rounded-3xl object-cover aspect-video max-w-screen xl:max-w-screen-sm mb-4">
           {image && (
             <Image
@@ -167,7 +178,9 @@ const ItemInfoPage = ({ params }) => {
             </div>
             <div className="flex items-center justify-between gap-1">
               <ItemRating rating={rating} />
-              <span className="text-body1 grow text-end">{subscriptionType}</span>
+              <span className="text-body1 grow text-end">
+                {subscriptionType}
+              </span>
             </div>
           </div>
         </div>
@@ -175,27 +188,27 @@ const ItemInfoPage = ({ params }) => {
           <div className="flex flex-col gap-4">
             <h2 className="text-h4">Category</h2>
             <ul className="list-disc text-body2 pl-5 marker:text-primary-500">
-              <li>{item.category}</li>
+              <li>{category}</li>
             </ul>
             <hr />
           </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-h4">Description</h2>
             <ul className="list-disc text-body2 pl-5 marker:text-primary-500">
-              <li>{item.itemDescription}</li>
+              <li>{itemDescription}</li>
             </ul>
             <hr />
           </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-h4">Year of Release</h2>
             <ul className="list-disc text-body2 pl-5 marker:text-primary-500">
-              <li>{item.yearOfRelease}</li>
+              <li>{yearOfRelease}</li>
             </ul>
             <hr />
           </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-h4">Tags</h2>
-            <ItemTags tags={item.tags} />
+            <ItemTags tags={tags} />
             <hr />
           </div>
           {itemDetailedInfo?.map((item, index) => (
