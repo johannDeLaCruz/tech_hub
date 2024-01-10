@@ -2,15 +2,99 @@
 import Breadcrumbs from "@components/Breadcrumbs";
 import ItemRating from "@components/ItemRating";
 import RecommendedSection from "@components/RecommendedSection";
+import ItemTags from "@components/ItemTags";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const ItemInfoPage = ({ params }) => {
+  const { data: session, status } = useSession();
   const [item, setItem] = useState({});
+  const [user, setUser] = useState({});
   const [recommendedItems, setRecommendedItems] = useState([]);
-  const { name, externalLink, brand, image, rating } = item;
+  const [handleFavorite, setHandleFavorite] = useState({
+    loading: false,
+    itemId: "",
+    increment: null,
+  });
+  const { name, externalLink, brand, image, rating, subscriptionType } = item;
   const itemDetailedInfo = item.itemDetailedInfo;
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        if (status === "authenticated") {
+          const userResponse = await fetch(`/api/user/${session?.user.id}`);
+          if (!userResponse.ok) {
+            throw new Error("Failed to fetch user info");
+          }
+          const userData = await userResponse.json();
+          setUser(userData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchUser();
+  }, [session?.user.id, status]);
+
+  const handleLike = async (itemId) => {
+    try {
+      if (status === "authenticated") {
+        setHandleFavorite({ loading: true, itemId: itemId, increment: null });
+        const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
+        const addFavoriteResponse = await fetch(
+          `/api/user/${session?.user.id}/favorites`,
+          {
+            method: isLiked ? "DELETE" : "POST",
+            body: JSON.stringify({ favoriteId: itemId }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!addFavoriteResponse.ok) {
+          throw new Error(`Failed to ${isLiked ? "unlike" : "like"} item`);
+        }
+        const numberFavoritedResponse = await fetch(
+          `/api/item/${itemId}/favorite`,
+          {
+            method: isLiked ? "DELETE" : "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (!numberFavoritedResponse.ok) {
+          throw new Error("Failed to update number of favorites");
+        }
+        setUser((prevUser) => {
+          if (isLiked) {
+            const updatedFavorites = prevUser?.favorites?.filter(
+              (fav) => fav._id !== itemId
+            );
+            return {
+              ...prevUser,
+              favorites: updatedFavorites,
+            };
+          } else {
+            return {
+              ...prevUser,
+              favorites: [...prevUser?.favorites, { _id: itemId }],
+            };
+          }
+        });
+        setHandleFavorite((prevState) => ({
+          ...prevState,
+          loading: false,
+          increment: !isLiked,
+        }));
+      } else {
+        router.push("/login");
+      }
+    } catch (error) {
+      console.error("Error handling like:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +129,9 @@ const ItemInfoPage = ({ params }) => {
         console.error("Error fetching recommended items!", error.message);
       }
     };
-    fetchRecommendedItems();
+    if (params.id) {
+      fetchRecommendedItems();
+    }
   }, [params.id]);
 
   return (
@@ -79,10 +165,39 @@ const ItemInfoPage = ({ params }) => {
               </Link>
               <span className="text-body1 grow text-end">{brand}</span>
             </div>
-            <ItemRating rating={rating} />
+            <div className="flex items-center justify-between gap-1">
+              <ItemRating rating={rating} />
+              <span className="text-body1 grow text-end">{subscriptionType}</span>
+            </div>
           </div>
         </div>
         <div className="grid lg:grid-cols-2 lg:gap-x-20 py-4">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-h4">Category</h2>
+            <ul className="list-disc text-body2 pl-5 marker:text-primary-500">
+              <li>{item.category}</li>
+            </ul>
+            <hr />
+          </div>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-h4">Description</h2>
+            <ul className="list-disc text-body2 pl-5 marker:text-primary-500">
+              <li>{item.itemDescription}</li>
+            </ul>
+            <hr />
+          </div>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-h4">Year of Release</h2>
+            <ul className="list-disc text-body2 pl-5 marker:text-primary-500">
+              <li>{item.yearOfRelease}</li>
+            </ul>
+            <hr />
+          </div>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-h4">Tags</h2>
+            <ItemTags tags={item.tags} />
+            <hr />
+          </div>
           {itemDetailedInfo?.map((item, index) => (
             <div key={index} className="flex flex-col gap-4">
               <h2 className="text-h4">{item.title}</h2>
@@ -100,7 +215,12 @@ const ItemInfoPage = ({ params }) => {
           ))}
         </div>
       </section>
-      <RecommendedSection recommendedItems={recommendedItems} />
+      <RecommendedSection
+        recommendedItems={recommendedItems}
+        handleLike={handleLike}
+        handleFavorite={handleFavorite}
+        userFavorites={user?.favorites}
+      />
     </div>
   );
 };
