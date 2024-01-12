@@ -1,11 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faXmark,
-  faChevronRight,
-  faA,
-} from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { Disclosure } from "@headlessui/react";
 import TagsSelection from "@/components/TagsSelection";
 import StyledReactSlider from "@/components/StyledReactSlider";
@@ -97,7 +93,10 @@ export default function FilterModal({
               >
                 <Dialog.Panel className="w-full max-w-md dark:bg-black bg-white border-2 border-primary-500 transform overflow-hidden divide-y dark:divide-gray-950 divide-gray-300 rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-between pb-4">
-                    <button className="text-caption hover:text-primary-500" onClick={handleReset}>
+                    <button
+                      className="text-caption hover:text-primary-500"
+                      onClick={handleReset}
+                    >
                       Reset
                     </button>
                     <h4 className="font-heading text-h2">Filter</h4>
@@ -138,7 +137,10 @@ export default function FilterModal({
                       </Disclosure>
                     </div>
                   ))}
-                  <button onClick={closeModal} className="mx-auto w-full sm:max-w-sm p-2 mt-6 btn-primary">
+                  <button
+                    onClick={closeModal}
+                    className="mx-auto w-full sm:max-w-sm p-2 mt-6 btn-primary"
+                  >
                     {" "}
                     Showing {itemsCount} items
                   </button>

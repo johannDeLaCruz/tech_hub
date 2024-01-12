@@ -29,6 +29,7 @@
         "auth",
         "register",
         "orderMenu",
-        "breadscrumbs"
+        "breadscrumbs",
+        "shareModal"
     ]
 }
