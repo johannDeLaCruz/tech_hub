@@ -117,6 +117,8 @@ const ProfilePage = () => {
     }
   };
 
+  const numberOfFavorites = user?.favorites?.length;
+
   return (
     <>
       <Avatar image={session?.user?.image} />
@@ -124,6 +126,7 @@ const ProfilePage = () => {
         signOuthandle={signOutHandle}
         userInfo={session?.user}
         user={user}
+        numberOfFavorites={numberOfFavorites}
       />
       <UserFavouritesList
         favorites={user?.favorites}
