@@ -24,7 +24,7 @@ const ShareButtons = ({ shareUrl }) => {
   ];
   const URL = process.env.NEXTAUTH_URL;
   return (
-    <div className="flex justify-center items-center gap-4">
+    <div className="flex justify-center items-center gap-4 flex-wrap">
       {socialMediaButtons.map((button, index) => {
         const Component = button.component;
         const Icon = button.icon;

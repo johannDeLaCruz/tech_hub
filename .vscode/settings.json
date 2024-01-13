@@ -30,6 +30,7 @@
         "register",
         "orderMenu",
         "breadscrumbs",
-        "shareModal"
+        "shareModal",
+        "avatar"
     ]
 }
