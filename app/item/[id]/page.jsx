@@ -14,6 +14,7 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faBriefcase } from "@fortawesome/free-solid-svg-icons";
+import ReactPlayer from "react-player";
 
 const ItemInfoPage = ({ params }) => {
   const { data: session, status } = useSession();
@@ -171,16 +172,26 @@ const ItemInfoPage = ({ params }) => {
     <div className="container">
       <section>
         <Breadcrumbs category={category} tag={tags} itemName={name} />
-        <div className="relative overflow-hidden rounded-3xl object-cover aspect-video max-w-screen xl:max-w-screen-sm mb-4">
-          {image && (
-            <Image
-              src={`${image}`}
-              alt="item_image"
-              fill={true}
-              className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer object-cover"
-              placeholder="empty"
-            ></Image>
-          )}
+        <div className="flex pb-6">
+          <div className="relative">
+            <ReactPlayer
+              url={`<${videoLink}>`}
+              light={true}
+              controls={true}
+              // className="relative w-full h-auto"
+            />
+          </div>
+          <div className="relative overflow-hidden rounded-3xl object-cover aspect-video mb-4">
+            {image ? (
+              <Image
+                src={`${image}`}
+                alt="item_image"
+                fill={true}
+                className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer object-cover"
+                placeholder="empty"
+              ></Image>
+            ) : null}
+          </div>
         </div>
         <div className="max-w-100 text-white bg-gray-950">
           <div className="container py-4">
@@ -248,17 +259,6 @@ const ItemInfoPage = ({ params }) => {
               <hr />
             </div>
           ))}
-          <div className="flex flex-col gap-4">
-            <h2 className="text-h4">Video</h2>
-            {"put video here"}
-            <div className="flex">
-              <FontAwesomeIcon
-                icon={faBriefcase}
-                className="text-primary-500"
-              />
-            </div>
-            <hr />
-          </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-h4">Social Media</h2>
             <div className="flex">

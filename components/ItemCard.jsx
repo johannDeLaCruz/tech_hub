@@ -56,7 +56,9 @@ const ItemCard = ({ item, handleLike, userFavorites, handleFavorite }) => {
             <Image
               src={`${image}`}
               alt="item_image"
+              sizes="20rem"
               fill={true}
+              priority={true}
               className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer object-cover"
             ></Image>
           </Link>
