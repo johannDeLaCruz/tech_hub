@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-const Breadcrumbs = ({ category, tag, itemName }) => {  
-  console.log(tag)
+const Breadcrumbs = ({ category, tag, itemName }) => {    
   return (
     <nav
       className="flex items-center text-body2 gap-4 py-2"

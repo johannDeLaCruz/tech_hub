@@ -2,6 +2,7 @@
 import Breadcrumbs from "@components/Breadcrumbs";
 import ItemRating from "@components/ItemRating";
 import RecommendedSection from "@components/RecommendedSection";
+import VideoPlayer from "@components/VideoPlayer";
 import ItemTags from "@components/ItemTags";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -14,7 +15,6 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faBriefcase } from "@fortawesome/free-solid-svg-icons";
-import ReactPlayer from "react-player";
 
 const ItemInfoPage = ({ params }) => {
   const { data: session, status } = useSession();
@@ -172,17 +172,9 @@ const ItemInfoPage = ({ params }) => {
     <div className="container">
       <section>
         <Breadcrumbs category={category} tag={tags} itemName={name} />
-        <div className="flex pb-6">
-          <div className="relative">
-            <ReactPlayer
-              url={`<${videoLink}>`}
-              light={true}
-              controls={true}
-              // className="relative w-full h-auto"
-            />
-          </div>
+        <div className="grid grid-row-2 md:grid-cols-2 py-4 gap-4">
           <div className="relative overflow-hidden rounded-3xl object-cover aspect-video mb-4">
-            {image ? (
+            {image && (
               <Image
                 src={`${image}`}
                 alt="item_image"
@@ -190,8 +182,9 @@ const ItemInfoPage = ({ params }) => {
                 className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer object-cover"
                 placeholder="empty"
               ></Image>
-            ) : null}
+            )}
           </div>
+          <VideoPlayer videoLink={videoLink} />
         </div>
         <div className="max-w-100 text-white bg-gray-950">
           <div className="container py-4">
