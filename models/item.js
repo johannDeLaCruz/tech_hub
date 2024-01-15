@@ -62,11 +62,21 @@ const itemSchema = new Schema({
     default: Date.now,
     required: true,
   },
+  socialMediaLinks: {
+    type: [String],
+    default: "No social media links available",
+    required: true,
+  },
+  videoLink: {
+    type: String,
+    default: "No video available",
+    required: true,
+  },
   itemDetailedInfo: [
     {
       title: {
         type: String,
-        default: "Information",
+        default: "Detailed Information",
         required: true,
       },
       description: {

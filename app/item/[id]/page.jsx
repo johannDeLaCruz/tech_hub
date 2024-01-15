@@ -9,6 +9,10 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { formatLocalDate } from "@utils/formatLocalDate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faBriefcase } from "@fortawesome/free-solid-svg-icons";
 
 const ItemInfoPage = ({ params }) => {
@@ -33,6 +37,8 @@ const ItemInfoPage = ({ params }) => {
     yearOfRelease,
     tags,
     dateAdded,
+    socialMediaLinks,
+    videoLink,
   } = item;
   const itemDetailedInfo = item.itemDetailedInfo;
   const formattedDate = formatLocalDate(dateAdded);
@@ -150,6 +156,17 @@ const ItemInfoPage = ({ params }) => {
     }
   }, [params.id]);
 
+  const getSocialMediaLink = (link, index, icon) => (
+    <Link key={index} href={link} target="_blank" rel="noreferrer">
+      <FontAwesomeIcon
+        icon={icon}
+        className="text-primary-500"
+        width={24}
+        height={24}
+      />
+    </Link>
+  );
+
   return (
     <div className="container">
       <section>
@@ -232,9 +249,49 @@ const ItemInfoPage = ({ params }) => {
             </div>
           ))}
           <div className="flex flex-col gap-4">
+            <h2 className="text-h4">Video</h2>
+            {"put video here"}
+            <div className="flex">
+              <FontAwesomeIcon
+                icon={faBriefcase}
+                className="text-primary-500"
+              />
+            </div>
+            <hr />
+          </div>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-h4">Social Media</h2>
+            <div className="flex">
+              {socialMediaLinks?.map((link, index) => {
+                if (link.includes("instagram.com")) {
+                  return getSocialMediaLink(link, index, faInstagram);
+                } else if (link.includes("twitter.com")) {
+                  return getSocialMediaLink(link, index, faTwitter);
+                } else if (link.includes("youtube.com")) {
+                  return getSocialMediaLink(link, index, faYoutube);
+                } else if (link.includes("facebook.com")) {
+                  return getSocialMediaLink(link, index, faFacebook);
+                } else {
+                  return (
+                    <p
+                      className="list-disc text-body2 pl-5 marker:text-primary-500"
+                      key={index}
+                    >
+                      No social media links available!
+                    </p>
+                  );
+                }
+              })}
+            </div>
+            <hr />
+          </div>
+          <div className="flex flex-col gap-4">
             <h2 className="text-h4">Date Added</h2>
             <div className="flex">
-              <FontAwesomeIcon icon={faBriefcase} className="text-primary-500"/>
+              <FontAwesomeIcon
+                icon={faBriefcase}
+                className="text-primary-500"
+              />
               <p className="text-body2 pl-5">Added on {formattedDate}</p>
             </div>
             <hr />
