@@ -46,6 +46,7 @@ const Home = () => {
     increment: null,
   });
   let [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -151,6 +152,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const itemsResponse = await fetch("/api/item");
         if (!itemsResponse.ok) {
           throw new Error("Failed to fetch items");
@@ -167,6 +169,8 @@ const Home = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -284,8 +288,6 @@ const Home = () => {
     return itemsToDisplay;
   }, [filteredItems, orderBy]);
 
-  console.log(orderBy);
-
   return (
     <div className="container">
       <HeroSection />
@@ -323,16 +325,24 @@ const Home = () => {
         {" "}
         Showing {itemsCount} items out of {allItems.length}
       </div>
-      <SearchResults
-        items={orderedItems}
-        handleLike={handleLike}
-        userFavorites={user?.favorites}
-        handleFavorite={handleFavorite}
-      />
-      <div className="flex justify-center py-6">
-        {" "}
-        <button className="py-2 px-6 btn-primary">Load More</button>
-      </div>
+      {isLoading ? (
+        <div className="text-center font-heading text-h2 py-20 lg:py-48">
+          Loading Items...
+        </div>
+      ) : (
+        <>
+          <SearchResults
+            items={orderedItems}
+            handleLike={handleLike}
+            userFavorites={user?.favorites}
+            handleFavorite={handleFavorite}
+          />
+          <div className="flex justify-center py-6">
+            {" "}
+            <button className="py-2 px-6 btn-primary">Load More</button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
