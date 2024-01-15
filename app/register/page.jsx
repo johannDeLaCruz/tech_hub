@@ -67,7 +67,7 @@ const LoginPage = () => {
           </div>
         </div>
         <div className="text-center">
-          <h1 className="font-heading text-h2 pb-4">Welcome!</h1>
+          <h1 className="font-heading text-h2 pb-4">Join Us!</h1>
           <p className="text-body1 pb-4">
             Register to add items to your favorites and more!
           </p>
