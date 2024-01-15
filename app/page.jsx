@@ -47,7 +47,7 @@ const Home = () => {
   });
   let [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const itemsPerPage = 9;
+  const itemsPerPage = 8;
   const [visibleItems, setVisibleItems] = useState(itemsPerPage);
 
   const closeModal = () => {
