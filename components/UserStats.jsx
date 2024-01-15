@@ -1,12 +1,9 @@
+import { formatLocalDate } from "@utils/formatLocalDate";
+
 const UserStats = ({ signOuthandle, user, numberOfFavorites }) => {
   const { email, username, dateCreated, _id } = user;
 
-  const inputDate = new Date(dateCreated);
-  const formattedDate = inputDate.toLocaleDateString("en-US", {
-    month: "2-digit",
-    day: "2-digit",
-    year: "2-digit",
-  });
+  const formattedDate = formatLocalDate(dateCreated);
 
   const censoredId = _id?.slice(-5);
 

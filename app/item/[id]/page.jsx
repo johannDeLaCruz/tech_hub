@@ -7,6 +7,9 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { formatLocalDate } from "@utils/formatLocalDate";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBriefcase } from "@fortawesome/free-solid-svg-icons";
 
 const ItemInfoPage = ({ params }) => {
   const { data: session, status } = useSession();
@@ -29,8 +32,10 @@ const ItemInfoPage = ({ params }) => {
     itemDescription,
     yearOfRelease,
     tags,
+    dateAdded,
   } = item;
   const itemDetailedInfo = item.itemDetailedInfo;
+  const formattedDate = formatLocalDate(dateAdded);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -226,6 +231,14 @@ const ItemInfoPage = ({ params }) => {
               <hr />
             </div>
           ))}
+          <div className="flex flex-col gap-4">
+            <h2 className="text-h4">Date Added</h2>
+            <div className="flex">
+              <FontAwesomeIcon icon={faBriefcase} className="text-primary-500"/>
+              <p className="text-body2 pl-5">Added on {formattedDate}</p>
+            </div>
+            <hr />
+          </div>
         </div>
       </section>
       <RecommendedSection
