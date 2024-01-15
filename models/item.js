@@ -4,7 +4,7 @@ const itemSchema = new Schema({
   name: {
     type: String,
     required: true,
-    maxLength: [20, "The length must be maximum 20 characters!"],
+    maxLength: [25, "The length must be maximum 20 characters!"],
   },
   image: {
     type: String,

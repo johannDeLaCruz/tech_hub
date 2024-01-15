@@ -25,3 +25,9 @@ export const connectToDatabase = async () => {
   }
 };
 
+
+
+
+
+// Item.insertMany(documentsToInsert)
+
