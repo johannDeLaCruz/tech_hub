@@ -47,6 +47,8 @@ const Home = () => {
   });
   let [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const itemsPerPage = 9;
+  const [visibleItems, setVisibleItems] = useState(itemsPerPage);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -282,11 +284,15 @@ const Home = () => {
     });
   };
 
+  const loadMoreItems = () => {
+    setVisibleItems((prevVisibleItems) => prevVisibleItems + itemsPerPage);
+  };
+
   const orderedItems = useMemo(() => {
     let itemsToDisplay = [...filteredItems];
     itemsToDisplay = sortItems(itemsToDisplay, orderBy);
-    return itemsToDisplay;
-  }, [filteredItems, orderBy]);
+    return itemsToDisplay.slice(0, visibleItems);
+  }, [filteredItems, orderBy, visibleItems]);
 
   return (
     <div className="container">
@@ -337,10 +343,14 @@ const Home = () => {
             userFavorites={user?.favorites}
             handleFavorite={handleFavorite}
           />
-          <div className="flex justify-center py-6">
-            {" "}
-            <button className="py-2 px-6 btn-primary">Load More</button>
-          </div>
+          {visibleItems < itemsCount && orderedItems.length > 0 ? (
+            <div className="flex justify-center py-6">
+              {" "}
+              <button onClick={loadMoreItems} className="py-2 px-6 btn-primary">
+                Load More
+              </button>
+            </div>
+          ) : null}
         </>
       )}
     </div>
