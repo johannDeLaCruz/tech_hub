@@ -33,6 +33,7 @@
         "shareModal",
         "avatar",
         "home",
-        "videoPlayer"
+        "videoPlayer",
+        "git"
     ]
 }
