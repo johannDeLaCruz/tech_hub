@@ -40,7 +40,7 @@ const Header = () => {
   }, [headerRef]);
 
   return (
-    <header ref={headerRef} className="bg-gray-950 text-white">
+    <header ref={headerRef} className="dark:bg-gray-950 bg-white dark:text-white text-black shadow-lg">
       <div className="container flex justify-between items-center">
         <Logo />
         <Nav navLinks={headerNavLinks} type={"header"} className="hidden" />
