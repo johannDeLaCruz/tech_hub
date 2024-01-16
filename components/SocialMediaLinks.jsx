@@ -5,6 +5,7 @@ import {
   faDiscord,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
+import Link from "next/link";
 
 const socialLinks = [
   { icon: faInstagram, href: "https://www.instagram.com/" },
@@ -17,7 +18,7 @@ const SocialLinks = () => {
   return (
     <div className="flex gap-4">
       {socialLinks.map((link, index) => (
-        <a
+        <Link
           key={index}
           href={link.href}
           target="_blank"
@@ -30,7 +31,7 @@ const SocialLinks = () => {
             width={20}
             height={20}
           />
-        </a>
+        </Link>
       ))}
     </div>
   );
