@@ -2,7 +2,7 @@
 import TagsSelection from "@components/TagsSelection";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 const AdminPage = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -18,12 +18,7 @@ const AdminPage = () => {
     yearOfRelease: "",
     socialMediaLinks: [],
     videoLink: "",
-    itemDetailedInfo: [
-      {
-        title: "",
-        description: "",
-      },
-    ],
+    itemDetailedInfo: [],
   });
   const [error, setError] = useState({
     title: "",
@@ -102,8 +97,10 @@ const AdminPage = () => {
     },
     itemDetailedInfo: {
       description:
-        "Input any additional information about your item. For example you can add a section called: 'Release History:' 'v.0.5 - Q2 2020', 'v.1 - Q1 2021', 'v.1.5 - Q4 2020'  ",
-      placeholder: "Input any additional information about your item",
+        "Input any additional information about your item. For example you can add a section called: 'Release History:' 'v.0.5 - Q2 2020', 'v.1 - Q1 2021', 'v.1.5 - Q4 2020'",
+      titlePlaceholder:
+        "Choose a name for your new detailed information section",
+      contentPlaceholder: "Input any additional information about your item",
     },
   };
 
@@ -116,8 +113,48 @@ const AdminPage = () => {
       .replace(/([a-z])([A-Z])/g, "$1 $2")
       .replace(/^./, (match) => match.toUpperCase());
   };
-
   const tags = ["AR", "VR", "XR"];
+
+  const handleAddItemDetailedInfo = (e) => {
+    e.preventDefault();
+    setFormData((prevState) => ({
+      ...prevState,
+      itemDetailedInfo: [
+        ...prevState.itemDetailedInfo,
+        {
+          title: "",
+          description: "",
+        },
+      ],
+    }));
+  };
+  const handleDeleteItemDetailedInfo = (e) => {
+    e.preventDefault();
+    setFormData((prevState) => {
+      const updatedItemDetailedInfo = [...prevState.itemDetailedInfo];
+      updatedItemDetailedInfo.pop();
+      return {
+        ...prevState,
+        itemDetailedInfo: updatedItemDetailedInfo,
+      };
+    });
+  };
+  const handleItemDetailedInfoChange = (index, key, value) => {
+    setFormData((prevState) => {
+      const updatedItemDetailedInfo = [...prevState.itemDetailedInfo];
+      updatedItemDetailedInfo[index] = {
+        ...updatedItemDetailedInfo[index],
+        [key]: value,
+      };
+      return {
+        ...prevState,
+        itemDetailedInfo: updatedItemDetailedInfo,
+      };
+    });
+  };
+  const handleAddNewTag = () => {};
+
+  console.log(formData.itemDetailedInfo);
 
   return (
     <div className="container">
@@ -164,8 +201,12 @@ const AdminPage = () => {
             </span>
             <TagsSelection tags={tags} />
             <button className="btn-round" onClick={handleAddNewTag}>
+              <FontAwesomeIcon icon={faPlus} className="text-primary-500" />
               Add new tag
-              <FontAwesomeIcon icon={faPlus} />
+            </button>
+            <button className="btn-round" onClick={handleDeleteTag}>
+              <FontAwesomeIcon icon={faMinus} className="text-primary-500" />
+              Delete tag
             </button>
             {error.tags ? (
               <span className="text-error text-center text-danger">
@@ -180,50 +221,75 @@ const AdminPage = () => {
             <span className="text-body1 italic">
               {formPlaceholder.itemDetailedInfo.description}
             </span>
-            <div className="border border-primary-500 rounded-3xl p-4">
-              <label
-                htmlFor="detailedInfoSectionTitle"
-                className="font-heading text-h3 text-primary-500"
+            {formData.itemDetailedInfo.map(({ title, description }, index) => (
+              <div
+                key={index}
+                className="border border-primary-500 rounded-3xl p-4"
               >
-                Section Title
-              </label>
-              <input
-                type="text"
-                name="detailedInfoSectionTitle"
-                id="detailedInfoSectionTitle"
-                placeholder={formPlaceholder.itemDetailedInfo.description}
-                // value={formData[item]}
-                onChange={handleFormChange}
-                className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
-              />
-
-              <label
-                htmlFor="detailedInfoSectionText"
-                className="font-heading text-h3 text-primary-500"
-              >
-                Section Content
-              </label>
-              <textarea
-                name="detailedInfoSectionText"
-                placeholder={formPlaceholder.itemDetailedInfo.placeholder}
-                id="detailedInfoSectionText"
-                cols="30"
-                rows="5"
-                className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
-              ></textarea>
-            </div>
-            {error.tags ? (
-              <span className="text-error text-center text-danger">
-                {error.tags}
-              </span>
-            ) : null}
-            <button className="btn-round" onClick={handleAddDescriptionItem}>
-              Add new description item
-              <FontAwesomeIcon icon={faPlus} />
+                <label
+                  htmlFor="itemDetailedInfo"
+                  className="font-heading text-h3 text-primary-500"
+                >
+                  Section Title
+                </label>
+                <input
+                  type="text"
+                  name={`${title}`}
+                  id={`${title}`}
+                  placeholder={
+                    formPlaceholder.itemDetailedInfo.titlePlaceholder
+                  }
+                  value={formData.itemDetailedInfo[index].title}
+                  onChange={(e) =>
+                    handleItemDetailedInfoChange(index, "title", e.target.value)
+                  }
+                  className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
+                />
+                <label
+                  htmlFor="detailedInfoSectionText"
+                  className="font-heading text-h3 text-primary-500"
+                >
+                  Section Content
+                </label>
+                <textarea
+                  name={`${description}`}
+                  id={`${description}`}
+                  placeholder={
+                    formPlaceholder.itemDetailedInfo.contentPlaceholder
+                  }
+                  cols="30"
+                  rows="5"
+                  value={formData.itemDetailedInfo[index].description}
+                  onChange={(e) =>
+                    handleItemDetailedInfoChange(
+                      index,
+                      "description",
+                      e.target.value
+                    )
+                  }
+                  className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
+                ></textarea>
+                {error.itemDetailedInfo ? (
+                  <span className="text-error text-center text-danger">
+                    {error.itemDetailedInfo}
+                  </span>
+                ) : null}
+              </div>
+            ))}
+            <button className="btn-round" onClick={handleAddItemDetailedInfo}>
+              <FontAwesomeIcon icon={faPlus} className="text-primary-500" />
+              Add new info section
+            </button>
+            <button
+              className="btn-round"
+              onClick={handleDeleteItemDetailedInfo}
+            >
+              <FontAwesomeIcon icon={faMinus} className="text-primary-500" />
+              Delete new info section
             </button>
           </div>
           <button type="submit" className="btn-primary py-2 text-white">
-            Create Item
+            Create Item!
           </button>
         </form>
       </div>
