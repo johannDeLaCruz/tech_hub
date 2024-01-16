@@ -84,6 +84,10 @@ const AdminPage = () => {
         "Select the tags for your items. If no appropriate tags are available, create a new one",
       placeholder: "Create a new tag for your items. Use only one word!",
     },
+    newTag: {
+      description: "Input the name of the new tag you want to create",
+      placeholder: "'Evil Robot'",
+    },
     yearOfRelease: {
       description: "Input the year of release of your item",
       placeholder: "'2023'",
@@ -188,18 +192,18 @@ const AdminPage = () => {
       } else {
         tags = tags.filter((t) => t !== tag);
       }
-      // Update the tags property in formData
       setFormData((prevState) => ({ ...prevState, tags: tags }));
       return tags;
     });
   };
 
-  console.log(formData);
-
   return (
     <div className="container">
       <div className="max-w-md mx-auto">
-        <form action="" className="flex flex-col py-20 gap-4">
+        <form
+          action=""
+          className="flex flex-col py-20 gap-4 divide-y dark:divide-gray-950 divide-gray-200"
+        >
           {Object.keys(formData)
             .filter(
               (key) =>
@@ -208,7 +212,7 @@ const AdminPage = () => {
                 key !== "itemDetailedInfo"
             )
             .map((item, index) => (
-              <div key={index} className="flex flex-col gap-2">
+              <div key={index} className="flex flex-col gap-2 py-2">
                 <label
                   htmlFor={item}
                   className="font-heading text-h3 text-primary-500"
@@ -234,12 +238,12 @@ const AdminPage = () => {
                 ) : null}
               </div>
             ))}
-          <div>
+          <div className="flex flex-col gap-2 py-2">
             <span className="font-heading text-h3 text-primary-500">Tags</span>
             <span className="text-body1 italic">
               {formPlaceholder.tags.description}
             </span>
-            <div className="mx-auto w-full sm:max-w-2xl flex flex-wrap gap-2 pb-6">
+            <div className="mx-auto w-full sm:max-w-2xl flex flex-wrap gap-2">
               {tags?.map((tag, index) => {
                 return (
                   <div key={index} className="flex flex-col">
@@ -261,15 +265,31 @@ const AdminPage = () => {
                 );
               })}
             </div>
+          </div>
+          <div className="flex flex-col gap-2 py-2">
+            <label
+              htmlFor={newTag}
+              className="font-heading text-h3 text-primary-500"
+            >
+              Add new tag
+            </label>
+            <span className="text-body1 italic">
+              {formPlaceholder.newTag.description}
+            </span>
             <input
               type="text"
               name={newTag}
               id={newTag}
-              placeholder={formPlaceholder.tags.placeholder}
+              placeholder={formPlaceholder.newTag.placeholder}
               value={newTag}
               onChange={handleAddNewTagChange}
               className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
             />
+            {error.tags ? (
+              <span className="text-error text-center text-danger">
+                {error.tags}
+              </span>
+            ) : null}
             <button
               className="btn-round"
               onClick={(e) => handleAddNewTag(e, newTag)}
@@ -277,13 +297,9 @@ const AdminPage = () => {
               <FontAwesomeIcon icon={faPlus} className="text-primary-500" />
               Add new tag
             </button>
-            {error.tags ? (
-              <span className="text-error text-center text-danger">
-                {error.tags}
-              </span>
-            ) : null}
           </div>
-          <div>
+
+          <div className="flex flex-col gap-2 py-2">
             <span className="font-heading text-h3 text-primary-500">
               Item Detailed Info
             </span>
