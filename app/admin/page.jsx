@@ -1,9 +1,12 @@
 "use client";
-import TagsSelection from "@components/TagsSelection";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { set } from "mongoose";
 const AdminPage = () => {
+  const [newTag, setNewTag] = useState("");
+  const [tags, setTags] = useState(["AR", "VR"]);
+  const [selectedTags, setSelectedTags] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     image: "",
@@ -65,7 +68,7 @@ const AdminPage = () => {
     },
     itemDescription: {
       description:
-        "Describe your item in one sentence. This will appear in the main card",
+        "Describe your item in a single sentence. This will appear in the main card",
       placeholder: "'An advanced AI app to take over the world!'",
     },
     minimalPrice: {
@@ -79,8 +82,7 @@ const AdminPage = () => {
     tags: {
       description:
         "Select the tags for your items. If no appropriate tags are available, create a new one",
-      // placeholder:
-      //   "Select the tags for your items. If no appropriate tags are available, create a new one",
+      placeholder: "Create a new tag for your items. Use only one word!",
     },
     yearOfRelease: {
       description: "Input the year of release of your item",
@@ -113,7 +115,6 @@ const AdminPage = () => {
       .replace(/([a-z])([A-Z])/g, "$1 $2")
       .replace(/^./, (match) => match.toUpperCase());
   };
-  const tags = ["AR", "VR", "XR"];
 
   const handleAddItemDetailedInfo = (e) => {
     e.preventDefault();
@@ -152,9 +153,48 @@ const AdminPage = () => {
       };
     });
   };
-  const handleAddNewTag = () => {};
+  const handleAddNewTagChange = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    setNewTag(value);
+  };
 
-  console.log(formData.itemDetailedInfo);
+  const handleAddNewTag = (e, newTag) => {
+    e.preventDefault();
+    const trimmedNewTag = newTag.trim();
+    if (trimmedNewTag) {
+      setTags((prevState) => [...prevState, trimmedNewTag]);
+      setNewTag("");
+    }
+  };
+
+  const handleDeleteTag = (e, tag) => {
+    e.preventDefault();
+    const updatedTags = formData.tags.filter((t) => t !== tag);
+    setFormData((prevState) => ({
+      ...prevState,
+      tags: updatedTags,
+    }));
+    setSelectedTags((prevState) => prevState.filter((t) => t !== tag));
+    setTags((prevState) => prevState.filter((t) => t !== tag));
+  };
+
+  const handleSelectTag = (e, tag) => {
+    e.preventDefault();
+    setSelectedTags((prevState) => {
+      let tags = [...prevState];
+      if (!tags.includes(tag)) {
+        tags.push(tag);
+      } else {
+        tags = tags.filter((t) => t !== tag);
+      }
+      // Update the tags property in formData
+      setFormData((prevState) => ({ ...prevState, tags: tags }));
+      return tags;
+    });
+  };
+
+  console.log(formData);
 
   return (
     <div className="container">
@@ -199,14 +239,43 @@ const AdminPage = () => {
             <span className="text-body1 italic">
               {formPlaceholder.tags.description}
             </span>
-            <TagsSelection tags={tags} />
-            <button className="btn-round" onClick={handleAddNewTag}>
+            <div className="mx-auto w-full sm:max-w-2xl flex flex-wrap gap-2 pb-6">
+              {tags?.map((tag, index) => {
+                return (
+                  <div key={index} className="flex flex-col">
+                    <button
+                      onClick={(e) => handleSelectTag(e, tag)}
+                      className={`border border-0 bg-gray-950 text-primary-500 rounded-3xl px-4 py-1 tag ${
+                        selectedTags.includes(tag) ? "tag-selected" : ""
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                    <button
+                      className="btn-round"
+                      onClick={(e) => handleDeleteTag(e, tag)}
+                    >
+                      <FontAwesomeIcon icon={faMinus} className="text-danger" />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+            <input
+              type="text"
+              name={newTag}
+              id={newTag}
+              placeholder={formPlaceholder.tags.placeholder}
+              value={newTag}
+              onChange={handleAddNewTagChange}
+              className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
+            />
+            <button
+              className="btn-round"
+              onClick={(e) => handleAddNewTag(e, newTag)}
+            >
               <FontAwesomeIcon icon={faPlus} className="text-primary-500" />
               Add new tag
-            </button>
-            <button className="btn-round" onClick={handleDeleteTag}>
-              <FontAwesomeIcon icon={faMinus} className="text-primary-500" />
-              Delete tag
             </button>
             {error.tags ? (
               <span className="text-error text-center text-danger">
