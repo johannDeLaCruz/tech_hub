@@ -1,9 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { set } from "mongoose";
+import { useRouter } from "next/navigation";
+
 const AdminPage = () => {
+  const router = useRouter();
   const [newTag, setNewTag] = useState("");
   const [tags, setTags] = useState(["AR", "VR"]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -230,6 +232,32 @@ const AdminPage = () => {
       };
     });
   };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const data = formData;
+        const response = await fetch("/api/item", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          const form = e.target;
+          form.reset();
+          router.push("/admin");
+        } else {
+          errorData = await response.text();
+          setError(errorData);
+        }
+      } catch (error) {
+        console.error("An error creating item happened!", error);
+      }
+    };   
+
   return (
     <div className="container">
       <div className="max-w-md mx-auto">
@@ -246,6 +274,7 @@ const AdminPage = () => {
         <form
           action=""
           className="flex flex-col pb-20 gap-4 divide-y dark:divide-gray-950 divide-gray-200"
+          onSubmit={handleSubmit}
         >
           {Object.keys(formData)
             .filter(
@@ -349,10 +378,7 @@ const AdminPage = () => {
               {formPlaceholder.socialMediaLinks.description}
             </span>
             {formData.socialMediaLinks.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col gap-2"
-              >
+              <div key={index} className="flex flex-col gap-2">
                 <input
                   type="text"
                   name={`socialMedia_${index}`}
