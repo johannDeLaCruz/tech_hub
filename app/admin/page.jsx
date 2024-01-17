@@ -93,7 +93,8 @@ const AdminPage = () => {
       placeholder: "'2023'",
     },
     socialMediaLinks: {
-      description: "Input any relevant social media links",
+      description:
+        "Input any relevant social media links. Only Instagram, Twitter, Facebook, Patreon and Reddit are supported",
       placeholder: "https://www.facebook.com/skynetofficial",
     },
     videoLink: {
@@ -199,6 +200,36 @@ const AdminPage = () => {
     });
   };
 
+  const handleDeleteItemSocialMedia = (e) => {
+    e.preventDefault();
+    setFormData((prevState) => {
+      const updatedSocialMediaLinks = [...prevState.socialMediaLinks];
+      updatedSocialMediaLinks.pop();
+      return {
+        ...prevState,
+        socialMediaLinks: updatedSocialMediaLinks,
+      };
+    });
+  };
+
+  const handleAddItemSocialMedia = (e) => {
+    e.preventDefault();
+    setFormData((prevState) => ({
+      ...prevState,
+      socialMediaLinks: [...prevState.socialMediaLinks, ""],
+    }));
+  };
+
+  const handleItemSocialMediaChange = (index, value) => {
+    setFormData((prevState) => {
+      const updatedSocialMediaLinks = [...prevState.socialMediaLinks];
+      updatedSocialMediaLinks[index] = value;
+      return {
+        ...prevState,
+        socialMediaLinks: updatedSocialMediaLinks,
+      };
+    });
+  };
   return (
     <div className="container">
       <div className="max-w-md mx-auto">
@@ -310,7 +341,45 @@ const AdminPage = () => {
               Add new tag
             </button>
           </div>
-
+          <div className="flex flex-col gap-4 py-2">
+            <span className="font-heading text-h3 text-primary-500">
+              Social Media Links
+            </span>
+            <span className="text-body1 italic">
+              {formPlaceholder.socialMediaLinks.description}
+            </span>
+            {formData.socialMediaLinks.map((item, index) => (
+              <div
+                key={index}
+                className="flex flex-col gap-2"
+              >
+                <input
+                  type="text"
+                  name={`socialMedia_${index}`}
+                  id={`socialMedia_${index}`}
+                  placeholder={formPlaceholder.socialMediaLinks.placeholder}
+                  value={formData.socialMediaLinks[index]}
+                  onChange={(e) =>
+                    handleItemSocialMediaChange(index, e.target.value)
+                  }
+                  className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
+                />
+                {error.socialMediaLinks ? (
+                  <span className="text-error text-center text-danger">
+                    {error.socialMediaLinks}
+                  </span>
+                ) : null}
+              </div>
+            ))}
+            <button className="btn-round" onClick={handleAddItemSocialMedia}>
+              <FontAwesomeIcon icon={faPlus} className="text-primary-500" />
+              Add new social media link
+            </button>
+            <button className="btn-round" onClick={handleDeleteItemSocialMedia}>
+              <FontAwesomeIcon icon={faMinus} className="text-primary-500" />
+              Delete social media link
+            </button>
+          </div>
           <div className="flex flex-col gap-4 py-2">
             <span className="font-heading text-h3 text-primary-500">
               Item Detailed Info
