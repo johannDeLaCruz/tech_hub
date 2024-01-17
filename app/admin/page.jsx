@@ -93,8 +93,8 @@ const AdminPage = () => {
       placeholder: "'2023'",
     },
     socialMediaLinks: {
-      description: "Input any social media links your item has",
-      placeholder: "Input any social media links your item has",
+      description: "Input any relevant social media links",
+      placeholder: "https://www.facebook.com/skynetofficial",
     },
     videoLink: {
       description:
@@ -103,10 +103,12 @@ const AdminPage = () => {
     },
     itemDetailedInfo: {
       description:
-        "Input any additional information about your item. For example you can add a section called: 'Release History:' 'v.0.5 - Q2 2020', 'v.1 - Q1 2021', 'v.1.5 - Q4 2020'",
-      titlePlaceholder:
-        "Choose a name for your new detailed information section",
-      contentPlaceholder: "Input any additional information about your item",
+        "Create custom slots for any additional information about your item. For example, you can add a section called: 'Release History:' 'v.0.5 - Q2 2020', 'v.1 - Q1 2021', 'v.1.5 - Q4 2020'",
+      titleDescription: "Choose a name for your custom slot",
+      titlePlaceholder: "Release History",
+      contentDescription: "Input any additional information",
+      contentPlaceholder:
+        "2020 Q2 - Birth. 2020 Q4 - Getting Sentient. 2021 Q1 - Take over the world",
     },
   };
 
@@ -200,9 +202,19 @@ const AdminPage = () => {
   return (
     <div className="container">
       <div className="max-w-md mx-auto">
+        <section className="py-6">
+          <h1 className="text-center font-heading text-h1">
+            <span>Hello, </span>
+            <span className="text-primary-500">Admin!</span>
+          </h1>
+          <h2 className="text-h3 uppercase text-center">
+            Welcome to your dashboard! Fill the form, customize, create your
+            items and share them with the world!
+          </h2>
+        </section>
         <form
           action=""
-          className="flex flex-col py-20 gap-4 divide-y dark:divide-gray-950 divide-gray-200"
+          className="flex flex-col pb-20 gap-4 divide-y dark:divide-gray-950 divide-gray-200"
         >
           {Object.keys(formData)
             .filter(
@@ -299,7 +311,7 @@ const AdminPage = () => {
             </button>
           </div>
 
-          <div className="flex flex-col gap-2 py-2">
+          <div className="flex flex-col gap-4 py-2">
             <span className="font-heading text-h3 text-primary-500">
               Item Detailed Info
             </span>
@@ -309,7 +321,7 @@ const AdminPage = () => {
             {formData.itemDetailedInfo.map(({ title, description }, index) => (
               <div
                 key={index}
-                className="border border-primary-500 rounded-3xl p-4"
+                className="border border-primary-500 rounded-3xl p-6 flex flex-col gap-2"
               >
                 <label
                   htmlFor="itemDetailedInfo"
@@ -317,6 +329,9 @@ const AdminPage = () => {
                 >
                   Section Title
                 </label>
+                <span className="text-body1 italic">
+                  {formPlaceholder.itemDetailedInfo.titleDescription}
+                </span>
                 <input
                   type="text"
                   name={`${title}`}
@@ -336,6 +351,9 @@ const AdminPage = () => {
                 >
                   Section Content
                 </label>
+                <span className="text-body1 italic">
+                  {formPlaceholder.itemDetailedInfo.contentDescription}
+                </span>
                 <textarea
                   name={`${description}`}
                   id={`${description}`}
