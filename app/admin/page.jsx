@@ -39,13 +39,12 @@ const AdminPage = () => {
     itemDetailedInfo: [],
   };
   const router = useRouter();
-  const [newTag, setNewTag] = useState("");
-  const [newCategory, setNewCategory] = useState("");
-  const [newSubscriptionType, setNewSubscriptionType] = useState("");
-  const [filter, setFilter] = useState({});
-  const [tags, setTags] = useState([]);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [newFilter, setNewFilter] = useState({
+    tags: "",
+    category: "",
+    subscriptionType: "",
+  });
+  const [filter, setFilter] = useState({});  
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(initialErrorState);
 
@@ -169,46 +168,56 @@ const AdminPage = () => {
       };
     });
   };
-  const handleAddNewTagChange = (e) => {
+  const handleAddNewFilterChange = (e, item) => {
     e.preventDefault();
     const value = e.target.value;
-    setNewTag(value);
+    setNewFilter((prevState) => ({ ...prevState, [item]: value }));
   };
 
-  const handleAddNewTag = (e, newTag) => {
+  const handleAddNewFilter = (e, item, filterName) => {
     e.preventDefault();
-    const trimmedNewTag = newTag.trim();
-    if (trimmedNewTag) {
-      setFilter((prevState) => ({
+    const trimmedFilterTag = item.trim();
+    setFilter((prevState) => {
+      const existingFilters = Array.isArray(prevState[filterName])
+        ? prevState[filterName]
+        : [];
+      if (existingFilters.includes(trimmedFilterTag)) {
+        console.error(
+          `Filter "${trimmedFilterTag}" already exists in ${filterName} array.`
+        );
+        return prevState;
+      }
+      return {
         ...prevState,
-        tags: [...prevState.tags, trimmedNewTag],
-      }));
-      setNewTag("");
-    }
+        [filterName]: [...existingFilters, trimmedFilterTag],
+      };
+    });
+
+    setNewFilter((prevState) => ({ ...prevState, [filterName]: "" }));
   };
 
-  const handleDeleteTag = (e, tag) => {
-    e.preventDefault();  
-    const updatedTags = filter.tags.filter((t) => t !== tag);  
+  const handleDeleteFilter = (e, item) => {
+    e.preventDefault();
+    const updatedFilters = filter.tags.filter((t) => t !== item);
     setFormData((prevState) => ({
       ...prevState,
-      tags: [...prevState.tags.filter((t) => t !== tag)]
-    }));  
-    setSelectedTags((prevState) => prevState.filter((t) => t !== tag));  
+      tags: [...prevState.tags.filter((t) => t !== item)],
+    }));
+    setSelectedTags((prevState) => prevState.filter((t) => t !== item));
     setFilter((prevState) => ({
       ...prevState,
-      tags: updatedTags,
+      tags: updatedFilters,
     }));
   };
-
-  const handleSelectTag = (e, tag) => {
+//doing this right now
+  const handleSelectFilter = (e, filterName, item) => {
     e.preventDefault();
     setSelectedTags((prevState) => {
       let tags = [...prevState];
-      if (!tags.includes(tag)) {
-        tags.push(tag);
+      if (!tags.includes(item)) {
+        tags.push(item);
       } else {
-        tags = tags.filter((t) => t !== tag);
+        tags = tags.filter((t) => t !== item);
       }
       setFormData((prevState) => ({ ...prevState, tags: tags }));
       return tags;
@@ -302,8 +311,25 @@ const AdminPage = () => {
     handleLoadFilter();
   }, []);
 
-  console.log(formData)
-
+  const renderArrayButtons = (key, filterName, handleSelect, handleDelete) => {
+    return filterName.map((item, index) => (
+      <div key={index} className="flex flex-col">
+        <button
+          onClick={(e) => handleSelect(e, filterName, item)}
+          className={`border border-0 bg-gray-950 text-primary-500 rounded-3xl px-4 py-1 tag ${
+            selectedFilters[filterName].includes(item) ? "tag-selected" : ""
+          }`}
+        >
+          {item}
+        </button>
+        <button className="btn-round" onClick={(e) => handleDelete(e, item)}>
+          <FontAwesomeIcon icon={faMinus} className="text-danger" />
+        </button>
+      </div>
+    ));
+  };
+  console.log(newFilter);
+  console.log(filter);
   return (
     <div className="container">
       <div className="max-w-md mx-auto">
@@ -356,66 +382,68 @@ const AdminPage = () => {
                 ) : null}
               </div>
             ))}
-          <div className="flex flex-col gap-2 py-2">
-            <span className="font-heading text-h3 text-primary-500">Tags</span>
-            <span className="text-body1 italic">
-              {formPlaceholder.tags.description}
-            </span>
-            <div className="mx-auto w-full sm:max-w-2xl flex flex-wrap gap-2">
-              {filter?.tags?.map((tag, index) => {
-                return (
-                  <div key={index} className="flex flex-col">
-                    <button
-                      onClick={(e) => handleSelectTag(e, tag)}
-                      className={`border border-0 bg-gray-950 text-primary-500 rounded-3xl px-4 py-1 tag ${
-                        selectedTags.includes(tag) ? "tag-selected" : ""
-                      }`}
-                    >
-                      {tag}
-                    </button>
-                    <button
-                      className="btn-round"
-                      onClick={(e) => handleDeleteTag(e, tag)}
-                    >
-                      <FontAwesomeIcon icon={faMinus} className="text-danger" />
-                    </button>
+          {Object.entries(filter)
+            .filter(([key, value]) =>
+              ["subscriptionType", "tags", "category"].includes(key)
+            )
+            .map(([item, value], index) => (
+              <>
+                <div key={index} className="flex flex-col gap-2 py-2">
+                  <span className="font-heading text-h3 text-primary-500">
+                    {item}
+                  </span>
+                  <span className="text-body1 italic">
+                    {formPlaceholder[item]?.description}
+                  </span>
+                  <div className="mx-auto w-full sm:max-w-2xl flex flex-wrap gap-2">
+                    {renderArrayButtons(
+                      item,
+                      value,
+                      handleSelectFilter,
+                      handleDeleteFilter
+                    )}
                   </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="flex flex-col gap-2 py-2">
-            <label
-              htmlFor={newTag}
-              className="font-heading text-h3 text-primary-500"
-            >
-              Add new tag
-            </label>
-            <span className="text-body1 italic">
-              {formPlaceholder.newTag.description}
-            </span>
-            <input
-              type="text"
-              name={newTag}
-              id={newTag}
-              placeholder={formPlaceholder.newTag.placeholder}
-              value={newTag}
-              onChange={handleAddNewTagChange}
-              className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
-            />
-            {error.tags ? (
-              <span className="text-error text-left text-danger">
-                {error.tags}
-              </span>
-            ) : null}
-            <button
-              className="btn-round"
-              onClick={(e) => handleAddNewTag(e, newTag)}
-            >
-              <FontAwesomeIcon icon={faPlus} className="text-primary-500" />
-              Add new tag
-            </button>
-          </div>
+                </div>
+                <div className="flex flex-col gap-2 py-2">
+                  <label
+                    htmlFor={item}
+                    className="font-heading text-h3 text-primary-500"
+                  >
+                    Add new {item}
+                  </label>
+                  <span className="text-body1 italic">
+                    {formPlaceholder[item]?.description}
+                  </span>
+                  <input
+                    type="text"
+                    name={item}
+                    id={item}
+                    placeholder={formPlaceholder[item]?.placeholder}
+                    value={newFilter[item]}
+                    onChange={(e) => handleAddNewFilterChange(e, item)}
+                    className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
+                  />
+                  {error[item] ? (
+                    <span className="text-error text-left text-danger">
+                      {error[item]}
+                    </span>
+                  ) : null}
+                  <button
+                    className="btn-round"
+                    onClick={(e) =>
+                      handleAddNewFilter(e, newFilter[item], item)
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faPlus}
+                      className="text-primary-500"
+                    />
+                    Add new {item}
+                  </button>
+                </div>
+              </>
+            ))}
+
           <div className="flex flex-col gap-4 py-2">
             <span className="font-heading text-h3 text-primary-500">
               Social Media Links
