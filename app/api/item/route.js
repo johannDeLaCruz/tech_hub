@@ -33,7 +33,14 @@ export const POST = async (req) => {
     }
     return new Response("Item successfully created!", { status: 201 });
   } catch (error) {
-    console.error("Failed to create a new item:", error.message);
+    if (error.name === "ValidationError") {
+      let errors = {};
+      Object.keys(error.errors).forEach((key) => {
+        errors[key] = error.errors[key].message;
+      });
+      return new Response(JSON.stringify(errors), { status: 400 });
+    }
+    console.error("Failed to create a new item:", error);
     return new Response(error, { status: 500 });
   }
 };

@@ -235,7 +235,7 @@ const AdminPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {      
+    try {
       const response = await fetch("/api/item", {
         method: "POST",
         headers: {
@@ -249,7 +249,8 @@ const AdminPage = () => {
         form.reset();
         router.push("/admin/?itemcreation=success");
       } else {
-        errorData = await response.text();
+        const errorData = response.json();
+        console.log(errorData);
         setError(errorData);
       }
     } catch (error) {
@@ -257,7 +258,7 @@ const AdminPage = () => {
     }
   };
 
-  console.log(errorData)
+  
 
   useEffect(() => {
     const handleLoadTags = async () => {
@@ -274,7 +275,7 @@ const AdminPage = () => {
       }
     };
     handleLoadTags();
-  }, []); 
+  }, []);
 
   return (
     <div className="container">
