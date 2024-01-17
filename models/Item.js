@@ -4,7 +4,7 @@ const itemSchema = new Schema({
   name: {
     type: String,
     required: true,
-    maxLength: [25, "The length must be maximum 20 characters!"],
+    maxLength: [20, "The length must be maximum 20 characters!"],
   },
   image: {
     type: String,
@@ -80,7 +80,7 @@ const itemSchema = new Schema({
         required: true,
       },
       description: {
-        type: [String] || Date,
+        type: [String] || Date || String,
         default: "Not Available",
         required: true,
       },

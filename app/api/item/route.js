@@ -6,7 +6,7 @@ export const GET = async (req) => {
   try {
     await connectToDatabase();
     const items = await Item.find({});
-    if (items) {      
+    if (items) {
       return new Response(JSON.stringify(items), { status: 200 });
     } else {
       return new Response("No items found", { status: 404 });
@@ -17,4 +17,23 @@ export const GET = async (req) => {
   }
 };
 
+//add and item to the database
 
+export const POST = async (req) => {
+  try {
+    await connectToDatabase();
+    const data = await req.json();
+    const itemExists = await Item.findOne({ name: data.name });
+    if (itemExists) {
+      return new Response("Item already exists", { status: 400 });
+    }
+    const item = await Item.create(data);
+    if (!item) {
+      return new Response("Failed to create a new item", { status: 500 });
+    }
+    return new Response("Item successfully created!", { status: 201 });
+  } catch (error) {
+    console.error("Failed to create a new item:", error.message);
+    return new Response(error, { status: 500 });
+  }
+};

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { set } from "mongoose";
 
 const AdminPage = () => {
   const router = useRouter();
@@ -11,7 +10,7 @@ const AdminPage = () => {
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [formData, setFormData] = useState({
-    title: "",
+    name: "",
     image: "",
     externalLink: "",
     brand: "",
@@ -27,7 +26,7 @@ const AdminPage = () => {
     itemDetailedInfo: [],
   });
   const [error, setError] = useState({
-    title: "",
+    name: "",
     image: "",
     externalLink: "",
     brand: "",
@@ -44,21 +43,21 @@ const AdminPage = () => {
   });
 
   const formPlaceholder = {
-    title: {
-      description: "Input the title for your item. Up to 25 characters!",
+    name: {
+      description: "Input the name for your item. Up to 25 characters!",
       placeholder: "'Skynet Airpods'",
     },
     image: {
       description:
-        "Paste the link for the image that best represents your item",
+        "Paste the link for the image that best represents your item:",
       placeholder: "'https://images.pexels.com/photos/39853/something.jpeg'",
     },
     externalLink: {
-      description: "Paste the link for the main webpage of your item",
+      description: "Paste the link for the main webpage of your item:",
       placeholder: "'https://skynet.com'",
     },
     brand: {
-      description: "Input the brand name of your item",
+      description: "Input the brand name of your item:",
       placeholder: "'Skynet'",
     },
     rating: {
@@ -66,38 +65,38 @@ const AdminPage = () => {
       placeholder: "4.5",
     },
     category: {
-      description: "Input the broad category your item belongs to",
+      description: "Input the broad category your item belongs to:",
       placeholder: "'Software'",
     },
     itemDescription: {
       description:
-        "Describe your item in a single sentence. This will appear in the main card",
+        "Describe your item in a single sentence. This will appear in the main card:",
       placeholder: "'An advanced AI app to take over the world!'",
     },
     minimalPrice: {
-      description: "Input the minimal price your item is available for",
+      description: "Input the minimal price your item is available for:",
       placeholder: "'1.99'",
     },
     subscriptionType: {
-      description: "Input the type of subscription if applicable",
+      description: "Input the type of subscription if applicable:",
       placeholder: "'Free'",
     },
     tags: {
       description:
-        "Select the tags for your items. If no appropriate tags are available, create a new one",
+        "Select the tags for your items (3 is the recommended number). If no appropriate tags are available, just create a new one",
       placeholder: "Create a new tag for your items. Use only one word!",
     },
     newTag: {
-      description: "Input the name of the new tag you want to create",
+      description: "Input the name of the new tag you want to create:",
       placeholder: "'Evil Robot'",
     },
     yearOfRelease: {
-      description: "Input the year of release of your item",
+      description: "Input the year of release of your item:",
       placeholder: "'2023'",
     },
     socialMediaLinks: {
       description:
-        "Input any relevant social media links. Only Instagram, Twitter, Facebook, Patreon and Reddit are supported",
+        "Input any relevant social media links. Only Instagram, Twitter, Facebook, Patreon and Reddit are supported:",
       placeholder: "https://www.facebook.com/skynetofficial",
     },
     videoLink: {
@@ -108,9 +107,9 @@ const AdminPage = () => {
     itemDetailedInfo: {
       description:
         "Create custom slots for any additional information about your item. For example, you can add a section called: 'Release History:' 'v.0.5 - Q2 2020', 'v.1 - Q1 2021', 'v.1.5 - Q4 2020'",
-      titleDescription: "Choose a name for your custom slot",
+      titleDescription: "Choose a name for your custom slot:",
       titlePlaceholder: "Release History",
-      contentDescription: "Input any additional information",
+      contentDescription: "Input any additional information:",
       contentPlaceholder:
         "2020 Q2 - Birth. 2020 Q4 - Getting Sentient. 2021 Q1 - Take over the world",
     },
@@ -236,15 +235,14 @@ const AdminPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const data = formData;
+    try {      
       const response = await fetch("/api/item", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           // Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
       if (response.ok) {
         const form = e.target;
@@ -258,6 +256,8 @@ const AdminPage = () => {
       console.error("An error creating item happened!", error);
     }
   };
+
+  console.log(errorData)
 
   useEffect(() => {
     const handleLoadTags = async () => {
@@ -274,9 +274,7 @@ const AdminPage = () => {
       }
     };
     handleLoadTags();
-  }, []);
-
-  console.log(tags)
+  }, []); 
 
   return (
     <div className="container">
