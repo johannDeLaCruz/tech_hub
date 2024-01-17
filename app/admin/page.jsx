@@ -5,27 +5,7 @@ import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 
 const AdminPage = () => {
-  const router = useRouter();
-  const [newTag, setNewTag] = useState("");
-  const [tags, setTags] = useState([]);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [formData, setFormData] = useState({
-    name: "",
-    image: "",
-    externalLink: "",
-    brand: "",
-    rating: "",
-    category: "",
-    itemDescription: "",
-    minimalPrice: "",
-    subscriptionType: "",
-    tags: [],
-    yearOfRelease: "",
-    socialMediaLinks: [],
-    videoLink: "",
-    itemDetailedInfo: [],
-  });
-  const [error, setError] = useState({
+  const initialErrorState = {
     name: "",
     image: "",
     externalLink: "",
@@ -40,7 +20,30 @@ const AdminPage = () => {
     socialMediaLinks: "",
     videoLink: "",
     itemDetailedInfo: "",
-  });
+  };
+
+  const initialFormData = {
+    name: "",
+    image: "",
+    externalLink: "",
+    brand: "",
+    rating: "",
+    category: "",
+    itemDescription: "",
+    minimalPrice: "",
+    subscriptionType: "",
+    tags: [],
+    yearOfRelease: "",
+    socialMediaLinks: [],
+    videoLink: "",
+    itemDetailedInfo: [],
+  };
+  const router = useRouter();
+  const [newTag, setNewTag] = useState("");
+  const [tags, setTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [formData, setFormData] = useState(initialFormData);
+  const [error, setError] = useState(initialErrorState);
 
   const formPlaceholder = {
     name: {
@@ -62,7 +65,7 @@ const AdminPage = () => {
     },
     rating: {
       description: "Input your own personal rating. Only numbers from 0 to 5!",
-      placeholder: "4.5",
+      placeholder: "'4.5'",
     },
     category: {
       description: "Input the broad category your item belongs to:",
@@ -235,6 +238,7 @@ const AdminPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(initialErrorState);
     try {
       const response = await fetch("/api/item", {
         method: "POST",
@@ -244,14 +248,22 @@ const AdminPage = () => {
         },
         body: JSON.stringify(formData),
       });
+
       if (response.ok) {
         const form = e.target;
         form.reset();
-        router.push("/admin/?itemcreation=success");
+        router.replace("/admin/success");
       } else {
-        const errorData = await response.json();        
+        let errorData;
+        try {
+          const clonedResponse = response.clone();
+          errorData = await clonedResponse.json();
+        } catch (jsonError) {
+          const textResponse = await response.text();
+          errorData = { name: textResponse };
+        }
         setError((prevState) => {
-          const updatedErrorState = { ...prevState };         
+          const updatedErrorState = { ...prevState };
           Object.keys(errorData).forEach((key) => {
             if (key in updatedErrorState) {
               updatedErrorState[key] = errorData[key] || "";
@@ -264,9 +276,6 @@ const AdminPage = () => {
       console.error("An error creating item happened!", error);
     }
   };
-
-  console.log(error)
-
   useEffect(() => {
     const handleLoadTags = async () => {
       try {
@@ -292,10 +301,10 @@ const AdminPage = () => {
             <span>Hello, </span>
             <span className="text-primary-500">Admin!</span>
           </h1>
-          <h2 className="text-h3 uppercase text-center">
+          <p className="text-h3 uppercase text-center">
             Welcome to your dashboard! Fill the forms, customize, create your
             items and share them with the world!
-          </h2>
+          </p>
         </section>
         <form
           action=""

@@ -25,7 +25,7 @@ export const POST = async (req) => {
     const data = await req.json();
     const itemExists = await Item.findOne({ name: data.name });
     if (itemExists) {
-      return new Response("Item already exists", { status: 400 });
+      return new Response("Item name already exists", { status: 400 });
     }
     const item = await Item.create(data);
     if (!item) {

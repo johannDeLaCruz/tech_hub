@@ -9,13 +9,13 @@ const validYouTubeLinkRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|y
 const itemSchema = new Schema({
   name: {
     type: String,
-    required: true,
-    maxLength: [20, "The length must be maximum 20 characters!"],
+    required: [true, "Name is required"],
+    unique: [true, "The name must be unique"],
+    maxLength: [20, "The length must be maximum at 20 characters!"],
   },
   image: {
     type: String,
-    default: "/assets/Text.png",
-    required: true,
+    default: "/assets/Text.png",    
     validate: {
       validator: (value) => validUrlRegex.test(value),
       message: "Invalid image URL format. Try 'https://...'",
@@ -23,7 +23,7 @@ const itemSchema = new Schema({
   },
   externalLink: {
     type: String,
-    required: true,
+    required: [true, "External link is required"],
     validate: {
       validator: (value) => validUrlRegex.test(value),
       message: "Invalid external link URL format. Try 'https://...'",
@@ -31,12 +31,12 @@ const itemSchema = new Schema({
   },
   brand: {
     type: String,
-    required: true,
-    maxLength: [20, "The length must be maximum 20 characters!"],
+    required: [true, "Brand name is required"],   
+    maxLength: [20, "The length must be maximum at 20 characters!"],
   },
   rating: {
     type: Number,
-    required: true,
+    required: [true, "Rating is required"],    
     validate: {
       validator: (value) => validRatingRegex.test(value.toString()),
       message: "Invalid rating format. Try a number between 0 and 5 with optionally one decimal.",
@@ -44,16 +44,17 @@ const itemSchema = new Schema({
   },
   category: {
     type: String,
-    required: true,
+    required: [true, "Category is required"],
+    maxLength: [10, "The length must be maximum at 10 characters!"],
   },
   itemDescription: {
     type: String,
-    required: true,
+    required: [true, "Item description is required"],
+    maxLength: [100, "The length must be maximum at 100 characters!"],
   },
   minimalPrice: {
     type: Number,
-    default: "N/A",
-    required: true,
+    required: [true, "Minimal price is required. If it's free, just add '0.00'"],     
     validate: {
       validator: (value) => validPriceRegex.test(value.toString()),
       message: "Invalid price format! Try '11.00'",
@@ -61,13 +62,12 @@ const itemSchema = new Schema({
   },
   subscriptionType: {
     type: String,
-    default: "N/A",
-    required: true,
+    default: "N/A",    
+    maxLength: [10, "The length must be maximum at 10 characters!"],
   },
   tags: {
-    type: [String],
-    default: "N/A",
-    required: true,
+    type: [String],    
+    required: [true, "At least a single tag is required"]
   },
   timesFavorited: {
     type: Number,
@@ -77,7 +77,7 @@ const itemSchema = new Schema({
   yearOfRelease: {
     type: Number,
     default: "N/A",
-    required: true,
+    required: [true, "Year of release required"],
     validate: {
       validator: (value) => validYearRegex.test(value.toString()),
       message: "Invalid year format. Try 'YYYY'",
@@ -90,13 +90,11 @@ const itemSchema = new Schema({
   },
   socialMediaLinks: {
     type: [String],
-    default: "No social media links available",
-    required: true,
+    default: ["No social media links available"],    
   },
   videoLink: {
     type: String,
-    default: "No video available",
-    required: true,
+    default: "No video available",    
     validate: {
       validator: (value) => validYouTubeLinkRegex.test(value),
       message: "Invalid YouTube link format. Try a valid YouTube video link.",
@@ -106,13 +104,11 @@ const itemSchema = new Schema({
     {
       title: {
         type: String,
-        default: "Detailed Information",
-        required: true,
+        default: "Detailed Information",        
       },
       description: {
         type: [String] || Date || String,
-        default: "Not Available",
-        required: true,
+        default: "Not Available",        
       },
     },
   ],
