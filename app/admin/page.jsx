@@ -40,8 +40,12 @@ const AdminPage = () => {
   };
   const router = useRouter();
   const [newTag, setNewTag] = useState("");
+  const [newCategory, setNewCategory] = useState("");
+  const [newSubscriptionType, setNewSubscriptionType] = useState("");
+  const [filter, setFilter] = useState({});
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(initialErrorState);
 
@@ -86,7 +90,7 @@ const AdminPage = () => {
     },
     tags: {
       description:
-        "Select the tags for your items (3 is the recommended number). If no appropriate tags are available, just create a new one",
+        "Select the tags for your items (three tags is the recommended number). If no appropriate tags are available, just create a new one",
       placeholder: "Create a new tag for your items. Use only one word!",
     },
     newTag: {
@@ -175,20 +179,26 @@ const AdminPage = () => {
     e.preventDefault();
     const trimmedNewTag = newTag.trim();
     if (trimmedNewTag) {
-      setTags((prevState) => [...prevState, trimmedNewTag]);
+      setFilter((prevState) => ({
+        ...prevState,
+        tags: [...prevState.tags, trimmedNewTag],
+      }));
       setNewTag("");
     }
   };
 
   const handleDeleteTag = (e, tag) => {
-    e.preventDefault();
-    const updatedTags = formData.tags.filter((t) => t !== tag);
+    e.preventDefault();  
+    const updatedTags = filter.tags.filter((t) => t !== tag);  
     setFormData((prevState) => ({
+      ...prevState,
+      tags: [...prevState.tags.filter((t) => t !== tag)]
+    }));  
+    setSelectedTags((prevState) => prevState.filter((t) => t !== tag));  
+    setFilter((prevState) => ({
       ...prevState,
       tags: updatedTags,
     }));
-    setSelectedTags((prevState) => prevState.filter((t) => t !== tag));
-    setTags((prevState) => prevState.filter((t) => t !== tag));
   };
 
   const handleSelectTag = (e, tag) => {
@@ -277,21 +287,22 @@ const AdminPage = () => {
     }
   };
   useEffect(() => {
-    const handleLoadTags = async () => {
+    const handleLoadFilter = async () => {
       try {
-        const response = await fetch("/api/tags");
+        const response = await fetch("/api/filter");
         if (!response.ok) {
-          throw new Error("Failed to fetch tags");
+          throw new Error("Failed to fetch filter");
         }
         const data = await response.json();
-        const tags = data.map((obj) => obj.name);
-        setTags(tags);
+        setFilter(data);
       } catch (error) {
         console.error("An error fetching tags happened:", error);
       }
     };
-    handleLoadTags();
+    handleLoadFilter();
   }, []);
+
+  console.log(formData)
 
   return (
     <div className="container">
@@ -351,7 +362,7 @@ const AdminPage = () => {
               {formPlaceholder.tags.description}
             </span>
             <div className="mx-auto w-full sm:max-w-2xl flex flex-wrap gap-2">
-              {tags?.map((tag, index) => {
+              {filter?.tags?.map((tag, index) => {
                 return (
                   <div key={index} className="flex flex-col">
                     <button
