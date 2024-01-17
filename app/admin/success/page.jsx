@@ -1,6 +1,6 @@
-// import { useEffect, useState } from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faTableColumns } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 // import { useRouter } from "next/navigation";
 
 const AdminPage = () => {
@@ -16,6 +16,24 @@ const AdminPage = () => {
             Congratulations! Your item has been created! You can see it now in
             the home page catalog!
           </p>
+          <div className="flex justify-evenly p-12">
+            <Link href="/" className="flex flex-col gap-2 group">
+              <FontAwesomeIcon
+                icon={faHome}
+                size="2xl"
+                className="text-primary-500"
+              />
+              <span className="font-heading text-center group-hover:text-primary-500">GO HOME</span>
+            </Link>
+            <Link href="/admin" className="flex flex-col gap-2 group">
+              <FontAwesomeIcon
+                icon={faTableColumns}
+                size="2xl"
+                className="text-primary-500"
+              />
+              <span className="font-heading text-center group-hover:text-primary-500">ADD ANOTHER ITEM</span>
+            </Link>
+          </div>
         </section>
       </div>
     </div>

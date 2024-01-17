@@ -301,10 +301,10 @@ const AdminPage = () => {
             <span>Hello, </span>
             <span className="text-primary-500">Admin!</span>
           </h1>
-          <p className="text-h3 uppercase text-center">
+          <h2 className="text-h3 uppercase text-center">
             Welcome to your dashboard! Fill the forms, customize, create your
             items and share them with the world!
-          </p>
+          </h2>
         </section>
         <form
           action=""
