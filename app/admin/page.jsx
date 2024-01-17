@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import { set } from "mongoose";
 
 const AdminPage = () => {
   const router = useRouter();
   const [newTag, setNewTag] = useState("");
-  const [tags, setTags] = useState(["AR", "VR"]);
+  const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -232,31 +233,50 @@ const AdminPage = () => {
       };
     });
   };
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const data = formData;
-        const response = await fetch("/api/item", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            // Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(data),
-        });
-        if (response.ok) {
-          const form = e.target;
-          form.reset();
-          router.push("/admin");
-        } else {
-          errorData = await response.text();
-          setError(errorData);
-        }
-      } catch (error) {
-        console.error("An error creating item happened!", error);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = formData;
+      const response = await fetch("/api/item", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const form = e.target;
+        form.reset();
+        router.push("/admin/?itemcreation=success");
+      } else {
+        errorData = await response.text();
+        setError(errorData);
       }
-    };   
+    } catch (error) {
+      console.error("An error creating item happened!", error);
+    }
+  };
+
+  useEffect(() => {
+    const handleLoadTags = async () => {
+      try {
+        const response = await fetch("/api/tags");
+        if (!response.ok) {
+          throw new Error("Failed to fetch tags");
+        }
+        const data = await response.json();
+        const tags = data.map((obj) => obj.name);
+        setTags(tags);
+      } catch (error) {
+        console.error("An error fetching tags happened:", error);
+      }
+    };
+    handleLoadTags();
+  }, []);
+
+  console.log(tags)
 
   return (
     <div className="container">
@@ -267,7 +287,7 @@ const AdminPage = () => {
             <span className="text-primary-500">Admin!</span>
           </h1>
           <h2 className="text-h3 uppercase text-center">
-            Welcome to your dashboard! Fill the form, customize, create your
+            Welcome to your dashboard! Fill the forms, customize, create your
             items and share them with the world!
           </h2>
         </section>
