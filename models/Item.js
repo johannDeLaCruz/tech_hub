@@ -3,6 +3,8 @@ import { Schema, model, models } from "mongoose";
 const validUrlRegex = /^(ftp|http|https):\/\/[^ "]+$/; // Regex for valid URL
 const validYearRegex = /^(19|20)\d{2}$/; // Regex for valid year (assuming between 1900 and 2099)
 const validPriceRegex = /^\d+(\.\d{1,2})?$/; // Regex for valid price format (decimal with up to two decimal places)
+const validRatingRegex = /^[0-5](\.[0-9])?$/; // Regex for valid rating (0-5 with optionally one decimal)
+const validYouTubeLinkRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})$/; // Regex for valid YouTube links
 
 const itemSchema = new Schema({
   name: {
@@ -12,11 +14,11 @@ const itemSchema = new Schema({
   },
   image: {
     type: String,
-    default: "Add placeholder image href",
+    default: "/assets/Text.png",
     required: true,
     validate: {
       validator: (value) => validUrlRegex.test(value),
-      message: "Invalid image URL format",
+      message: "Invalid image URL format. Try 'https://...'",
     },
   },
   externalLink: {
@@ -24,7 +26,7 @@ const itemSchema = new Schema({
     required: true,
     validate: {
       validator: (value) => validUrlRegex.test(value),
-      message: "Invalid external link URL format",
+      message: "Invalid external link URL format. Try 'https://...'",
     },
   },
   brand: {
@@ -35,6 +37,10 @@ const itemSchema = new Schema({
   rating: {
     type: Number,
     required: true,
+    validate: {
+      validator: (value) => validRatingRegex.test(value.toString()),
+      message: "Invalid rating format. Try a number between 0 and 5 with optionally one decimal.",
+    },
   },
   category: {
     type: String,
@@ -74,7 +80,7 @@ const itemSchema = new Schema({
     required: true,
     validate: {
       validator: (value) => validYearRegex.test(value.toString()),
-      message: "Invalid year format",
+      message: "Invalid year format. Try 'YYYY'",
     },
   },
   dateAdded: {
@@ -92,8 +98,8 @@ const itemSchema = new Schema({
     default: "No video available",
     required: true,
     validate: {
-      validator: (value) => validUrlRegex.test(value),
-      message: "Invalid video link URL format",
+      validator: (value) => validYouTubeLinkRegex.test(value),
+      message: "Invalid YouTube link format. Try a valid YouTube video link.",
     },
   },
   itemDetailedInfo: [

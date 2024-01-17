@@ -44,7 +44,7 @@ const AdminPage = () => {
 
   const formPlaceholder = {
     name: {
-      description: "Input the name for your item. Up to 25 characters!",
+      description: "Input the name for your item:",
       placeholder: "'Skynet Airpods'",
     },
     image: {
@@ -249,16 +249,23 @@ const AdminPage = () => {
         form.reset();
         router.push("/admin/?itemcreation=success");
       } else {
-        const errorData = response.json();
-        console.log(errorData);
-        setError(errorData);
+        const errorData = await response.json();        
+        setError((prevState) => {
+          const updatedErrorState = { ...prevState };         
+          Object.keys(errorData).forEach((key) => {
+            if (key in updatedErrorState) {
+              updatedErrorState[key] = errorData[key] || "";
+            }
+          });
+          return updatedErrorState;
+        });
       }
     } catch (error) {
       console.error("An error creating item happened!", error);
     }
   };
 
-  
+  console.log(error)
 
   useEffect(() => {
     const handleLoadTags = async () => {
@@ -323,7 +330,7 @@ const AdminPage = () => {
                   className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
                 />
                 {error[item] ? (
-                  <span className="text-error text-center text-danger">
+                  <span className="text-error text-left text-danger">
                     {error[item]}
                   </span>
                 ) : null}
@@ -377,7 +384,7 @@ const AdminPage = () => {
               className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
             />
             {error.tags ? (
-              <span className="text-error text-center text-danger">
+              <span className="text-error text-left text-danger">
                 {error.tags}
               </span>
             ) : null}
@@ -410,7 +417,7 @@ const AdminPage = () => {
                   className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
                 />
                 {error.socialMediaLinks ? (
-                  <span className="text-error text-center text-danger">
+                  <span className="text-error text-left text-danger">
                     {error.socialMediaLinks}
                   </span>
                 ) : null}
@@ -487,7 +494,7 @@ const AdminPage = () => {
                   className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
                 ></textarea>
                 {error.itemDetailedInfo ? (
-                  <span className="text-error text-center text-danger">
+                  <span className="text-error text-left text-danger">
                     {error.itemDetailedInfo}
                   </span>
                 ) : null}
