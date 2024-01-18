@@ -50,6 +50,8 @@ const Home = () => {
   const itemsPerPage = 8;
   const [visibleItems, setVisibleItems] = useState(itemsPerPage);
 
+  const isAdmin = session?.user?.role === "admin";
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -294,6 +296,22 @@ const Home = () => {
     return itemsToDisplay.slice(0, visibleItems);
   }, [filteredItems, orderBy, visibleItems]);
 
+  const handleDelete = async (itemId) => {
+    try {
+      const response = await fetch(`/api/item/${itemId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete item");
+      }
+      setAllItems((prevItems) =>
+        prevItems.filter((item) => item._id !== itemId)
+      );
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
   return (
     <div className="container">
       <HeroSection />
@@ -342,6 +360,8 @@ const Home = () => {
             handleLike={handleLike}
             userFavorites={user?.favorites}
             handleFavorite={handleFavorite}
+            isAdmin={isAdmin}
+            handleDelete={handleDelete}
           />
           {visibleItems < itemsCount && orderedItems.length > 0 ? (
             <div className="flex justify-center py-6">

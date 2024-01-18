@@ -5,10 +5,10 @@ import ShareModal from "@components/ShareModal";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { faCircleNotch, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 
-const ItemCard = ({ item, handleLike, userFavorites, handleFavorite }) => {
+const ItemCard = ({ item, handleLike, userFavorites, handleFavorite, isAdmin, handleDelete }) => {
   const {
     _id,
     name,
@@ -65,6 +65,19 @@ const ItemCard = ({ item, handleLike, userFavorites, handleFavorite }) => {
           <figcaption className="absolute text-white text-body1 py-2 px-3 bg-gray-950 opacity-50 right-0 top-10 rounded-l-3xl z-5">
             ${minimalPrice}
           </figcaption>
+          {isAdmin ? (
+            <button
+              onClick={() => handleDelete(_id)}
+              className="absolute border-2 border-primary-500 rounded-full p-2 hover:bg-primary-500 top-4 left-4 group duration-300"
+            >
+              <FontAwesomeIcon
+                icon={faTrash}
+                width={32}
+                height={32}
+                className="text-danger"
+              />
+            </button>
+          ) : null}
           <button
             onClick={openShareModal}
             className="absolute border-2 border-primary-500 rounded-full p-2 hover:bg-primary-500 bottom-4 right-4 group duration-300"
