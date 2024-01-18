@@ -23,9 +23,9 @@ const successPage = () => {
                 size="2xl"
                 className="text-primary-500"
               />
-              <span className="font-heading text-center group-hover:text-primary-500">GO HOME</span>
+              <span className="font-heading text-center group-hover:text-primary-500">DELETE ITEM</span>
             </Link>
-            <Link href="/admin" className="flex flex-col gap-2 group">
+            <Link href="/admin/newitem" className="flex flex-col gap-2 group">
               <FontAwesomeIcon
                 icon={faTableColumns}
                 size="2xl"
