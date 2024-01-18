@@ -71,9 +71,13 @@ const AdminPage = () => {
       placeholder: "'4.5'",
     },
     category: {
-      description: "Input the broad category your item belongs to:",
+      description:
+        "Input the broad category your item belongs to. If no appropriate categories are available, you can create a new one:",
       placeholder: "'Software'",
+      newFilterDescription: "Input the name of the new category:",
+      // newFilterPlaceholder: "'SaaS'",
     },
+
     itemDescription: {
       description:
         "Describe your item in a single sentence. This will appear in the main card:",
@@ -84,18 +88,21 @@ const AdminPage = () => {
       placeholder: "'1.99'",
     },
     subscriptionType: {
-      description: "Input the type of subscription if applicable:",
-      placeholder: "'Free'",
+      description:
+        "Input the type of subscription if applicable. If no appropriate types of subscription are available, you can create a new one:",
+      placeholder: "'Freeware'",
+      newFilterDescription: "Input the name of the new subscription type:",
+      // newFilterPlaceholder: "'Shareware'",
     },
+
     tags: {
       description:
-        "Select the tags for your items (three tags is the recommended number). If no appropriate tags are available, just create a new one",
+        "Select the tags for your items (three tags are the recommended). If no appropriate tags are available, you can create a new one",
       placeholder: "Create a new tag for your items. Use only one word!",
+      newFilterDescription: "Input the name of the new tag you want to create:",
+      newFilterPlaceholder: "'Evil Robot'",
     },
-    newTag: {
-      description: "Input the name of the new tag you want to create:",
-      placeholder: "'Evil Robot'",
-    },
+
     yearOfRelease: {
       description: "Input the year of release of your item:",
       placeholder: "'2023'",
@@ -176,7 +183,8 @@ const AdminPage = () => {
 
   const handleAddNewFilter = (e, item, filterName) => {
     e.preventDefault();
-    const trimmedItem = item.trim().charAt(0).toUpperCase() + item.trim().slice(1);
+    const trimmedItem =
+      item.trim().charAt(0).toUpperCase() + item.trim().slice(1);
     setFilter((prevState) => {
       const existingFilters = Array.isArray(prevState[filterName])
         ? prevState[filterName]
@@ -440,10 +448,10 @@ const AdminPage = () => {
                     htmlFor={item}
                     className="font-heading text-h3 text-primary-500"
                   >
-                    Add new {camelCaseToNormal(item)}
+                    Add New {camelCaseToNormal(item)}
                   </label>
                   <span className="text-body1 italic">
-                    {formPlaceholder[item]?.description}
+                    {formPlaceholder[item]?.newFilterDescription}
                   </span>
                   <input
                     type="text"
@@ -459,27 +467,29 @@ const AdminPage = () => {
                       {error[item]}
                     </span>
                   ) : null}
-                  <button
-                    className={`${
-                      newFilter[item].length === 0
-                        ? "btn-disabled text-white/20"
-                        : "btn-round text-white"
-                    }`}
-                    onClick={(e) =>
-                      handleAddNewFilter(e, newFilter[item], item)
-                    }
-                    disabled={newFilter[item].length === 0}
-                  >
-                    <FontAwesomeIcon
-                      icon={faPlus}
+                  <div className="flex justify-center">
+                    <button
                       className={`${
                         newFilter[item].length === 0
-                          ? "text-primary-700"
-                          : "text-primary-500 "
+                          ? "btn-disabled text-white/20"
+                          : "btn-round text-white"
                       }`}
-                    />
-                    Add new {item}
-                  </button>
+                      onClick={(e) =>
+                        handleAddNewFilter(e, newFilter[item], item)
+                      }
+                      disabled={newFilter[item].length === 0}
+                    >
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        className={`mr-2 ${
+                          newFilter[item].length === 0
+                            ? "text-primary-700"
+                            : "text-primary-500 "
+                        }`}
+                      />
+                      Add New {camelCaseToNormal(item)}
+                    </button>
+                  </div>
                 </div>
               </>
             ))}
@@ -511,14 +521,25 @@ const AdminPage = () => {
                 ) : null}
               </div>
             ))}
-            <button className="btn-round" onClick={handleAddItemSocialMedia}>
-              <FontAwesomeIcon icon={faPlus} className="text-primary-500" />
-              Add new social media link
-            </button>
-            <button className="btn-round" onClick={handleDeleteItemSocialMedia}>
-              <FontAwesomeIcon icon={faMinus} className="text-primary-500" />
-              Delete social media link
-            </button>
+            <div className="flex flex-col items-center">
+              <button className="btn-round" onClick={handleAddItemSocialMedia}>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="mr-2 text-primary-500"
+                />
+                Add New Social Media Link
+              </button>
+              <button
+                className="btn-round"
+                onClick={handleDeleteItemSocialMedia}
+              >
+                <FontAwesomeIcon
+                  icon={faMinus}
+                  className="mr-2 text-primary-500"
+                />
+                Delete Social Media Link
+              </button>
+            </div>
           </div>
           <div className="flex flex-col gap-4 py-2">
             <span className="font-heading text-h3 text-primary-500">
@@ -588,17 +609,25 @@ const AdminPage = () => {
                 ) : null}
               </div>
             ))}
-            <button className="btn-round" onClick={handleAddItemDetailedInfo}>
-              <FontAwesomeIcon icon={faPlus} className="text-primary-500" />
-              Add new info section
-            </button>
-            <button
-              className="btn-round"
-              onClick={handleDeleteItemDetailedInfo}
-            >
-              <FontAwesomeIcon icon={faMinus} className="text-primary-500" />
-              Delete new info section
-            </button>
+            <div className="flex flex-col items-center">
+              <button className="btn-round" onClick={handleAddItemDetailedInfo}>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="mr-2 text-primary-500"
+                />
+                Add New Info Section
+              </button>
+              <button
+                className="btn-round"
+                onClick={handleDeleteItemDetailedInfo}
+              >
+                <FontAwesomeIcon
+                  icon={faMinus}
+                  className="mr-2 text-primary-500"
+                />
+                Delete New Info Section
+              </button>
+            </div>
           </div>
           <button type="submit" className="btn-primary py-2 text-white">
             Create Item!
