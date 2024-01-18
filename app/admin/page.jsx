@@ -24,7 +24,7 @@ const welcomePage = () => {
                 ADD ITEM
               </span>
             </Link>
-            <Link href="/admin/item/delete" className="flex flex-col gap-2 group">
+            <Link href="/" className="flex flex-col gap-2 group">
               <FontAwesomeIcon
                 icon={faMinus}
                 size="2xl"
