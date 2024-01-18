@@ -40,3 +40,4 @@ export const DELETE = async (req, { params }) => {
     return new Response("Failed to delete item", { status: 500 });
   }
 };
+

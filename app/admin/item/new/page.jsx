@@ -296,8 +296,8 @@ const AdminPage = () => {
         },
         body: JSON.stringify(formData),
       });
-
       if (response.ok) {
+        handleUpdateFilter(filter);
         const form = e.target;
         form.reset();
         router.replace("/admin/item/success");
@@ -322,6 +322,24 @@ const AdminPage = () => {
       }
     } catch (error) {
       console.error("An error creating item happened!", error);
+    }
+  };
+
+  const handleUpdateFilter = async (newFilterData) => {
+    try {
+      const response = await fetch("/api/filter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newFilterData),
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to update filter: ${response.statusText}`);
+      }
+      return;
+    } catch (error) {
+      console.error("Error updating filter:", error.message);
     }
   };
   useEffect(() => {
@@ -366,8 +384,8 @@ const AdminPage = () => {
     ));
   };
   // console.log(newFilter);
-  // console.log(filter);
-  // console.log(formData);
+  console.log(filter);
+  console.log(formData);
   return (
     <div className="container">
       <div className="max-w-md mx-auto">
@@ -377,8 +395,8 @@ const AdminPage = () => {
             <span className="text-primary-500">Admin!</span>
           </h1>
           <h2 className="text-h3 uppercase text-center">
-            Fill the forms, create and customize your
-            items and share them with the world!
+            Fill the forms, create and customize your items and share them with
+            the world!
           </h2>
         </section>
         <form
@@ -392,7 +410,8 @@ const AdminPage = () => {
                 key !== "tags" &&
                 key !== "socialMediaLinks" &&
                 key !== "itemDetailedInfo" &&
-                key !== "category"
+                key !== "category" &&
+                key !== "subscriptionType"
             )
             .map((item, index) => (
               <div key={index} className="flex flex-col gap-2 py-2">

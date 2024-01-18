@@ -1,6 +1,8 @@
 //fetch all items from the database
 import { connectToDatabase } from "@utils/database";
 import Item from "@models/Item";
+import { getToken } from "next-auth/jwt";
+
 
 export const GET = async (req) => {
   try {
@@ -17,16 +19,16 @@ export const GET = async (req) => {
   }
 };
 
-//add and item to the database
+//add an item to the database
 
 export const POST = async (req) => {
-    const token = await getToken({
+  const token = await getToken({
     req: req,
     secret: process.env.NEXTAUTH_SECRET,
-  });  
-  if (!token) {
+  });
+  if (token?.role !== "admin") {
     return new Response("Unauthorized", { status: 401 });
-  } 
+  }
   try {
     await connectToDatabase();
     const data = await req.json();
@@ -51,4 +53,3 @@ export const POST = async (req) => {
     return new Response(error, { status: 500 });
   }
 };
-

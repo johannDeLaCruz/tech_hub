@@ -3,7 +3,14 @@ import Item from "@models/Item";
 
 //add or subtract from timesFavorited specific item's property
 export const POST = async (req, { params }) => {
-  const { id } = params;
+  const id = params.id;
+  const token = await getToken({
+    req: req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+  if (token?.id !== id) {
+    return new Response("Unauthorized", { status: 401 });
+  }
   try {
     await connectToDatabase();
     const item = await Item.findByIdAndUpdate(
@@ -28,7 +35,14 @@ export const POST = async (req, { params }) => {
 };
 
 export const DELETE = async (req, { params }) => {
-  const { id } = params;
+  const id = params.id;
+  const token = await getToken({
+    req: req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+  if (token?.id !== id) {
+    return new Response("Unauthorized", { status: 401 });
+  }
   try {
     await connectToDatabase();
     const item = await Item.findByIdAndUpdate(
