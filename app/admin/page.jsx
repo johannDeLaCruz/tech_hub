@@ -176,52 +176,71 @@ const AdminPage = () => {
 
   const handleAddNewFilter = (e, item, filterName) => {
     e.preventDefault();
-    const trimmedFilterTag = item.trim();
+    const trimmedItem = item.trim().charAt(0).toUpperCase() + item.trim().slice(1);
     setFilter((prevState) => {
       const existingFilters = Array.isArray(prevState[filterName])
         ? prevState[filterName]
         : [];
-      if (existingFilters.includes(trimmedFilterTag)) {
+      if (existingFilters.includes(trimmedItem)) {
         setError((prevState) => ({
           ...prevState,
-          [filterName]: `Item "${trimmedFilterTag}" already exists in ${filterName}.`,
+          [filterName]: `Item "${trimmedItem}" already exists in ${filterName}.`,
         }));
         return prevState;
       }
       return {
         ...prevState,
-        [filterName]: [...existingFilters, trimmedFilterTag],
+        [filterName]: [...existingFilters, trimmedItem],
       };
     });
-
     setNewFilter((prevState) => ({ ...prevState, [filterName]: "" }));
   };
 
-  const handleDeleteFilter = (e, item) => {
+  const handleDeleteFilter = (e, filterName, item) => {
     e.preventDefault();
-    const updatedFilters = filter.tags.filter((t) => t !== item);
-    setFormData((prevState) => ({
-      ...prevState,
-      tags: [...prevState.tags.filter((t) => t !== item)],
-    }));
-    setFilter((prevState) => ({
-      ...prevState,
-      tags: updatedFilters,
-    }));
+    setFormData((prevFormData) => {
+      let updatedFormData;
+      if (typeof prevFormData[filterName] === "string") {
+        updatedFormData = { ...prevFormData, [filterName]: "" };
+      } else {
+        const updatedFilters = prevFormData[filterName].filter(
+          (t) => t !== item
+        );
+        updatedFormData = { ...prevFormData, [filterName]: updatedFilters };
+      }
+      return updatedFormData;
+    });
+    setFilter((prevFilter) => {
+      let updatedFilter;
+      if (typeof prevFilter[filterName] === "string") {
+        updatedFilter = { ...prevFilter, [filterName]: "" };
+      } else {
+        const updatedFilters = prevFilter[filterName].filter((t) => t !== item);
+        updatedFilter = { ...prevFilter, [filterName]: updatedFilters };
+      }
+      return updatedFilter;
+    });
   };
-//check possible issue with the subscription type!
+
   const handleSelectFilter = (e, filterName, item) => {
-    // console.log(filterName, item);
     e.preventDefault();
     setFormData((prevState) => {
-      let currentFilter = Array.isArray(prevState[filterName])
-        ? [...prevState[filterName]]
-        : [];
-      if (!currentFilter.includes(item)) {
-        currentFilter.push(item);
+      let currentFilter;
+
+      if (typeof prevState[filterName] === "string") {
+        currentFilter = item;
       } else {
-        currentFilter = currentFilter.filter((t) => t !== item);
+        currentFilter = Array.isArray(prevState[filterName])
+          ? [...prevState[filterName]]
+          : [];
+
+        if (!currentFilter.includes(item)) {
+          currentFilter.push(item);
+        } else {
+          currentFilter = currentFilter.filter((t) => t !== item);
+        }
       }
+
       return { ...prevState, [filterName]: currentFilter };
     });
   };
@@ -329,7 +348,10 @@ const AdminPage = () => {
         >
           {item}
         </button>
-        <button className="btn-round" onClick={(e) => handleDelete(e, item)}>
+        <button
+          className="btn-round"
+          onClick={(e) => handleDelete(e, itemName, item)}
+        >
           <FontAwesomeIcon icon={faMinus} className="text-danger" />
         </button>
       </div>
@@ -361,7 +383,8 @@ const AdminPage = () => {
               (key) =>
                 key !== "tags" &&
                 key !== "socialMediaLinks" &&
-                key !== "itemDetailedInfo"
+                key !== "itemDetailedInfo" &&
+                key !== "category"
             )
             .map((item, index) => (
               <div key={index} className="flex flex-col gap-2 py-2">
