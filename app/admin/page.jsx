@@ -209,7 +209,7 @@ const AdminPage = () => {
       tags: updatedFilters,
     }));
   };
-  
+//check possible issue with the subscription type!
   const handleSelectFilter = (e, filterName, item) => {
     // console.log(filterName, item);
     e.preventDefault();
@@ -398,7 +398,7 @@ const AdminPage = () => {
               <>
                 <div key={index} className="flex flex-col gap-2 py-2">
                   <span className="font-heading text-h3 text-primary-500">
-                    {item}
+                    {camelCaseToNormal(item)}
                   </span>
                   <span className="text-body1 italic">
                     {formPlaceholder[item]?.description}
@@ -417,7 +417,7 @@ const AdminPage = () => {
                     htmlFor={item}
                     className="font-heading text-h3 text-primary-500"
                   >
-                    Add new {item}
+                    Add new {camelCaseToNormal(item)}
                   </label>
                   <span className="text-body1 italic">
                     {formPlaceholder[item]?.description}
@@ -437,14 +437,23 @@ const AdminPage = () => {
                     </span>
                   ) : null}
                   <button
-                    className="btn-round"
+                    className={`${
+                      newFilter[item].length === 0
+                        ? "btn-disabled text-white/20"
+                        : "btn-round text-white"
+                    }`}
                     onClick={(e) =>
                       handleAddNewFilter(e, newFilter[item], item)
                     }
+                    disabled={newFilter[item].length === 0}
                   >
                     <FontAwesomeIcon
                       icon={faPlus}
-                      className="text-primary-500"
+                      className={`${
+                        newFilter[item].length === 0
+                          ? "text-primary-700"
+                          : "text-primary-500 "
+                      }`}
                     />
                     Add new {item}
                   </button>
