@@ -300,7 +300,7 @@ const AdminPage = () => {
       if (response.ok) {
         const form = e.target;
         form.reset();
-        router.replace("/admin/success");
+        router.replace("/admin/item/success");
       } else {
         let errorData;
         try {

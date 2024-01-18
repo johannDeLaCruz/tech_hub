@@ -14,7 +14,7 @@ const welcomePage = () => {
             Welcome to your dashboard! Here you can create or delete new items.
           </h2>
           <div className="flex justify-evenly p-12">
-            <Link href="/admin/newitem" className="flex flex-col gap-2 group">
+            <Link href="/admin/item/new" className="flex flex-col gap-2 group">
               <FontAwesomeIcon
                 icon={faPlus}
                 size="2xl"
@@ -24,7 +24,7 @@ const welcomePage = () => {
                 ADD ITEM
               </span>
             </Link>
-            <Link href="/" className="flex flex-col gap-2 group">
+            <Link href="/admin/item/delete" className="flex flex-col gap-2 group">
               <FontAwesomeIcon
                 icon={faMinus}
                 size="2xl"

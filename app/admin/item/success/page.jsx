@@ -21,11 +21,11 @@ const successPage = () => {
               <FontAwesomeIcon
                 icon={faHome}
                 size="2xl"
-                className="text-primary-500"
+              className="text-primary-500"
               />
               <span className="font-heading text-center group-hover:text-primary-500">DELETE ITEM</span>
             </Link>
-            <Link href="/admin/newitem" className="flex flex-col gap-2 group">
+            <Link href="/admin/item/new" className="flex flex-col gap-2 group">
               <FontAwesomeIcon
                 icon={faTableColumns}
                 size="2xl"
