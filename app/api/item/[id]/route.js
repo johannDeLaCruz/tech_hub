@@ -16,3 +16,19 @@ export const GET = async (req, { params }) => {
     return new Response("Failed to create a new prompt", { status: 500 });
   }
 };
+
+//delete a specific item
+export const DELETE = async (req, { params }) => {
+  try {
+    await connectToDatabase();
+    const item = await Item.findById(params.id);
+    if (!item) {
+      return new Response("Item not found", { status: 404 });
+    }
+    await item.deleteOne();
+    return new Response("Item deleted successfully", { status: 200 });
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    return new Response("Failed to delete item", { status: 500 });
+  }
+};

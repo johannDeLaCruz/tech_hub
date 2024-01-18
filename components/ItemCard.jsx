@@ -68,13 +68,13 @@ const ItemCard = ({ item, handleLike, userFavorites, handleFavorite, isAdmin, ha
           {isAdmin ? (
             <button
               onClick={() => handleDelete(_id)}
-              className="absolute border-2 border-primary-500 rounded-full p-2 hover:bg-primary-500 top-4 left-4 group duration-300"
+              className="absolute rounded-full p-1 bg-danger top-4 left-4 group duration-300 hover:scale-125"
             >
               <FontAwesomeIcon
                 icon={faTrash}
                 width={32}
                 height={32}
-                className="text-danger"
+                className="text-white"
               />
             </button>
           ) : null}

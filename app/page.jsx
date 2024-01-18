@@ -306,7 +306,7 @@ const Home = () => {
       }
       setAllItems((prevItems) =>
         prevItems.filter((item) => item._id !== itemId)
-      );
+      );      
     } catch (error) {
       console.error("Error deleting item:", error);
     }

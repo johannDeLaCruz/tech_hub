@@ -45,17 +45,3 @@ export const POST = async (req) => {
   }
 };
 
-export const DELETE = async ({ params }, req) => {
-  const itemId = params.id;
-  try {
-    const item = await Item.findById(itemId);
-    if (!item) {
-      return new Response("Item not found", { status: 404 });
-    }
-    await item.deleteOne();
-    return new Response("Item deleted successfully", { status: 200 });
-  } catch (error) {
-    console.error("Error deleting item:", error);
-    return new Response("Failed to delete item", { status: 500 });
-  }
-};
