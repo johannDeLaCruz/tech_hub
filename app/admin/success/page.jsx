@@ -3,7 +3,7 @@ import { faHome, faTableColumns } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 // import { useRouter } from "next/navigation";
 
-const AdminPage = () => {
+const successPage = () => {
   return (
     <div className="container">
       <div className="max-w-md mx-auto">
@@ -40,4 +40,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default successPage;
