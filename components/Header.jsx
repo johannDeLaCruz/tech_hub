@@ -10,12 +10,6 @@ import HamburguerMenu from "@components/HamburguerMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
-const headerNavLinks = [
-  { title: "Home", link: "/" },
-  // { title: "Profile", link: "/profile" },
-  { title: "About Us", link: "/about" },
-];
-
 const Header = () => {
   const { data: session } = useSession();
 
@@ -32,6 +26,15 @@ const Header = () => {
     }
   };
 
+  const headerNavLinks = [
+    { title: "Home", link: "/" },
+    { title: "About Us", link: "/about" },
+  ];
+
+  if (session?.user?.role === "admin") {
+    headerNavLinks.push({ title: "Dashboard", link: "/admin" });
+  }
+
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
@@ -40,7 +43,10 @@ const Header = () => {
   }, [headerRef]);
 
   return (
-    <header ref={headerRef} className="dark:bg-gray-950 bg-white dark:text-white text-black shadow-lg">
+    <header
+      ref={headerRef}
+      className="dark:bg-gray-950 bg-white dark:text-white text-black shadow-lg"
+    >
       <div className="container flex justify-between items-center">
         <Logo />
         <Nav navLinks={headerNavLinks} type={"header"} className="hidden" />

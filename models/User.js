@@ -11,6 +11,11 @@ const userSchema = new Schema({
       "Username invalid, it should contain 8-20 alphanumeric letters and be unique!",
     ],
   },
+  role: {
+    type: String,
+    required: true,
+    default: "user",
+  },
   email: {
     type: String,
     required: [true, "Email is required"],

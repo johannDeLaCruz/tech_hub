@@ -36,6 +36,7 @@
         "videoPlayer",
         "git",
         "adminPage",
-        "adminSuccess"
+        "adminSuccess",
+        "middleware"
     ]
 }

@@ -28,7 +28,9 @@ const handler = NextAuth({
           if (!isCorrect) {
             throw new Error("Wrong password or email!");
           }
-          return user;
+          const userToSend = { ...user.toObject(), password: null }
+          console.log("the user is:", userToSend);
+          return userToSend;
         } catch (error) {
           console.error("An error logging in:", error);
           throw new Error(error.message);
@@ -60,11 +62,13 @@ const handler = NextAuth({
       if (account?.type === "credentials") {
         token.name = user.username;
         token.id = user._id.toString();
+        token.role = user.role;
         // token.picture = user.avatar;
       } else if (account?.type === "oauth") {
         token.id = userID;
         token.picture = user.image;
         token.name = user.name;
+        token.role = user.role;
       }
       return token;
     },
@@ -73,6 +77,7 @@ const handler = NextAuth({
       session.user.email = token.email;
       session.user.name = token.name;
       session.user.image = token.picture;
+      session.user.role = token.role;
       // console.log("session", { session, user, token });
       return session;
     },
@@ -86,6 +91,7 @@ const handler = NextAuth({
               email: profile.email,
               username: profile.name.replace(/\s/g, "").toLowerCase(),
               avatar: profile.picture,
+              role: "user",
             });
           }
           // console.log(profile);
