@@ -44,7 +44,7 @@ const AdminPage = () => {
     category: "",
     subscriptionType: "",
   });
-  const [filter, setFilter] = useState({});  
+  const [filter, setFilter] = useState({});
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(initialErrorState);
 
@@ -182,9 +182,10 @@ const AdminPage = () => {
         ? prevState[filterName]
         : [];
       if (existingFilters.includes(trimmedFilterTag)) {
-        console.error(
-          `Filter "${trimmedFilterTag}" already exists in ${filterName} array.`
-        );
+        setError((prevState) => ({
+          ...prevState,
+          [filterName]: `Item "${trimmedFilterTag}" already exists in ${filterName}.`,
+        }));
         return prevState;
       }
       return {
@@ -203,24 +204,25 @@ const AdminPage = () => {
       ...prevState,
       tags: [...prevState.tags.filter((t) => t !== item)],
     }));
-    setSelectedTags((prevState) => prevState.filter((t) => t !== item));
     setFilter((prevState) => ({
       ...prevState,
       tags: updatedFilters,
     }));
   };
-//doing this right now
+  
   const handleSelectFilter = (e, filterName, item) => {
+    // console.log(filterName, item);
     e.preventDefault();
-    setSelectedTags((prevState) => {
-      let tags = [...prevState];
-      if (!tags.includes(item)) {
-        tags.push(item);
+    setFormData((prevState) => {
+      let currentFilter = Array.isArray(prevState[filterName])
+        ? [...prevState[filterName]]
+        : [];
+      if (!currentFilter.includes(item)) {
+        currentFilter.push(item);
       } else {
-        tags = tags.filter((t) => t !== item);
+        currentFilter = currentFilter.filter((t) => t !== item);
       }
-      setFormData((prevState) => ({ ...prevState, tags: tags }));
-      return tags;
+      return { ...prevState, [filterName]: currentFilter };
     });
   };
 
@@ -311,13 +313,18 @@ const AdminPage = () => {
     handleLoadFilter();
   }, []);
 
-  const renderArrayButtons = (key, filterName, handleSelect, handleDelete) => {
+  const renderArrayButtons = (
+    itemName,
+    filterName,
+    handleSelect,
+    handleDelete
+  ) => {
     return filterName.map((item, index) => (
       <div key={index} className="flex flex-col">
         <button
-          onClick={(e) => handleSelect(e, filterName, item)}
+          onClick={(e) => handleSelect(e, itemName, item)}
           className={`border border-0 bg-gray-950 text-primary-500 rounded-3xl px-4 py-1 tag ${
-            selectedFilters[filterName].includes(item) ? "tag-selected" : ""
+            formData[itemName]?.includes(item) ? "tag-selected" : ""
           }`}
         >
           {item}
@@ -330,6 +337,7 @@ const AdminPage = () => {
   };
   console.log(newFilter);
   console.log(filter);
+  console.log(formData);
   return (
     <div className="container">
       <div className="max-w-md mx-auto">
@@ -339,7 +347,7 @@ const AdminPage = () => {
             <span className="text-primary-500">Admin!</span>
           </h1>
           <h2 className="text-h3 uppercase text-center">
-            Welcome to your dashboard! Fill the forms, customize, create your
+            Welcome to your dashboard! Fill the forms, create and customize your
             items and share them with the world!
           </h2>
         </section>
@@ -364,13 +372,13 @@ const AdminPage = () => {
                   {camelCaseToNormal(item)}
                 </label>
                 <span className="text-body1 italic">
-                  {formPlaceholder[item].description}
+                  {formPlaceholder[item]?.description}
                 </span>
                 <input
                   type="text"
                   name={item}
                   id={item}
-                  placeholder={formPlaceholder[item].placeholder}
+                  placeholder={formPlaceholder[item]?.placeholder}
                   value={formData[item]}
                   onChange={handleFormChange}
                   className="w-full rounded-3xl dark:bg-gray-950 dark:border-gray-950 border text-body2 custom-hover"
