@@ -20,6 +20,13 @@ export const GET = async (req) => {
 //add and item to the database
 
 export const POST = async (req) => {
+    const token = await getToken({
+    req: req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });  
+  if (!token) {
+    return new Response("Unauthorized", { status: 401 });
+  } 
   try {
     await connectToDatabase();
     const data = await req.json();

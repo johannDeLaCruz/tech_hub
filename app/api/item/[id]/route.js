@@ -1,6 +1,7 @@
 //fetch a specific items by id
 import { connectToDatabase } from "@utils/database";
 import Item from "@models/Item";
+import { getToken } from "next-auth/jwt";
 
 export const GET = async (req, { params }) => {
   try {
@@ -19,6 +20,13 @@ export const GET = async (req, { params }) => {
 
 //delete a specific item
 export const DELETE = async (req, { params }) => {
+  const token = await getToken({
+    req: req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+  if (token?.role !== "admin") {
+    return new Response("Unauthorized", { status: 401 });
+  }
   try {
     await connectToDatabase();
     const item = await Item.findById(params.id);

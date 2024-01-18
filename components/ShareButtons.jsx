@@ -13,6 +13,8 @@ import {
     WhatsappIcon,
   } from "react-share";
 
+  const URL = process.env.NEXTAUTH_URL;
+
 const ShareButtons = ({ shareUrl }) => {
   const socialMediaButtons = [
     { component: WhatsappShareButton, icon: WhatsappIcon },
@@ -21,8 +23,7 @@ const ShareButtons = ({ shareUrl }) => {
     { component: LinkedinShareButton, icon: LinkedinIcon },
     { component: RedditShareButton, icon: RedditIcon },
     { component: FacebookShareButton, icon: FacebookIcon },
-  ];
-  const URL = process.env.NEXTAUTH_URL;
+  ];  
   return (
     <div className="flex justify-center items-center gap-4 flex-wrap">
       {socialMediaButtons.map((button, index) => {
