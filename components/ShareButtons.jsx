@@ -13,7 +13,7 @@ import {
     WhatsappIcon,
   } from "react-share";
 
-  const URL = process.env.NEXTAUTH_URL;
+  const URL = process.env.VERCEL_URL;
 
 const ShareButtons = ({ shareUrl }) => {
   const socialMediaButtons = [
@@ -32,7 +32,7 @@ const ShareButtons = ({ shareUrl }) => {
         return (
           <Component
             key={index}
-            url={`${URL}/item/${shareUrl}`}
+            url={`https://${URL}/item/${shareUrl}`}
             className="hover:-translate-y-2 duration-300"
           >
             <Icon size={40} round={true} />
