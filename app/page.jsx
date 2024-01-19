@@ -306,7 +306,7 @@ const Home = () => {
       }
       setAllItems((prevItems) =>
         prevItems.filter((item) => item._id !== itemId)
-      );      
+      );
     } catch (error) {
       console.error("Error deleting item:", error);
     }
@@ -349,6 +349,11 @@ const Home = () => {
         {" "}
         Showing {itemsCount} items out of {allItems.length}
       </div>
+      {itemsCount === 0 && !isLoading ? (
+        <div className="text-center font-heading text-h2 py-20 lg:py-48">
+          No matching items...
+        </div>
+      ) : null}
       {isLoading ? (
         <div className="text-center font-heading text-h2 py-20 lg:py-48">
           Loading Items...
