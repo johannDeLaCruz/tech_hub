@@ -8,7 +8,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 
-const ItemCard = ({ item, handleLike, userFavorites, handleFavorite, isAdmin, handleDelete }) => {
+const ItemCard = ({
+  item,
+  handleLike,
+  userFavorites,
+  handleFavorite,
+  isAdmin,
+  handleDelete,
+}) => {
   const {
     _id,
     name,
@@ -95,7 +102,7 @@ const ItemCard = ({ item, handleLike, userFavorites, handleFavorite, isAdmin, ha
           </button>
         </figure>
         <div className="flex flex-col gap-1 p-6">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center justify-between gap-2">
             <Link href={`/item/${_id}`} className="text-h3 link-hover">
               {name}
             </Link>

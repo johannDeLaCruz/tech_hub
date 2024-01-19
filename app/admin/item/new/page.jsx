@@ -384,8 +384,8 @@ const AdminPage = () => {
     ));
   };
   // console.log(newFilter);
-  console.log(filter);
-  console.log(formData);
+  // console.log(filter);
+  // console.log(formData);
   return (
     <div className="container">
       <div className="max-w-md mx-auto">

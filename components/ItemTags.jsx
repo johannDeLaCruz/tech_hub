@@ -1,7 +1,7 @@
 
 const ItemTags = ({ tags }) => {  
   return (
-    <ul className="flex flex-wrap gap-1 ">
+    <ul className="flex flex-wrap gap-1 w-[15rem]">
       {tags?.map((tag, index) => {
         return (
           <li key={index}>

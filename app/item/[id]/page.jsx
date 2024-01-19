@@ -173,12 +173,14 @@ const ItemInfoPage = ({ params }) => {
       <section>
         <Breadcrumbs category={category} tag={tags} itemName={name} />
         <div className="grid grid-row-2 md:grid-cols-2 py-4 gap-4">
-          <div className="relative overflow-hidden rounded-3xl object-cover aspect-video mb-4">
+          <div className="relative overflow-hidden object-cover aspect-video mb-4">
             {image && (
               <Image
                 src={`${image}`}
                 alt="item_image"
                 fill={true}
+                sizes="20rem"
+                priority={true}
                 className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer object-cover"
                 placeholder="empty"
               ></Image>

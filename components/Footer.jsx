@@ -4,10 +4,10 @@ import SocialMediaLinks from "@components/SocialMediaLinks";
 const footerNavLinks = [
   { title: "Home", link: "/" },
   { title: "Profile", link: "/login" },
-  { title: "About Us", link: "/about" },
-  { title: "Contact", link: "/contact" },
-  { title: "Privacy Policy", link: "/privacy" },
-  { title: "Terms of Use", link: "/terms" },
+  // { title: "About Us", link: "/about" },
+  // { title: "Contact", link: "/contact" },
+  // { title: "Privacy Policy", link: "/privacy" },
+  // { title: "Terms of Use", link: "/terms" },
 ];
 const Footer = () => {
 
