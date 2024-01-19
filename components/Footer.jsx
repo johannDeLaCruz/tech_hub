@@ -23,6 +23,7 @@ const Footer = () => {
           <div className="flex flex-col gap-2">
             <SocialMediaLinks />
             <div className="flex-col">
+              <small className="block text-body2">Made by J.DeLaCruz</small>
               <small className="block text-body2">2023 © TechHub</small>
               <small className="block text-body2">All rights reserved.</small>
             </div>
