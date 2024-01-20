@@ -28,7 +28,7 @@ const handler = NextAuth({
           if (!isCorrect) {
             throw new Error("Wrong password or email!");
           }
-          const userToSend = { ...user.toObject(), password: null }
+          const userToSend = { ...user.toObject(), password: null };
           console.log("the user is:", userToSend);
           return userToSend;
         } catch (error) {
@@ -40,6 +40,13 @@ const handler = NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
