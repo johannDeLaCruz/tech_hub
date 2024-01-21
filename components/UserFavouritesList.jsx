@@ -7,7 +7,7 @@ const UserFavouritesList = ({ favorites, handleLike, handleFavorite }) => {
         Your Favourites List
       </h3>
       
-      {favorites ? (
+      {favorites?.length > 0 ? (
         <SearchResults
           items={favorites}
           handleLike={handleLike}
@@ -15,7 +15,7 @@ const UserFavouritesList = ({ favorites, handleLike, handleFavorite }) => {
           handleFavorite={handleFavorite}
         />
       ) : (
-        <h4 className="text-center py-6">No favourites yet...</h4>
+        <h4 className="text-center py-8 lg:py-16">No favourites yet...</h4>
       )}
     </section>
   );
