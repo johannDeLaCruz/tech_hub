@@ -29,7 +29,6 @@ const handler = NextAuth({
             throw new Error("Wrong password or email!");
           }
           const userToSend = { ...user.toObject(), password: null };
-          console.log("the user is:", userToSend);
           return userToSend;
         } catch (error) {
           console.error("An error logging in:", error);
@@ -69,7 +68,6 @@ const handler = NextAuth({
   },
   callbacks: {
     async jwt({ token, user, account }) {
-      console.log("jwt", { token, user, account });
       await connectToDatabase();
       const currentUser = await User.findOne({ email: user?.email });
       const userID = currentUser?._id?.toString();
@@ -94,7 +92,6 @@ const handler = NextAuth({
       session.user.name = token.name;
       session.user.image = token.picture;
       session.user.role = token.role;
-      console.log("session", { session, user, token });
       return session;
     },
     async signIn({ profile, user }) {
@@ -110,7 +107,6 @@ const handler = NextAuth({
               role: "user",
             });
           }
-          // console.log(profile);
           return true;
         } catch (error) {
           console.error(error.message);

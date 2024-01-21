@@ -8,8 +8,6 @@ export const GET = async (req, { params }) => {
     req: req,
     secret: process.env.NEXTAUTH_SECRET,  
   });  
-  console.log(token?.id, id)
-  console.log(token)
   if (token?.id !== id) {
     return new Response("Unauthorized", { status: 401 });
   } 
