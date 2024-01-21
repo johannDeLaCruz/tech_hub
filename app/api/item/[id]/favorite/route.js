@@ -9,7 +9,7 @@ export const POST = async (req, { params }) => {
     req: req,
     secret: process.env.NEXTAUTH_SECRET,    
   });
-  if (token?.id !== id) {
+  if (!token?.id) {
     return new Response("Unauthorized", { status: 401 });
   }
   try {
@@ -41,7 +41,7 @@ export const DELETE = async (req, { params }) => {
     req: req,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  if (token?.id !== id) {
+  if (!token?.id) {
     return new Response("Unauthorized", { status: 401 });
   }
   try {

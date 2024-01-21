@@ -164,7 +164,7 @@ const Home = () => {
         const itemsData = await itemsResponse.json();
         setAllItems(itemsData);
         if (status === "authenticated") {
-          const userResponse = await fetch(`/api/user/${session?.user.id}`, {
+          const userResponse = await fetch(`/api/user/${session?.user?.id}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -192,7 +192,7 @@ const Home = () => {
         setHandleFavorite({ loading: true, itemId: itemId, increment: null });
         const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
         const addFavoriteResponse = await fetch(
-          `/api/user/${session?.user.id}/favorites`,
+          `/api/user/${session?.user?.id}/favorites`,
           {
             method: isLiked ? "DELETE" : "POST",
             body: JSON.stringify({ favoriteId: itemId }),
