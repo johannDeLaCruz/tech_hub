@@ -4,15 +4,16 @@ import { getToken } from "next-auth/jwt";
 
 export const GET = async (req, { params }) => {
   const id = params.id;  
-  // const token = await getToken({
-  //   req: req,
-  //   secret: process.env.NEXTAUTH_SECRET,
-  // });  
-  // console.log(token?.id, id)
-  // console.log(token)
-  // if (token?.id !== id) {
-  //   return new Response("Unauthorized", { status: 401 });
-  // } 
+  const token = await getToken({
+    req: req,
+    secret: process.env.NEXTAUTH_SECRET,
+    raw: true,
+  });  
+  console.log(token?.id, id)
+  console.log(token)
+  if (token?.id !== id) {
+    return new Response("Unauthorized", { status: 401 });
+  } 
   try {
     await connectToDatabase();
     const user = await User.findById(params.id).populate("favorites");
