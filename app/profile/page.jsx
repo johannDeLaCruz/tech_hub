@@ -39,7 +39,7 @@ const ProfilePage = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${session?.user?.id}`,
-          }
+          },
         });
         if (!response.ok) {
           throw new Error(
@@ -89,7 +89,6 @@ const ProfilePage = () => {
           `/api/item/${itemId}/favorite`,
           {
             method: isLiked ? "DELETE" : "POST",
-            headers: { "Content-Type": "application/json" },
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${session?.user?.id}`,
