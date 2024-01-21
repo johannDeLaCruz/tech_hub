@@ -6,8 +6,7 @@ export const POST = async (req, { params }) => {
   const id = params.id;
   const token = await getToken({
     req: req,
-    secret: process.env.NEXTAUTH_SECRET,
-    raw: true,
+    secret: process.env.NEXTAUTH_SECRET,    
   });
   if (token?.id !== id) {
     return new Response("Unauthorized", { status: 401 });

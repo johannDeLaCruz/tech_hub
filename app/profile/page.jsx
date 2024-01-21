@@ -34,7 +34,13 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`/api/user/${session?.user.id}`);
+        const response = await fetch(`/api/user/${session?.user.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session?.user?.id}`,
+          }
+        });
         if (!response.ok) {
           throw new Error(
             `Failed to fetch user data. Response: ${response.status}`
