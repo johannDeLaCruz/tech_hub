@@ -1,5 +1,6 @@
 import { connectToDatabase } from "@utils/database";
 import Item from "@models/Item";
+import { getToken } from "next-auth/jwt";
 
 //add or subtract from timesFavorited specific item's property
 export const POST = async (req, { params }) => {

@@ -34,7 +34,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`/api/user/${session?.user.id}`, {
+        const response = await fetch(`/api/user/${session?.user?.id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const ProfilePage = () => {
         setHandleFavorite({ loading: true, itemId: itemId, increment: null });
         const isLiked = user?.favorites?.some((fav) => fav._id === itemId);
         const addFavoriteResponse = await fetch(
-          `/api/user/${session?.user.id}/favorites`,
+          `/api/user/${session?.user?.id}/favorites`,
           {
             method: isLiked ? "DELETE" : "POST",
             body: JSON.stringify({ favoriteId: itemId }),
