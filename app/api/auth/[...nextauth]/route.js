@@ -69,7 +69,7 @@ const handler = NextAuth({
   },
   callbacks: {
     async jwt({ token, user, account }) {
-      // console.log("jwt", { token, user, account });
+      console.log("jwt", { token, user, account });
       await connectToDatabase();
       const currentUser = await User.findOne({ email: user?.email });
       const userID = currentUser?._id?.toString();
@@ -77,12 +77,14 @@ const handler = NextAuth({
         token.name = user.username;
         token.id = user._id.toString();
         token.role = user.role;
+        // token.accessToken = user.accessToken;
         // token.picture = user.avatar;
       } else if (account?.type === "oauth") {
         token.id = userID;
         token.picture = user.image;
         token.name = user.name;
         token.role = user.role;
+        // token.accessToken = user.accessToken;
       }
       return token;
     },
@@ -92,7 +94,7 @@ const handler = NextAuth({
       session.user.name = token.name;
       session.user.image = token.picture;
       session.user.role = token.role;
-      // console.log("session", { session, user, token });
+      console.log("session", { session, user, token });
       return session;
     },
     async signIn({ profile, user }) {
