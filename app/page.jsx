@@ -164,7 +164,13 @@ const Home = () => {
         const itemsData = await itemsResponse.json();
         setAllItems(itemsData);
         if (status === "authenticated") {
-          const userResponse = await fetch(`/api/user/${session?.user.id}`);
+          const userResponse = await fetch(`/api/user/${session?.user.id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${session?.user?.id}`,
+            },
+          });
           if (!userResponse.ok) {
             throw new Error("Failed to fetch user info");
           }
@@ -203,7 +209,10 @@ const Home = () => {
           `/api/item/${itemId}/favorite`,
           {
             method: isLiked ? "DELETE" : "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${session?.user?.id}`,
+            },
           }
         );
         if (!numberFavoritedResponse.ok) {
@@ -301,6 +310,7 @@ const Home = () => {
     try {
       const response = await fetch(`/api/item/${itemId}`, {
         method: "DELETE",
+        Authorization: `Bearer ${session?.user?.role}`,
       });
       if (!response.ok) {
         throw new Error("Failed to delete item");
