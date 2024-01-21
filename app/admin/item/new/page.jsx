@@ -292,7 +292,7 @@ const AdminPage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${session?.user?.role}`,
         },
         body: JSON.stringify(formData),
       });

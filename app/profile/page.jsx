@@ -78,6 +78,7 @@ const ProfilePage = () => {
             body: JSON.stringify({ favoriteId: itemId }),
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${session?.user?.id}`,
             },
           }
         );
