@@ -90,6 +90,10 @@ const ProfilePage = () => {
           {
             method: isLiked ? "DELETE" : "POST",
             headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${session?.user?.id}`,
+            },
           }
         );
         if (!numberFavoritedResponse.ok) {
