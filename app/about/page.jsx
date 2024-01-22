@@ -3,44 +3,33 @@ import Image from "next/image";
 const page = () => {
   return (
     <section className="container">
-      <div className="mx-auto max-w-xl py-12">
-        <div className="flex items-center justify-between">
-          <div className="w-1/2">
-            <h1 className="text-left font-heading text-h1">
-              <span>About</span>
-              <span className="text-primary-500">Us</span>
-            </h1>
-            <p className="text-h3">
-              Welcome to TechHub, your premier SaaS solution for managing online
-              databases. We empower you to organize and control your data
-              effortlessly.
-            </p>
-          </div>
-          <div class="w-1/2">
-            <Image
-              src="https://picsum.photos/500/400"
-              alt="TechHub Office"
-              className="rounded-lg shadow-lg"
-              width={500}
-              height={500}
-            />
-          </div>
+      <div className="flex gap-12 flex-col mx-auto max-w-xl py-16">
+        <div>
+          <h1 className="font-heading text-h1 mb-2">
+            <span>About</span>
+            <span className="text-primary-500">Us</span>
+          </h1>
+          <p className="text-h3">
+            Welcome to TechHub, your premier SaaS solution for managing your online
+            lists. We empower you to organize and control your data
+            effortlessly.
+          </p>
         </div>
-        <div className="mt-8">
-          <h2 className="text-left font-heading text-h1">
+        <div>
+          <h2 className="font-heading text-h1 mb-2">
             <span>Our</span>
             <span className="text-primary-500">Mission</span>
           </h2>
           <p className="text-h3">
             At TechHub, our mission is to provide a seamless platform for
             individuals and businesses to create, manage, and explore online
-            databases. We believe in simplifying data management to fuel
+            lists of websites, products, services etc. We believe in simplifying data management to fuel
             innovation and growth.
           </p>
         </div>
 
-        <div className="mt-8">
-          <h2 className="text-left font-heading text-h1">
+        <div>
+          <h2 className="font-heading text-h1 mb-2">
             <span>Why</span>
             <span className="text-primary-500">Us?</span>
           </h2>
@@ -53,8 +42,8 @@ const page = () => {
           </ul>
         </div>
 
-        <div className="mt-8">
-          <h2 className="text-left font-heading text-h1">
+        <div>
+          <h2 className="font-heading text-h1 mb-2">
             <span>Our</span>
             <span className="text-primary-500">Team</span>
           </h2>
@@ -69,7 +58,7 @@ const page = () => {
               />
               <div>
                 <h3 className="text-lg font-semibold">John Doe</h3>
-                <p className="text-gray-600">Co-Founder & CEO</p>
+                <p className="text-gray-600">Founder & CEO</p>
               </div>
             </div>
             <div className="flex items-center">
@@ -81,8 +70,8 @@ const page = () => {
                 height={100}
               />
               <div>
-                <h3 className="text-lg font-semibold">Jane Smith</h3>
-                <p className="text-gray-600">Co-Founder & CTO</p>
+                <h3 className="text-lg font-semibold">Johann De La Cruz</h3>
+                <p className="text-gray-600">Programmer & UI/UX Designer</p>
               </div>
             </div>
           </div>
