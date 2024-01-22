@@ -6,7 +6,7 @@ const footerNavLinks = [
   { title: "Profile", link: "/profile" },
   { title: "About Us", link: "/about" },
   // { title: "Contact", link: "/contact" },
-  // { title: "Privacy Policy", link: "/privacy" },
+  { title: "Privacy Policy", link: "/privacy" },
   // { title: "Terms of Use", link: "/terms" },
 ];
 const Footer = () => {
